@@ -1,15 +1,15 @@
+import Feed from "@/components/layout/Feed";
+import RightSidebar from "@/components/layout/RightSidebar";
+import Sidebar from "@/components/layout/Sidebar";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-white">
-      <div className="text-center">
-        <h1 className="text-6xl font-bold text-gray-900">
-          Verse
-        </h1>
-
-        <p className="mt-4 text-lg text-gray-600">
-          Share your story. Shape the conversation.
-        </p>
+    <div className="bg-black text-white">
+      <div className="mx-auto grid min-h-screen max-w-7xl grid-cols-[260px_1fr_320px] px-6">
+        <Sidebar />
+        <Feed />
+        <RightSidebar />
       </div>
-    </main>
+    </div>
   );
 }
