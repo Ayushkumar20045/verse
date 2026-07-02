@@ -21,3 +21,12 @@
 - Created reusable layout components.
 - Improved application metadata and branding.
 - Added a centralized branding configuration.
+
+## Day 3 - Sidebar Foundation
+
+- Learned JavaScript `.map()` and React list rendering.
+- Created a centralized navigation configuration.
+- Built a dynamic sidebar using reusable data.
+- Added Next.js routing with `Link`.
+- Created the first reusable Button component with variants.
+- Added the primary "Create Post" action.

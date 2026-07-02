@@ -1,68 +1,97 @@
+<div align="center">
+
 # Verse
 
-> Every voice has a place.
+### Share your story. Shape the conversation.
 
-Verse is a modern social platform built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**. It focuses on creating meaningful conversations through a clean, fast, and responsive user experience.
+A modern social platform built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**.
 
-Rather than being built in a single sprint, Verse is being developed feature by feature with an emphasis on scalable architecture, clean code, and production-ready development practices.
+Currently under active development.
 
----
-
-## Tech Stack
-
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
+</div>
 
 ---
 
-## Project Status
+## Overview
+
+Verse is a modern social platform focused on meaningful conversations, clean user experience, and scalable architecture.
+
+The project is being built from scratch with the same engineering principles used in production applications. Every feature is planned, implemented, tested, and documented before moving to the next milestone.
+
+The goal isn't just to build another social media clone—it's to build a product that demonstrates real software engineering practices.
+
+---
+
+# Tech Stack
+
+| Technology | Usage |
+|------------|-------|
+| Next.js | React Framework |
+| React | User Interface |
+| TypeScript | Type Safety |
+| Tailwind CSS | Styling |
+| Firebase | Backend *(Upcoming)* |
+| Vercel | Deployment *(Upcoming)* |
+
+---
+
+# Current Progress
 
 ### Completed
 
-- Project setup and configuration
-- Three-column application layout
-- Reusable layout components
-- Responsive grid foundation
-- Application branding and metadata
+- Project initialization
+- Professional project structure
+- CSS Grid application layout
+- Responsive three-column layout
+- Dynamic sidebar using React list rendering
+- Reusable Button component
+- Application branding
+- Project documentation
 
-### Currently Working On
+### In Progress
 
-- Sidebar navigation
+- Sidebar experience
 - Feed interface
 - Right sidebar widgets
 
-### Planned Features
+### Planned
 
-- User authentication
+- Authentication
 - User profiles
-- Post creation
-- Likes and comments
+- Create posts
+- Comments
+- Likes
 - Search
-- Notifications
-- Responsive mobile experience
+- Mobile responsiveness
 - Theme support
-- Firebase backend
-- Deployment on Vercel
+- Firebase integration
+- Deployment
 
 ---
 
-## Folder Structure
+# Project Structure
 
 ```text
-app/
-components/
-hooks/
-lib/
-public/
-types/
-utils/
+verse
+│
+├── app
+├── components
+│   ├── layout
+│   └── ui
+├── hooks
+├── lib
+├── public
+├── types
+├── utils
+│
+├── README.md
+├── dev-log.md
+└── package.json
 ```
 
 ---
 
-## Getting Started
+# Running Locally
 
 Clone the repository
 
@@ -88,7 +117,7 @@ Start the development server
 npm run dev
 ```
 
-Open your browser
+Visit
 
 ```text
 http://localhost:3000
@@ -96,31 +125,88 @@ http://localhost:3000
 
 ---
 
-## Development Philosophy
+# Engineering Principles
 
-Verse is built with a few simple principles:
+Verse follows a few simple principles.
 
-- Build one feature at a time.
-- Keep components reusable and maintainable.
-- Prefer readability over clever code.
-- Learn every concept before implementing it.
-- Write code that future you will appreciate.
+- Clean Architecture
+- Reusable Components
+- Scalable Folder Structure
+- Semantic HTML
+- Type Safety
+- Maintainable Code
+- Meaningful Git History
+- Incremental Development
 
 ---
 
-## Roadmap
+# Development Workflow
 
-- [x] Project Initialization
+Every feature follows the same process.
+
+```text
+Plan
+      ↓
+Architecture
+      ↓
+Implementation
+      ↓
+Testing
+      ↓
+Code Review
+      ↓
+Git Commit
+      ↓
+Deployment
+```
+
+---
+
+# Roadmap
+
+- [x] Project Setup
 - [x] Application Layout
-- [ ] Sidebar Navigation
-- [ ] Feed UI
+- [x] Dynamic Sidebar
+- [x] Reusable UI Components
+- [ ] Feed
+- [ ] Post Composer
 - [ ] Authentication
-- [ ] Database Integration
-- [ ] Responsive Design
+- [ ] User Profiles
+- [ ] Firebase
 - [ ] Deployment
 
 ---
 
-Built with curiosity, consistency, and probably more coffee than necessary.
+# Repository Stats
 
-— Ayush Kumar
+| Status | Value |
+|--------|-------|
+| Version | v0.1.0 |
+| Development | Active |
+| Architecture | Component-Based |
+| Code Style | TypeScript + ESLint |
+| Deployment | Planned |
+
+---
+
+# Why Verse?
+
+Most portfolio projects focus only on delivering features.
+
+Verse focuses on **building those features the right way**.
+
+Every component is designed to be reusable.
+Every architectural decision is intentional.
+Every commit reflects meaningful progress.
+
+The objective is to create a project that is easy to maintain, enjoyable to extend, and representative of professional frontend engineering practices.
+
+---
+
+<div align="center">
+
+### Building one feature at a time.
+
+*"Great software isn't written in one day. It's refined one decision at a time."*
+
+</div>
