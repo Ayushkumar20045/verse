@@ -24,9 +24,8 @@ export default function Sidebar() {
         </ul>
       </nav>
 
-      {/* Add it here */}
       <div className="mt-8 border-t border-neutral-800 pt-6">
-        <Button variant="primary">
+        <Button variant="primary" className="w-full">
           Create Post
         </Button>
       </div>

@@ -30,3 +30,12 @@
 - Added Next.js routing with `Link`.
 - Created the first reusable Button component with variants.
 - Added the primary "Create Post" action.
+
+## Day 4 - Feed Foundation
+
+- Created a dedicated `feed` feature folder for better project organization.
+- Built the `PostComposer` component for creating new posts.
+- Built a reusable `PostCard` component using React props.
+- Introduced a centralized `posts.ts` file for dynamic post rendering.
+- Rendered posts using JavaScript `.map()` and reusable components.
+- Improved the reusable Button component by adding `clsx` support for flexible styling.

@@ -12,72 +12,81 @@ Currently under active development.
 
 ---
 
-## Overview
+# Overview
 
-Verse is a modern social platform focused on meaningful conversations, clean user experience, and scalable architecture.
+Verse is a modern social platform designed with simplicity, scalability, and clean user experience in mind.
 
-The project is being built from scratch with the same engineering principles used in production applications. Every feature is planned, implemented, tested, and documented before moving to the next milestone.
+Rather than cloning an existing platform, Verse is being developed as an independent product while following modern frontend engineering practices. The project emphasizes reusable components, maintainable architecture, and incremental feature development.
 
-The goal isn't just to build another social media clone—it's to build a product that demonstrates real software engineering practices.
+Every feature is planned, implemented, tested, and documented before moving to the next milestone.
 
 ---
 
 # Tech Stack
 
-| Technology | Usage |
-|------------|-------|
+| Technology | Purpose |
+|------------|---------|
 | Next.js | React Framework |
 | React | User Interface |
 | TypeScript | Type Safety |
 | Tailwind CSS | Styling |
-| Firebase | Backend *(Upcoming)* |
-| Vercel | Deployment *(Upcoming)* |
+| clsx | Utility for conditional class names |
+| Firebase | Backend *(Planned)* |
+| Vercel | Deployment *(Planned)* |
 
 ---
 
-# Current Progress
+# Features Completed
 
-### Completed
+### Project Foundation
 
-- Project initialization
-- Professional project structure
-- CSS Grid application layout
-- Responsive three-column layout
-- Dynamic sidebar using React list rendering
+- Next.js project setup
+- TypeScript configuration
+- Tailwind CSS integration
+- ESLint configuration
+- Professional folder structure
+
+### Layout
+
+- Three-column responsive layout
+- Sidebar
+- Feed
+- Right Sidebar
+
+### Sidebar
+
+- Dynamic navigation
 - Reusable Button component
-- Application branding
-- Project documentation
+- Create Post button
 
-### In Progress
+### Feed
 
-- Sidebar experience
-- Feed interface
-- Right sidebar widgets
+- Post Composer
+- Data-driven post rendering
+- Reusable Post Card component
+- Shared data source using `lib/posts.ts`
 
-### Planned
+### Code Quality
 
-- Authentication
-- User profiles
-- Create posts
-- Comments
-- Likes
-- Search
-- Mobile responsiveness
-- Theme support
-- Firebase integration
-- Deployment
+- Feature-based architecture
+- Shared UI components
+- Reusable data configuration
+- clsx integration
+- Clean component composition
 
 ---
 
-# Project Structure
+# Folder Structure
 
 ```text
 verse
 │
 ├── app
 ├── components
+│   ├── feed
 │   ├── layout
 │   └── ui
+│
 ├── hooks
 ├── lib
 ├── public
@@ -91,6 +100,84 @@ verse
 
 ---
 
+# Current Progress
+
+| Module | Status |
+|---------|--------|
+| Project Setup | Complete |
+| Sidebar | Complete |
+| Feed Layout | Complete |
+| Post Composer | Complete |
+| Post Card | Complete |
+| Right Sidebar | In Progress |
+| Authentication | Planned |
+| Firebase | Planned |
+| Deployment | Planned |
+
+---
+
+# Engineering Principles
+
+Verse is being built around a few simple principles.
+
+- Component Reusability
+- Clean Architecture
+- Feature-based Folder Structure
+- Type Safety
+- Semantic HTML
+- Incremental Development
+- Maintainable Code
+- Consistent Code Style
+
+---
+
+# Development Workflow
+
+Every feature follows the same workflow.
+
+```text
+Planning
+    ↓
+Architecture
+    ↓
+Implementation
+    ↓
+Testing
+    ↓
+Refinement
+    ↓
+Git Commit
+```
+
+---
+
+# Roadmap
+
+## Completed
+
+- Project initialization
+- Responsive layout
+- Dynamic sidebar
+- Reusable Button component
+- Feed architecture
+- Post Composer
+- Post Card
+- Shared data layer
+
+## Upcoming
+
+- User avatars
+- Right sidebar widgets
+- Icons
+- Theme improvements
+- Authentication
+- User profiles
+- Post interactions
+- Firebase integration
+- Deployment
+
+---
+
 # Running Locally
 
 Clone the repository
@@ -99,7 +186,7 @@ Clone the repository
 git clone https://github.com/Ayushkumar20045/verse.git
 ```
 
-Move into the project
+Navigate into the project
 
 ```bash
 cd verse
@@ -117,7 +204,7 @@ Start the development server
 npm run dev
 ```
 
-Visit
+Open
 
 ```text
 http://localhost:3000
@@ -125,88 +212,18 @@ http://localhost:3000
 
 ---
 
-# Engineering Principles
-
-Verse follows a few simple principles.
-
-- Clean Architecture
-- Reusable Components
-- Scalable Folder Structure
-- Semantic HTML
-- Type Safety
-- Maintainable Code
-- Meaningful Git History
-- Incremental Development
-
----
-
-# Development Workflow
-
-Every feature follows the same process.
-
-```text
-Plan
-      ↓
-Architecture
-      ↓
-Implementation
-      ↓
-Testing
-      ↓
-Code Review
-      ↓
-Git Commit
-      ↓
-Deployment
-```
-
----
-
-# Roadmap
-
-- [x] Project Setup
-- [x] Application Layout
-- [x] Dynamic Sidebar
-- [x] Reusable UI Components
-- [ ] Feed
-- [ ] Post Composer
-- [ ] Authentication
-- [ ] User Profiles
-- [ ] Firebase
-- [ ] Deployment
-
----
-
-# Repository Stats
-
-| Status | Value |
-|--------|-------|
-| Version | v0.1.0 |
-| Development | Active |
-| Architecture | Component-Based |
-| Code Style | TypeScript + ESLint |
-| Deployment | Planned |
-
----
-
 # Why Verse?
 
-Most portfolio projects focus only on delivering features.
+Verse is more than a frontend project.
 
-Verse focuses on **building those features the right way**.
+It is an opportunity to practice software engineering by building a scalable application with production-inspired architecture, reusable components, and clean development practices.
 
-Every component is designed to be reusable.
-Every architectural decision is intentional.
-Every commit reflects meaningful progress.
-
-The objective is to create a project that is easy to maintain, enjoyable to extend, and representative of professional frontend engineering practices.
+The focus is not only on building features but also on building them correctly.
 
 ---
 
 <div align="center">
 
-### Building one feature at a time.
-
-*"Great software isn't written in one day. It's refined one decision at a time."*
+### Building Verse one commit at a time.
 
 </div>
