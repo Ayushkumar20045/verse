@@ -39,3 +39,12 @@
 - Introduced a centralized `posts.ts` file for dynamic post rendering.
 - Rendered posts using JavaScript `.map()` and reusable components.
 - Improved the reusable Button component by adding `clsx` support for flexible styling.
+
+## Day 5 - UI Components & Navigation
+
+- Installed and configured Lucide React for scalable SVG icons.
+- Learned how to pass React components as data through configuration objects.
+- Updated the sidebar to render icons dynamically from `navigation.ts`.
+- Created the first reusable Avatar component for future user profiles and posts.
+- Improved the project architecture by keeping navigation labels, routes, and icons in a centralized configuration.
+- Prepared the foundation for richer UI components in upcoming development sessions.

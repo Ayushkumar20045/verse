@@ -11,16 +11,22 @@ export default function Sidebar() {
 
       <nav className="mt-6">
         <ul className="space-y-1">
-          {navigation.map((item) => (
-            <li key={item.id}>
-              <Link
-                href={item.href}
-                className="block rounded-lg px-4 py-2 text-base font-medium transition-colors hover:bg-neutral-900"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+          {navigation.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <li key={item.id}>
+                <Link
+                  href={item.href}
+                  className="flex items-center gap-5 rounded-lg px-4 py-3 text-base font-medium transition-colors hover:bg-neutral-900"
+                >
+                  <Icon size={22} />
+
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
 

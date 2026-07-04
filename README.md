@@ -4,7 +4,7 @@
 
 ### Share your story. Shape the conversation.
 
-A modern social platform built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**.
+A modern social platform built with **Next.js**, **React**, **TypeScript**, **Tailwind CSS**, and **Firebase**.
 
 Currently under active development.
 
@@ -14,11 +14,9 @@ Currently under active development.
 
 # Overview
 
-Verse is a modern social platform designed with simplicity, scalability, and clean user experience in mind.
+Verse is a modern social platform focused on delivering a clean, scalable, and maintainable user experience.
 
-Rather than cloning an existing platform, Verse is being developed as an independent product while following modern frontend engineering practices. The project emphasizes reusable components, maintainable architecture, and incremental feature development.
-
-Every feature is planned, implemented, tested, and documented before moving to the next milestone.
+The project is being built from the ground up using modern frontend development practices, emphasizing reusable components, clean architecture, and incremental feature development. Every feature is carefully planned, implemented, tested, and documented before moving to the next milestone.
 
 ---
 
@@ -30,15 +28,15 @@ Every feature is planned, implemented, tested, and documented before moving to t
 | React | User Interface |
 | TypeScript | Type Safety |
 | Tailwind CSS | Styling |
-| clsx | Utility for conditional class names |
+| Lucide React | Icons |
+| clsx | Conditional Styling |
 | Firebase | Backend *(Planned)* |
-| Vercel | Deployment *(Planned)* |
 
 ---
 
 # Features Completed
 
-### Project Foundation
+## Project Foundation
 
 - Next.js project setup
 - TypeScript configuration
@@ -46,33 +44,41 @@ Every feature is planned, implemented, tested, and documented before moving to t
 - ESLint configuration
 - Professional folder structure
 
-### Layout
+## Layout
 
 - Three-column responsive layout
 - Sidebar
 - Feed
-- Right Sidebar
+- Right Sidebar layout
 
-### Sidebar
+## Sidebar
 
-- Dynamic navigation
+- Dynamic navigation rendering
+- Lucide React icons
+- Centralized navigation configuration
 - Reusable Button component
-- Create Post button
+- Create Post action
 
-### Feed
+## Feed
 
 - Post Composer
-- Data-driven post rendering
 - Reusable Post Card component
-- Shared data source using `lib/posts.ts`
+- Shared post data
+- Dynamic post rendering using React
 
-### Code Quality
+## UI Components
+
+- Reusable Button component
+- Reusable Avatar component
+- Shared styling with `clsx`
+
+## Code Quality
 
 - Feature-based architecture
-- Shared UI components
-- Reusable data configuration
-- clsx integration
-- Clean component composition
+- Component reusability
+- Centralized configuration files
+- Clean folder structure
+- Scalable project organization
 
 ---
 
@@ -106,27 +112,25 @@ verse
 |---------|--------|
 | Project Setup | Complete |
 | Sidebar | Complete |
-| Feed Layout | Complete |
-| Post Composer | Complete |
-| Post Card | Complete |
+| Feed | Complete |
+| UI Components | In Progress |
 | Right Sidebar | In Progress |
 | Authentication | Planned |
-| Firebase | Planned |
-| Deployment | Planned |
+| Firebase Integration | Planned |
 
 ---
 
 # Engineering Principles
 
-Verse is being built around a few simple principles.
+Verse follows a simple set of engineering principles throughout development.
 
-- Component Reusability
+- Reusable Components
 - Clean Architecture
-- Feature-based Folder Structure
+- Feature-Based Folder Structure
 - Type Safety
 - Semantic HTML
+- Scalable Code Organization
 - Incremental Development
-- Maintainable Code
 - Consistent Code Style
 
 ---
@@ -144,9 +148,13 @@ Implementation
     ↓
 Testing
     ↓
-Refinement
+Linting
+    ↓
+Build Verification
     ↓
 Git Commit
+    ↓
+Git Push
 ```
 
 ---
@@ -158,7 +166,9 @@ Git Commit
 - Project initialization
 - Responsive layout
 - Dynamic sidebar
-- Reusable Button component
+- Navigation icons
+- Reusable Button
+- Reusable Avatar
 - Feed architecture
 - Post Composer
 - Post Card
@@ -166,15 +176,17 @@ Git Commit
 
 ## Upcoming
 
-- User avatars
-- Right sidebar widgets
-- Icons
-- Theme improvements
-- Authentication
+- User avatars in posts
+- Interactive post actions
+- Right Sidebar widgets
+- Trending section
+- Suggested users
 - User profiles
-- Post interactions
+- Authentication
 - Firebase integration
-- Deployment
+- Likes and comments
+- Search
+- Notifications
 
 ---
 
@@ -186,7 +198,7 @@ Clone the repository
 git clone https://github.com/Ayushkumar20045/verse.git
 ```
 
-Navigate into the project
+Navigate to the project
 
 ```bash
 cd verse
@@ -204,7 +216,7 @@ Start the development server
 npm run dev
 ```
 
-Open
+Open your browser and visit
 
 ```text
 http://localhost:3000
@@ -216,9 +228,25 @@ http://localhost:3000
 
 Verse is more than a frontend project.
 
-It is an opportunity to practice software engineering by building a scalable application with production-inspired architecture, reusable components, and clean development practices.
+It is an opportunity to practice software engineering by building a scalable application using modern technologies, reusable components, and production-inspired architecture.
 
-The focus is not only on building features but also on building them correctly.
+The focus is not only on building features, but also on building them correctly.
+
+---
+
+# Development Philosophy
+
+This project is being developed with an emphasis on learning and applying industry-standard engineering practices.
+
+Every new feature is designed to be:
+
+- Reusable
+- Maintainable
+- Scalable
+- Easy to understand
+- Ready for future expansion
+
+Rather than rushing to complete features, the goal is to build a codebase that resembles how modern frontend applications are developed in professional environments.
 
 ---
 
