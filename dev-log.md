@@ -48,3 +48,14 @@
 - Created the first reusable Avatar component for future user profiles and posts.
 - Improved the project architecture by keeping navigation labels, routes, and icons in a centralized configuration.
 - Prepared the foundation for richer UI components in upcoming development sessions.
+
+## Day 6 - UI Refinement & Layout Improvements
+
+- Refined the overall desktop layout for a cleaner and more balanced appearance.
+- Improved the feed structure by adjusting spacing and alignment between posts.
+- Enhanced the Post Composer with better positioning and consistent styling.
+- Polished the reusable Post Card component with improved typography and spacing.
+- Introduced Verse-specific sections: **Ripples** for trending topics and **Constellations** for user suggestions.
+- Fine-tuned the three-column layout to achieve a more centered and visually appealing desktop experience.
+- Improved sidebar spacing while preserving the active navigation indicator and minimal design.
+- Maintained a reusable and scalable component structure for future feature development.

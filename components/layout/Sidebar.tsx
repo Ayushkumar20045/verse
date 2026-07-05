@@ -1,27 +1,37 @@
 import Link from "next/link";
+import { Plus } from "lucide-react";
+
 import Button from "@/components/ui/Button";
 import { navigation } from "@/lib/navigation";
 
 export default function Sidebar() {
   return (
-    <aside className="min-h-screen border-r p-6">
-      <h1 className="mb-10 text-4xl font-extrabold tracking-tight">
-        V
-      </h1>
+    <aside className="flex h-screen flex-col px-10 py-10">
+      {/* Logo */}
+      <div className="mb-12">
+        <h1 className="text-4xl font-extrabold tracking-tight">
+          Verse
+        </h1>
+      </div>
 
-      <nav className="mt-6">
-        <ul className="space-y-1">
-          {navigation.map((item) => {
+      {/* Navigation */}
+      <nav className="mt-4 flex-1">
+        <ul className="space-y-2">
+          {navigation.map((item, index) => {
             const Icon = item.icon;
+            const isActive = index === 0;
 
             return (
               <li key={item.id}>
                 <Link
                   href={item.href}
-                  className="flex items-center gap-5 rounded-lg px-4 py-3 text-base font-medium transition-colors hover:bg-neutral-900"
+                  className={`flex items-center gap-3 border-l-2 py-3 pl-4 transition-all duration-200 ${
+                    isActive
+                      ? "border-white text-white font-semibold"
+                      : "border-transparent text-neutral-400 hover:border-neutral-700 hover:text-white"
+                  }`}
                 >
-                  <Icon size={22} />
-
+                  <Icon size={20} />
                   <span>{item.label}</span>
                 </Link>
               </li>
@@ -30,10 +40,22 @@ export default function Sidebar() {
         </ul>
       </nav>
 
-      <div className="mt-8 border-t border-neutral-800 pt-6">
-        <Button variant="primary" className="w-full">
-          Create Post
+      {/* Create Post */}
+      <div className="mt-10 border-t border-neutral-800 pt-8">
+        <Button
+          variant="primary"
+          className="flex w-full items-center justify-center gap-2"
+        >
+          <Plus size={18} />
+          <span>Create Post</span>
         </Button>
+      </div>
+
+      {/* Footer */}
+      <div className="mt-6 border-t border-neutral-800 pt-4">
+        <p className="text-xs text-neutral-500">
+          Verse v0.1
+        </p>
       </div>
     </aside>
   );

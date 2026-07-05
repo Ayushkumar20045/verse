@@ -46,16 +46,18 @@ The project is being built from the ground up using modern frontend development 
 
 ## Layout
 
-- Three-column responsive layout
+- Responsive three-column desktop layout
+- Balanced application layout
 - Sidebar
 - Feed
-- Right Sidebar layout
+- Right Sidebar
 
 ## Sidebar
 
 - Dynamic navigation rendering
 - Lucide React icons
 - Centralized navigation configuration
+- Active navigation indicator
 - Reusable Button component
 - Create Post action
 
@@ -65,12 +67,19 @@ The project is being built from the ground up using modern frontend development 
 - Reusable Post Card component
 - Shared post data
 - Dynamic post rendering using React
+- Improved desktop spacing and alignment
+
+## Right Sidebar
+
+- Ripples (Trending Topics)
+- Constellations (Suggested Users)
+- Clean and reusable sidebar structure
 
 ## UI Components
 
 - Reusable Button component
 - Reusable Avatar component
-- Shared styling with `clsx`
+- Shared styling using `clsx`
 
 ## Code Quality
 
@@ -111,10 +120,12 @@ verse
 | Module | Status |
 |---------|--------|
 | Project Setup | Complete |
+| Layout | Complete |
 | Sidebar | Complete |
 | Feed | Complete |
-| UI Components | In Progress |
-| Right Sidebar | In Progress |
+| Right Sidebar | Complete |
+| UI Components | Complete |
+| Post Functionality | Planned |
 | Authentication | Planned |
 | Firebase Integration | Planned |
 
@@ -164,29 +175,32 @@ Git Push
 ## Completed
 
 - Project initialization
-- Responsive layout
+- Responsive desktop layout
 - Dynamic sidebar
 - Navigation icons
 - Reusable Button
 - Reusable Avatar
 - Feed architecture
 - Post Composer
-- Post Card
+- Reusable Post Card
 - Shared data layer
+- Ripples section
+- Constellations section
+- UI refinement and layout improvements
 
 ## Upcoming
 
-- User avatars in posts
-- Interactive post actions
-- Right Sidebar widgets
-- Trending section
-- Suggested users
+- Functional post creation
+- Character limit for posts
+- Like functionality
+- Comment system
 - User profiles
 - Authentication
 - Firebase integration
-- Likes and comments
+- Real-time feed updates
 - Search
 - Notifications
+- Responsive mobile layout
 
 ---
 
