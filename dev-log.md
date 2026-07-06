@@ -59,3 +59,20 @@
 - Fine-tuned the three-column layout to achieve a more centered and visually appealing desktop experience.
 - Improved sidebar spacing while preserving the active navigation indicator and minimal design.
 - Maintained a reusable and scalable component structure for future feature development.
+
+## Day 7 - Interactive Feed & React State Management
+
+- Implemented functional post creation using React state.
+- Added a controlled textarea for real-time input handling.
+- Lifted post state to the Feed component for centralized state management.
+- Implemented dynamic feed updates where newly created posts appear instantly at the top.
+- Added automatic textarea reset after successful post submission.
+- Implemented live character counter for the post composer.
+- Added a 280-character limit with real-time validation.
+- Disabled post submission for empty or over-limit posts.
+- Applied defensive validation inside the post creation logic.
+- Introduced reusable Post data model with TypeScript.
+- Implemented interactive Like functionality using immutable state updates.
+- Added dynamic like counts with toggle behavior.
+- Updated post UI to reflect liked and unliked states.
+- Learned and applied React concepts including controlled components, lifting state up, derived state, immutable updates, conditional rendering, and state management using `map()`.

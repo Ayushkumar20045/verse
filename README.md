@@ -16,7 +16,7 @@ Currently under active development.
 
 Verse is a modern social platform focused on delivering a clean, scalable, and maintainable user experience.
 
-The project is being built from the ground up using modern frontend development practices, emphasizing reusable components, clean architecture, and incremental feature development. Every feature is carefully planned, implemented, tested, and documented before moving to the next milestone.
+The project is being built from the ground up using modern frontend development practices, emphasizing reusable components, clean architecture, and incremental feature development.
 
 ---
 
@@ -47,7 +47,6 @@ The project is being built from the ground up using modern frontend development 
 ## Layout
 
 - Responsive three-column desktop layout
-- Balanced application layout
 - Sidebar
 - Feed
 - Right Sidebar
@@ -56,38 +55,48 @@ The project is being built from the ground up using modern frontend development 
 
 - Dynamic navigation rendering
 - Lucide React icons
-- Centralized navigation configuration
 - Active navigation indicator
+- Centralized navigation configuration
 - Reusable Button component
 - Create Post action
 
 ## Feed
 
-- Post Composer
+- Functional Post Composer
+- Dynamic post creation
+- Instant feed updates
+- New posts appear at the top
+- Character counter
+- 280-character validation
 - Reusable Post Card component
 - Shared post data
-- Dynamic post rendering using React
-- Improved desktop spacing and alignment
+
+## Post Interactions
+
+- Like / Unlike functionality
+- Dynamic like counter
+- Filled heart icon for liked posts
+- Immutable React state updates
+- Interactive feed using React state
 
 ## Right Sidebar
 
 - Ripples (Trending Topics)
 - Constellations (Suggested Users)
-- Clean and reusable sidebar structure
 
 ## UI Components
 
-- Reusable Button component
-- Reusable Avatar component
-- Shared styling using `clsx`
+- Reusable Button
+- Reusable Avatar
+- Shared styling with `clsx`
 
 ## Code Quality
 
 - Feature-based architecture
 - Component reusability
-- Centralized configuration files
-- Clean folder structure
-- Scalable project organization
+- Type-safe data models
+- Centralized configuration
+- Scalable project structure
 
 ---
 
@@ -125,7 +134,8 @@ verse
 | Feed | Complete |
 | Right Sidebar | Complete |
 | UI Components | Complete |
-| Post Functionality | Planned |
+| Post Creation | Complete |
+| Like System | Complete |
 | Authentication | Planned |
 | Firebase Integration | Planned |
 
@@ -147,8 +157,6 @@ Verse follows a simple set of engineering principles throughout development.
 ---
 
 # Development Workflow
-
-Every feature follows the same workflow.
 
 ```text
 Planning
@@ -181,23 +189,27 @@ Git Push
 - Reusable Button
 - Reusable Avatar
 - Feed architecture
-- Post Composer
+- Functional Post Composer
+- Dynamic feed updates
+- Character counter
+- Character limit validation
 - Reusable Post Card
-- Shared data layer
+- Like / Unlike functionality
+- Interactive feed using React state
 - Ripples section
 - Constellations section
-- UI refinement and layout improvements
+- UI refinement
 
 ## Upcoming
 
-- Functional post creation
-- Character limit for posts
-- Like functionality
-- Comment system
+- Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
+- Refactor PostCard to use a single Post object
+- Comment functionality
+- Share functionality
 - User profiles
 - Authentication
 - Firebase integration
-- Real-time feed updates
+- Real-time feed
 - Search
 - Notifications
 - Responsive mobile layout
@@ -230,7 +242,7 @@ Start the development server
 npm run dev
 ```
 
-Open your browser and visit
+Visit
 
 ```text
 http://localhost:3000
@@ -244,15 +256,15 @@ Verse is more than a frontend project.
 
 It is an opportunity to practice software engineering by building a scalable application using modern technologies, reusable components, and production-inspired architecture.
 
-The focus is not only on building features, but also on building them correctly.
+The focus is not only on building features but on building them correctly.
 
 ---
 
 # Development Philosophy
 
-This project is being developed with an emphasis on learning and applying industry-standard engineering practices.
+This project is built with an emphasis on learning and applying industry-standard engineering practices.
 
-Every new feature is designed to be:
+Every feature is designed to be:
 
 - Reusable
 - Maintainable
@@ -260,12 +272,14 @@ Every new feature is designed to be:
 - Easy to understand
 - Ready for future expansion
 
-Rather than rushing to complete features, the goal is to build a codebase that resembles how modern frontend applications are developed in professional environments.
+The goal is to create a codebase that resembles how modern frontend applications are developed in professional environments.
 
 ---
 
 <div align="center">
 
 ### Building Verse one commit at a time.
+
+**Current Progress: UI Complete • Interactive Feed Complete • Ready for Backend Integration**
 
 </div>
