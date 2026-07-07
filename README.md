@@ -4,7 +4,7 @@
 
 ### Share your story. Shape the conversation.
 
-A modern social platform built with **Next.js**, **React**, **TypeScript**, **Tailwind CSS**, and **Firebase**.
+A modern social platform built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**.
 
 Currently under active development.
 
@@ -14,9 +14,11 @@ Currently under active development.
 
 # Overview
 
-Verse is a modern social platform focused on delivering a clean, scalable, and maintainable user experience.
+Verse is a modern social platform focused on building a clean, scalable, and maintainable user experience.
 
-The project is being built from the ground up using modern frontend development practices, emphasizing reusable components, clean architecture, and incremental feature development.
+The project is being developed incrementally by following modern React engineering practices. Every feature is carefully planned, implemented, tested, and documented before moving to the next milestone.
+
+The current focus is completing a production-quality frontend before integrating Firebase for authentication and real-time data.
 
 ---
 
@@ -54,8 +56,8 @@ The project is being built from the ground up using modern frontend development 
 ## Sidebar
 
 - Dynamic navigation rendering
-- Lucide React icons
 - Active navigation indicator
+- Lucide React icons
 - Centralized navigation configuration
 - Reusable Button component
 - Create Post action
@@ -64,10 +66,13 @@ The project is being built from the ground up using modern frontend development 
 
 - Functional Post Composer
 - Dynamic post creation
+- Inline post editing
+- Post deletion
 - Instant feed updates
 - New posts appear at the top
 - Character counter
 - 280-character validation
+- Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
 - Reusable Post Card component
 - Shared post data
 
@@ -75,9 +80,10 @@ The project is being built from the ground up using modern frontend development 
 
 - Like / Unlike functionality
 - Dynamic like counter
-- Filled heart icon for liked posts
+- Three-dot action menu
+- Custom confirmation modal
+- Full CRUD operations
 - Immutable React state updates
-- Interactive feed using React state
 
 ## Right Sidebar
 
@@ -88,15 +94,15 @@ The project is being built from the ground up using modern frontend development 
 
 - Reusable Button
 - Reusable Avatar
-- Shared styling with `clsx`
+- Reusable ConfirmModal
 
 ## Code Quality
 
 - Feature-based architecture
 - Component reusability
-- Type-safe data models
 - Centralized configuration
-- Scalable project structure
+- Type-safe data models
+- Scalable project organization
 
 ---
 
@@ -134,8 +140,7 @@ verse
 | Feed | Complete |
 | Right Sidebar | Complete |
 | UI Components | Complete |
-| Post Creation | Complete |
-| Like System | Complete |
+| CRUD Operations | Complete |
 | Authentication | Planned |
 | Firebase Integration | Planned |
 
@@ -143,7 +148,7 @@ verse
 
 # Engineering Principles
 
-Verse follows a simple set of engineering principles throughout development.
+Verse follows a consistent engineering approach throughout development.
 
 - Reusable Components
 - Clean Architecture
@@ -157,6 +162,8 @@ Verse follows a simple set of engineering principles throughout development.
 ---
 
 # Development Workflow
+
+Every feature follows the same workflow.
 
 ```text
 Planning
@@ -188,13 +195,19 @@ Git Push
 - Navigation icons
 - Reusable Button
 - Reusable Avatar
+- Reusable ConfirmModal
 - Feed architecture
 - Functional Post Composer
 - Dynamic feed updates
 - Character counter
 - Character limit validation
+- Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
 - Reusable Post Card
 - Like / Unlike functionality
+- Three-dot action menu
+- Inline post editing
+- Post deletion
+- Full CRUD implementation
 - Interactive feed using React state
 - Ripples section
 - Constellations section
@@ -202,17 +215,19 @@ Git Push
 
 ## Upcoming
 
-- Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
-- Refactor PostCard to use a single Post object
-- Comment functionality
+- Bookmark posts
+- Comment system
 - Share functionality
-- User profiles
-- Authentication
-- Firebase integration
-- Real-time feed
+- User profile page
 - Search
 - Notifications
+- Explore page
+- Settings page
 - Responsive mobile layout
+- Authentication
+- Firebase integration
+- Real-time database
+- Image uploads
 
 ---
 
@@ -242,7 +257,7 @@ Start the development server
 npm run dev
 ```
 
-Visit
+Open your browser and visit
 
 ```text
 http://localhost:3000
@@ -252,19 +267,19 @@ http://localhost:3000
 
 # Why Verse?
 
-Verse is more than a frontend project.
+Verse is more than just a frontend project.
 
-It is an opportunity to practice software engineering by building a scalable application using modern technologies, reusable components, and production-inspired architecture.
+It is a practical journey of learning software engineering by building a modern social platform using React, TypeScript, and Next.js.
 
-The focus is not only on building features but on building them correctly.
+The project emphasizes writing clean, reusable, and scalable code while implementing real-world frontend patterns before introducing backend services.
 
 ---
 
 # Development Philosophy
 
-This project is built with an emphasis on learning and applying industry-standard engineering practices.
+Rather than rushing to build features, Verse focuses on building them correctly.
 
-Every feature is designed to be:
+Every new feature is designed to be:
 
 - Reusable
 - Maintainable
@@ -272,7 +287,7 @@ Every feature is designed to be:
 - Easy to understand
 - Ready for future expansion
 
-The goal is to create a codebase that resembles how modern frontend applications are developed in professional environments.
+The goal is to develop a codebase that reflects how modern frontend applications are structured in professional environments.
 
 ---
 
@@ -280,6 +295,6 @@ The goal is to create a codebase that resembles how modern frontend applications
 
 ### Building Verse one commit at a time.
 
-**Current Progress: UI Complete • Interactive Feed Complete • Ready for Backend Integration**
+**Current Progress: Frontend CRUD Complete • Ready for Social Features**
 
 </div>
