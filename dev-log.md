@@ -76,3 +76,16 @@
 - Added dynamic like counts with toggle behavior.
 - Updated post UI to reflect liked and unliked states.
 - Learned and applied React concepts including controlled components, lifting state up, derived state, immutable updates, conditional rendering, and state management using `map()`.
+
+## Day 8 - CRUD Operations & Reusable UI Components
+
+- Refactored PostCard to accept a single Post object for cleaner component APIs.
+- Implemented keyboard shortcut support (Ctrl + Enter / ⌘ + Enter) for creating posts.
+- Added a reusable action menu for post-specific actions.
+- Implemented post deletion using immutable state updates with `filter()`.
+- Built a reusable ConfirmModal component for confirmation dialogs.
+- Replaced the browser confirmation dialog with a custom confirmation modal.
+- Implemented inline post editing using controlled form inputs.
+- Added post update functionality using immutable state updates with `map()`.
+- Completed full CRUD functionality for the feed (Create, Read, Update, Delete).
+- Applied React concepts including component communication, conditional rendering, controlled components, callback functions, and reusable UI architecture.
