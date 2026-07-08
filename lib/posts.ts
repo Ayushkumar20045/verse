@@ -10,7 +10,7 @@ export const posts: Post[] = [
     content: "Welcome to Verse. This is the first post of the project.",
 
     likes: 0,
-    comments: 0,
+    comments: [],
     shares: 0,
 
     isLiked: false,
@@ -25,7 +25,7 @@ export const posts: Post[] = [
       "Spent the weekend learning React component composition. It finally makes sense why reusable components are so powerful.",
 
     likes: 12,
-    comments: 3,
+    comments: [],
     shares: 1,
 
     isLiked: false,
@@ -40,7 +40,7 @@ export const posts: Post[] = [
       "Good UI isn't about adding more. It's about removing everything that doesn't need to be there.",
 
     likes: 18,
-    comments: 4,
+    comments: [],
     shares: 2,
 
     isLiked: false,
@@ -55,7 +55,7 @@ export const posts: Post[] = [
       "Just deployed my portfolio after weeks of polishing. Small improvements every day really do add up.",
 
     likes: 7,
-    comments: 2,
+    comments: [],
     shares: 0,
 
     isLiked: false,

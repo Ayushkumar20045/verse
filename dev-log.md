@@ -89,3 +89,15 @@
 - Added post update functionality using immutable state updates with `map()`.
 - Completed full CRUD functionality for the feed (Create, Read, Update, Delete).
 - Applied React concepts including component communication, conditional rendering, controlled components, callback functions, and reusable UI architecture.
+
+## Day 9 - Comment System & Nested State Management
+
+- Created a dedicated Comment model to support nested comment data.
+- Refactored the Post model to store comments as an array instead of a count.
+- Built a reusable CommentComposer component for creating comments.
+- Built a reusable CommentCard component with inline editing and deletion.
+- Built a reusable CommentList component for rendering comments dynamically.
+- Added expandable and collapsible comment sections for each post.
+- Implemented complete CRUD functionality for comments using immutable React state updates.
+- Reused the ConfirmModal component for secure comment deletion.
+- Applied nested state management, callback functions, conditional rendering, and reusable component architecture throughout the comment system.

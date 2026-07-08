@@ -11,8 +11,12 @@ import {
 } from "lucide-react";
 
 import Avatar from "@/components/ui/Avatar";
+import CommentComposer from "@/components/feed/CommentComposer";
+import CommentList from "@/components/feed/CommentList";
 import ConfirmModal from "@/components/ui/ConfirmModal";
+
 import { Post } from "@/types/post";
+import { Comment } from "@/types/comment";
 
 type PostCardProps = {
   post: Post;
@@ -30,10 +34,20 @@ export default function PostCard({
   const isCurrentUser = post.userId === "user-1";
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] =
+    useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editedContent, setEditedContent] = useState(post.content);
+  const [editedContent, setEditedContent] = useState(
+    post.content
+  );
+
+  const [showComments, setShowComments] =
+    useState(false);
+
+  const [comments, setComments] = useState<Comment[]>(
+    post.comments
+  );
 
   function handleDeleteClick() {
     setIsMenuOpen(false);
@@ -71,13 +85,57 @@ export default function PostCard({
     setIsEditing(false);
   }
 
+  function handleAddComment(content: string) {
+    const newComment: Comment = {
+      id: Date.now(),
+      userId: "user-1",
+      author: "Ayush Kumar",
+      username: "@ayushkumar",
+      content,
+      time: "Just now",
+    };
+
+    setComments((previousComments) => [
+      ...previousComments,
+      newComment,
+    ]);
+  }
+
+  function handleEditComment(
+    commentId: number,
+    content: string
+  ) {
+    setComments((previousComments) =>
+      previousComments.map((comment) => {
+        if (comment.id !== commentId) {
+          return comment;
+        }
+
+        return {
+          ...comment,
+          content,
+          time: "Just now (edited)",
+        };
+      })
+    );
+  }
+
+  function handleDeleteComment(commentId: number) {
+    setComments((previousComments) =>
+      previousComments.filter(
+        (comment) => comment.id !== commentId
+      )
+    );
+  }
+
   return (
     <>
-      <article className="rounded-xl border border-neutral-800 p-6 transition-colors hover:border-neutral-700">
+          <article className="rounded-xl border border-neutral-800 p-6 transition-colors hover:border-neutral-700">
         <div className="flex items-start gap-4">
           <Avatar name={post.author} />
 
           <div className="flex-1">
+            {/* Header */}
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-2">
@@ -178,20 +236,43 @@ export default function PostCard({
                 >
                   <Heart
                     size={18}
-                    fill={post.isLiked ? "currentColor" : "none"}
+                    fill={
+                      post.isLiked
+                        ? "currentColor"
+                        : "none"
+                    }
                   />
                   <span>{post.likes}</span>
                 </button>
 
-                <button className="flex items-center gap-2 text-neutral-500 hover:text-blue-500 transition-colors">
+                <button
+                  onClick={() =>
+                    setShowComments(!showComments)
+                  }
+                  className="flex items-center gap-2 text-neutral-500 transition-colors hover:text-blue-500"
+                >
                   <MessageCircle size={18} />
-                  <span>{post.comments}</span>
+                  <span>{comments.length}</span>
                 </button>
 
-                <button className="flex items-center gap-2 text-neutral-500 hover:text-green-500 transition-colors">
+                <button className="flex items-center gap-2 text-neutral-500 transition-colors hover:text-green-500">
                   <Repeat2 size={18} />
                   <span>{post.shares}</span>
                 </button>
+              </div>
+            )}
+
+            {showComments && (
+              <div className="mt-6">
+                <CommentComposer
+                  onComment={handleAddComment}
+                />
+
+                <CommentList
+                  comments={comments}
+                  onEdit={handleEditComment}
+                  onDelete={handleDeleteComment}
+                />
               </div>
             )}
           </div>

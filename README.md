@@ -14,11 +14,11 @@ Currently under active development.
 
 # Overview
 
-Verse is a modern social platform focused on building a clean, scalable, and maintainable user experience.
+Verse is a modern social platform focused on delivering a clean, scalable, and maintainable user experience.
 
-The project is being developed incrementally by following modern React engineering practices. Every feature is carefully planned, implemented, tested, and documented before moving to the next milestone.
+The project is being built incrementally using modern React engineering practices. Every feature is carefully planned, implemented, tested, and documented before moving to the next milestone.
 
-The current focus is completing a production-quality frontend before integrating Firebase for authentication and real-time data.
+The current focus is building a production-quality frontend before integrating Firebase for authentication, cloud storage, and real-time data.
 
 ---
 
@@ -46,12 +46,16 @@ The current focus is completing a production-quality frontend before integrating
 - ESLint configuration
 - Professional folder structure
 
+---
+
 ## Layout
 
 - Responsive three-column desktop layout
 - Sidebar
 - Feed
 - Right Sidebar
+
+---
 
 ## Sidebar
 
@@ -62,7 +66,11 @@ The current focus is completing a production-quality frontend before integrating
 - Reusable Button component
 - Create Post action
 
+---
+
 ## Feed
+
+### Posts
 
 - Functional Post Composer
 - Dynamic post creation
@@ -73,28 +81,47 @@ The current focus is completing a production-quality frontend before integrating
 - Character counter
 - 280-character validation
 - Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
-- Reusable Post Card component
-- Shared post data
 
-## Post Interactions
+### Comments
+
+- Expandable / Collapsible comments
+- Dynamic comment creation
+- Inline comment editing
+- Comment deletion
+- Live comment counter
+- Nested comment rendering
+
+### Post Interactions
 
 - Like / Unlike functionality
 - Dynamic like counter
 - Three-dot action menu
 - Custom confirmation modal
-- Full CRUD operations
+- Complete CRUD operations for Posts
+- Complete CRUD operations for Comments
 - Immutable React state updates
+
+---
 
 ## Right Sidebar
 
 - Ripples (Trending Topics)
 - Constellations (Suggested Users)
 
+---
+
 ## UI Components
 
 - Reusable Button
 - Reusable Avatar
 - Reusable ConfirmModal
+- Reusable PostComposer
+- Reusable PostCard
+- Reusable CommentComposer
+- Reusable CommentCard
+- Reusable CommentList
+
+---
 
 ## Code Quality
 
@@ -102,7 +129,8 @@ The current focus is completing a production-quality frontend before integrating
 - Component reusability
 - Centralized configuration
 - Type-safe data models
-- Scalable project organization
+- Clean folder organization
+- Scalable React architecture
 
 ---
 
@@ -114,13 +142,25 @@ verse
 ├── app
 ├── components
 │   ├── feed
+│   │   ├── PostComposer.tsx
+│   │   ├── PostCard.tsx
+│   │   ├── CommentComposer.tsx
+│   │   ├── CommentCard.tsx
+│   │   └── CommentList.tsx
+│   │
 │   ├── layout
 │   └── ui
+│       ├── Avatar.tsx
+│       ├── Button.tsx
+│       └── ConfirmModal.tsx
 │
 ├── hooks
 ├── lib
 ├── public
 ├── types
+│   ├── post.ts
+│   └── comment.ts
+│
 ├── utils
 │
 ├── README.md
@@ -138,7 +178,7 @@ verse
 | Layout | Complete |
 | Sidebar | Complete |
 | Feed | Complete |
-| Right Sidebar | Complete |
+| Comments | Complete |
 | UI Components | Complete |
 | CRUD Operations | Complete |
 | Authentication | Planned |
@@ -155,8 +195,8 @@ Verse follows a consistent engineering approach throughout development.
 - Feature-Based Folder Structure
 - Type Safety
 - Semantic HTML
-- Scalable Code Organization
 - Incremental Development
+- Scalable Code Organization
 - Consistent Code Style
 
 ---
@@ -207,27 +247,33 @@ Git Push
 - Three-dot action menu
 - Inline post editing
 - Post deletion
-- Full CRUD implementation
+- Complete Post CRUD
+- Expandable comment system
+- Reusable CommentComposer
+- Reusable CommentCard
+- Reusable CommentList
+- Inline comment editing
+- Comment deletion
+- Complete Comment CRUD
 - Interactive feed using React state
-- Ripples section
-- Constellations section
-- UI refinement
+
+---
 
 ## Upcoming
 
 - Bookmark posts
-- Comment system
-- Share functionality
 - User profile page
 - Search
 - Notifications
-- Explore page
-- Settings page
+- Share functionality
+- Image uploads
 - Responsive mobile layout
 - Authentication
 - Firebase integration
-- Real-time database
-- Image uploads
+- Firestore database
+- Real-time updates
+- Infinite scrolling
+- Dark / Light theme
 
 ---
 
@@ -257,6 +303,18 @@ Start the development server
 npm run dev
 ```
 
+Run linting
+
+```bash
+npm run lint
+```
+
+Verify production build
+
+```bash
+npm run build
+```
+
 Open your browser and visit
 
 ```text
@@ -267,11 +325,11 @@ http://localhost:3000
 
 # Why Verse?
 
-Verse is more than just a frontend project.
+Verse is more than a frontend project.
 
-It is a practical journey of learning software engineering by building a modern social platform using React, TypeScript, and Next.js.
+It is a hands-on software engineering project focused on building a modern social platform using React, Next.js, and TypeScript while following professional frontend development practices.
 
-The project emphasizes writing clean, reusable, and scalable code while implementing real-world frontend patterns before introducing backend services.
+The project emphasizes reusable components, scalable architecture, immutable state management, and clean code before integrating backend services.
 
 ---
 
@@ -279,15 +337,15 @@ The project emphasizes writing clean, reusable, and scalable code while implemen
 
 Rather than rushing to build features, Verse focuses on building them correctly.
 
-Every new feature is designed to be:
+Every feature is designed to be:
 
 - Reusable
 - Maintainable
 - Scalable
 - Easy to understand
-- Ready for future expansion
+- Ready for future backend integration
 
-The goal is to develop a codebase that reflects how modern frontend applications are structured in professional environments.
+The objective is to develop a codebase that resembles how modern frontend applications are built in professional software teams.
 
 ---
 
@@ -295,6 +353,6 @@ The goal is to develop a codebase that reflects how modern frontend applications
 
 ### Building Verse one commit at a time.
 
-**Current Progress: Frontend CRUD Complete • Ready for Social Features**
+**Current Progress: Complete Frontend CRUD • Ready for Advanced Social Features & Firebase**
 
 </div>

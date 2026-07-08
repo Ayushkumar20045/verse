@@ -20,7 +20,7 @@ export default function Feed() {
       content,
 
       likes: 0,
-      comments: 0,
+      comments: [],
       shares: 0,
 
       isLiked: false,
