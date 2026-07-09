@@ -101,3 +101,16 @@
 - Implemented complete CRUD functionality for comments using immutable React state updates.
 - Reused the ConfirmModal component for secure comment deletion.
 - Applied nested state management, callback functions, conditional rendering, and reusable component architecture throughout the comment system.
+
+## Day 10 - Bookmark System & Context API Foundation
+
+- Added bookmark functionality with toggle support for every post.
+- Extended the Post model to include bookmark state for individual posts.
+- Integrated bookmark actions into the PostCard component with dynamic UI updates.
+- Created a dedicated PostsContext to centralize post-related state management.
+- Implemented a reusable PostsProvider and custom usePosts hook using React Context API.
+- Wrapped the application with PostsProvider to prepare for shared state across multiple pages.
+- Began refactoring the Feed component to consume global state instead of local component state.
+- Restored and stabilized the PostCard component after a major refactor, preserving all existing functionality.
+- Resolved a TypeScript type conflict by correctly importing the custom Comment model instead of using the browser's built-in Comment interface.
+- Successfully validated the application with passing lint and production build, establishing a solid foundation for upcoming features like the Bookmarks page and Firebase integration.

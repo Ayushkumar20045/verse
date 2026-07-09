@@ -1,4 +1,4 @@
-import { Comment } from "./comment";
+import { Comment } from "@/types/comment";
 
 export type Post = {
   id: number;
@@ -17,4 +17,6 @@ export type Post = {
   shares: number;
 
   isLiked: boolean;
+
+  isBookmarked: boolean;
 };

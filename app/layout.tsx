@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
+
+import { PostsProvider } from "@/context/PostsContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Verse - A modern social platform ",
+  title: "Verse - A modern social platform",
   description:
     "A modern social platform for meaningful conversations and communities.",
 };
@@ -28,7 +31,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <PostsProvider>
+          {children}
+        </PostsProvider>
+      </body>
     </html>
   );
 }

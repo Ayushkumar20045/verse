@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import {
+  Bookmark,
+  BookmarkCheck,
   Heart,
   MessageCircle,
   MoreHorizontal,
@@ -21,6 +23,7 @@ import { Comment } from "@/types/comment";
 type PostCardProps = {
   post: Post;
   onLike: () => void;
+  onBookmark: () => void;
   onDelete: () => void;
   onEdit: (content: string) => void;
 };
@@ -28,6 +31,7 @@ type PostCardProps = {
 export default function PostCard({
   post,
   onLike,
+  onBookmark,
   onDelete,
   onEdit,
 }: PostCardProps) {
@@ -38,16 +42,15 @@ export default function PostCard({
     useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editedContent, setEditedContent] = useState(
-    post.content
-  );
+
+  const [editedContent, setEditedContent] =
+    useState(post.content);
 
   const [showComments, setShowComments] =
     useState(false);
 
-  const [comments, setComments] = useState<Comment[]>(
-    post.comments
-  );
+  const [comments, setComments] =
+    useState<Comment[]>(post.comments);
 
   function handleDeleteClick() {
     setIsMenuOpen(false);
@@ -70,7 +73,8 @@ export default function PostCard({
   }
 
   function handleSaveEdit() {
-    const trimmedContent = editedContent.trim();
+    const trimmedContent =
+      editedContent.trim();
 
     if (!trimmedContent) {
       return;
@@ -120,17 +124,19 @@ export default function PostCard({
     );
   }
 
-  function handleDeleteComment(commentId: number) {
+  function handleDeleteComment(
+    commentId: number
+  ) {
     setComments((previousComments) =>
       previousComments.filter(
-        (comment) => comment.id !== commentId
+        (comment) =>
+          comment.id !== commentId
       )
     );
   }
 
   return (
-    <>
-          <article className="rounded-xl border border-neutral-800 p-6 transition-colors hover:border-neutral-700">
+    <>      <article className="rounded-xl border border-neutral-800 p-6 transition-colors hover:border-neutral-700">
         <div className="flex items-start gap-4">
           <Avatar name={post.author} />
 
@@ -157,38 +163,54 @@ export default function PostCard({
                 </div>
               </div>
 
-              {isCurrentUser && (
-                <div className="relative">
-                  <button
-                    onClick={() =>
-                      setIsMenuOpen(!isMenuOpen)
-                    }
-                    className="rounded-full p-2 text-neutral-500 transition-colors hover:bg-neutral-900 hover:text-white"
-                  >
-                    <MoreHorizontal size={18} />
-                  </button>
-
-                  {isMenuOpen && (
-                    <div className="absolute right-0 top-10 z-50 w-44 overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950 shadow-xl">
-                      <button
-                        onClick={handleEditClick}
-                        className="flex w-full items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-neutral-900"
-                      >
-                        <Pencil size={16} />
-                        Edit Post
-                      </button>
-
-                      <button
-                        onClick={handleDeleteClick}
-                        className="flex w-full items-center gap-3 px-4 py-3 text-sm text-red-500 transition-colors hover:bg-neutral-900"
-                      >
-                        <Trash2 size={16} />
-                        Delete Post
-                      </button>
-                    </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={onBookmark}
+                  className="rounded-full p-2 text-neutral-500 transition-colors hover:bg-neutral-900 hover:text-white"
+                >
+                  {post.isBookmarked ? (
+                    <BookmarkCheck
+                      size={18}
+                      className="text-white"
+                    />
+                  ) : (
+                    <Bookmark size={18} />
                   )}
-                </div>
-              )}
+                </button>
+
+                {isCurrentUser && (
+                  <div className="relative">
+                    <button
+                      onClick={() =>
+                        setIsMenuOpen(!isMenuOpen)
+                      }
+                      className="rounded-full p-2 text-neutral-500 transition-colors hover:bg-neutral-900 hover:text-white"
+                    >
+                      <MoreHorizontal size={18} />
+                    </button>
+
+                    {isMenuOpen && (
+                      <div className="absolute right-0 top-10 z-50 w-44 overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950 shadow-xl">
+                        <button
+                          onClick={handleEditClick}
+                          className="flex w-full items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-neutral-900"
+                        >
+                          <Pencil size={16} />
+                          Edit Post
+                        </button>
+
+                        <button
+                          onClick={handleDeleteClick}
+                          className="flex w-full items-center gap-3 px-4 py-3 text-sm text-red-500 transition-colors hover:bg-neutral-900"
+                        >
+                          <Trash2 size={16} />
+                          Delete Post
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {isEditing ? (
@@ -260,9 +282,7 @@ export default function PostCard({
                   <span>{post.shares}</span>
                 </button>
               </div>
-            )}
-
-            {showComments && (
+            )}            {showComments && (
               <div className="mt-6">
                 <CommentComposer
                   onComment={handleAddComment}

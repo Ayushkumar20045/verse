@@ -14,6 +14,7 @@ export const posts: Post[] = [
     shares: 0,
 
     isLiked: false,
+    isBookmarked: false,
   },
   {
     id: 2,
@@ -29,6 +30,7 @@ export const posts: Post[] = [
     shares: 1,
 
     isLiked: false,
+    isBookmarked: false,
   },
   {
     id: 3,
@@ -44,6 +46,7 @@ export const posts: Post[] = [
     shares: 2,
 
     isLiked: false,
+    isBookmarked: false,
   },
   {
     id: 4,
@@ -59,5 +62,6 @@ export const posts: Post[] = [
     shares: 0,
 
     isLiked: false,
+    isBookmarked: false,
   },
 ];

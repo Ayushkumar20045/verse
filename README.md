@@ -14,11 +14,11 @@ Currently under active development.
 
 # Overview
 
-Verse is a modern social platform focused on delivering a clean, scalable, and maintainable user experience.
+Verse is a modern social platform focused on building a clean, scalable, and maintainable user experience.
 
-The project is being built incrementally using modern React engineering practices. Every feature is carefully planned, implemented, tested, and documented before moving to the next milestone.
+The project follows modern React development practices with reusable components, type safety, and scalable architecture. Every feature is implemented incrementally, tested thoroughly, and documented before moving to the next milestone.
 
-The current focus is building a production-quality frontend before integrating Firebase for authentication, cloud storage, and real-time data.
+The frontend is currently the primary focus. Backend services using Firebase will be integrated after the frontend architecture is complete.
 
 ---
 
@@ -27,110 +27,95 @@ The current focus is building a production-quality frontend before integrating F
 | Technology | Purpose |
 |------------|---------|
 | Next.js | React Framework |
-| React | User Interface |
+| React | UI Library |
 | TypeScript | Type Safety |
 | Tailwind CSS | Styling |
 | Lucide React | Icons |
-| clsx | Conditional Styling |
-| Firebase | Backend *(Planned)* |
+| Context API | Global State Management |
+| Firebase | Planned Backend |
 
 ---
 
-# Features Completed
+# Features
 
-## Project Foundation
+## Posts
 
-- Next.js project setup
-- TypeScript configuration
-- Tailwind CSS integration
-- ESLint configuration
-- Professional folder structure
-
----
-
-## Layout
-
-- Responsive three-column desktop layout
-- Sidebar
-- Feed
-- Right Sidebar
+- Create posts
+- Edit posts
+- Delete posts
+- Like / Unlike posts
+- Bookmark posts
+- Character counter
+- Character limit validation
+- Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
 
 ---
 
-## Sidebar
+## Comments
 
-- Dynamic navigation rendering
-- Active navigation indicator
-- Lucide React icons
-- Centralized navigation configuration
-- Reusable Button component
-- Create Post action
+- Create comments
+- Edit comments
+- Delete comments
+- Expand / Collapse comment section
+- Live comment counter
 
 ---
+
+## User Experience
+
+- Three-dot action menu
+- Custom confirmation modal
+- Responsive desktop feed
+- Instant UI updates using React state
+
+---
+
+## Architecture
+
+- Context API foundation
+- Reusable components
+- Feature-based folder structure
+- Type-safe models
+- Immutable state updates
+- Component-driven architecture
+
+---
+
+# UI Components
 
 ## Feed
 
-### Posts
+- PostComposer
+- PostCard
+- CommentComposer
+- CommentCard
+- CommentList
 
-- Functional Post Composer
-- Dynamic post creation
-- Inline post editing
-- Post deletion
-- Instant feed updates
-- New posts appear at the top
-- Character counter
-- 280-character validation
-- Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
+## UI
 
-### Comments
-
-- Expandable / Collapsible comments
-- Dynamic comment creation
-- Inline comment editing
-- Comment deletion
-- Live comment counter
-- Nested comment rendering
-
-### Post Interactions
-
-- Like / Unlike functionality
-- Dynamic like counter
-- Three-dot action menu
-- Custom confirmation modal
-- Complete CRUD operations for Posts
-- Complete CRUD operations for Comments
-- Immutable React state updates
+- Avatar
+- Button
+- ConfirmModal
 
 ---
 
-## Right Sidebar
+# Current Progress
 
-- Ripples (Trending Topics)
-- Constellations (Suggested Users)
-
----
-
-## UI Components
-
-- Reusable Button
-- Reusable Avatar
-- Reusable ConfirmModal
-- Reusable PostComposer
-- Reusable PostCard
-- Reusable CommentComposer
-- Reusable CommentCard
-- Reusable CommentList
-
----
-
-## Code Quality
-
-- Feature-based architecture
-- Component reusability
-- Centralized configuration
-- Type-safe data models
-- Clean folder organization
-- Scalable React architecture
+| Module | Status |
+|---------|--------|
+| Project Setup | ✅ Complete |
+| Layout | ✅ Complete |
+| Sidebar | ✅ Complete |
+| Feed | ✅ Complete |
+| Posts CRUD | ✅ Complete |
+| Comments CRUD | ✅ Complete |
+| Bookmark Toggle | ✅ Complete |
+| Context API Foundation | ✅ Complete |
+| Bookmarks Page | 🚧 In Progress |
+| Profile | ⏳ Planned |
+| Search | ⏳ Planned |
+| Notifications | ⏳ Planned |
+| Firebase Integration | ⏳ Planned |
 
 ---
 
@@ -142,68 +127,25 @@ verse
 ├── app
 ├── components
 │   ├── feed
-│   │   ├── PostComposer.tsx
-│   │   ├── PostCard.tsx
-│   │   ├── CommentComposer.tsx
-│   │   ├── CommentCard.tsx
-│   │   └── CommentList.tsx
-│   │
 │   ├── layout
 │   └── ui
-│       ├── Avatar.tsx
-│       ├── Button.tsx
-│       └── ConfirmModal.tsx
+│
+├── context
+│   └── PostsContext.tsx
 │
 ├── hooks
 ├── lib
 ├── public
 ├── types
-│   ├── post.ts
-│   └── comment.ts
-│
 ├── utils
-│
-├── README.md
-├── dev-log.md
-└── package.json
+└── README.md
 ```
-
----
-
-# Current Progress
-
-| Module | Status |
-|---------|--------|
-| Project Setup | Complete |
-| Layout | Complete |
-| Sidebar | Complete |
-| Feed | Complete |
-| Comments | Complete |
-| UI Components | Complete |
-| CRUD Operations | Complete |
-| Authentication | Planned |
-| Firebase Integration | Planned |
-
----
-
-# Engineering Principles
-
-Verse follows a consistent engineering approach throughout development.
-
-- Reusable Components
-- Clean Architecture
-- Feature-Based Folder Structure
-- Type Safety
-- Semantic HTML
-- Incremental Development
-- Scalable Code Organization
-- Consistent Code Style
 
 ---
 
 # Development Workflow
 
-Every feature follows the same workflow.
+Every feature follows the same workflow:
 
 ```text
 Planning
@@ -214,9 +156,9 @@ Implementation
     ↓
 Testing
     ↓
-Linting
+npm run lint
     ↓
-Build Verification
+npm run build
     ↓
 Git Commit
     ↓
@@ -229,51 +171,34 @@ Git Push
 
 ## Completed
 
-- Project initialization
-- Responsive desktop layout
-- Dynamic sidebar
-- Navigation icons
-- Reusable Button
-- Reusable Avatar
-- Reusable ConfirmModal
-- Feed architecture
-- Functional Post Composer
-- Dynamic feed updates
+- Project setup
+- Three-column layout
+- Sidebar
+- Feed
+- Dynamic post creation
+- Post CRUD
+- Comment CRUD
+- Like system
+- Bookmark toggle
 - Character counter
-- Character limit validation
-- Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
-- Reusable Post Card
-- Like / Unlike functionality
-- Three-dot action menu
-- Inline post editing
-- Post deletion
-- Complete Post CRUD
-- Expandable comment system
-- Reusable CommentComposer
-- Reusable CommentCard
-- Reusable CommentList
-- Inline comment editing
-- Comment deletion
-- Complete Comment CRUD
-- Interactive feed using React state
+- Keyboard shortcuts
+- Confirmation modal
+- Context API foundation
 
 ---
 
 ## Upcoming
 
-- Bookmark posts
-- User profile page
+- Bookmarks page
+- User profile
 - Search
 - Notifications
-- Share functionality
-- Image uploads
+- Image posts
 - Responsive mobile layout
-- Authentication
-- Firebase integration
-- Firestore database
+- Firebase Authentication
+- Firestore
 - Real-time updates
-- Infinite scrolling
-- Dark / Light theme
+- Deployment
 
 ---
 
@@ -283,12 +208,6 @@ Clone the repository
 
 ```bash
 git clone https://github.com/Ayushkumar20045/verse.git
-```
-
-Navigate to the project
-
-```bash
-cd verse
 ```
 
 Install dependencies
@@ -303,56 +222,41 @@ Start the development server
 npm run dev
 ```
 
-Run linting
+Run lint
 
 ```bash
 npm run lint
 ```
 
-Verify production build
+Build for production
 
 ```bash
 npm run build
 ```
 
-Open your browser and visit
-
-```text
-http://localhost:3000
-```
-
----
-
-# Why Verse?
-
-Verse is more than a frontend project.
-
-It is a hands-on software engineering project focused on building a modern social platform using React, Next.js, and TypeScript while following professional frontend development practices.
-
-The project emphasizes reusable components, scalable architecture, immutable state management, and clean code before integrating backend services.
-
 ---
 
 # Development Philosophy
 
-Rather than rushing to build features, Verse focuses on building them correctly.
+Verse is being built as a portfolio-quality software engineering project.
 
-Every feature is designed to be:
+The focus is not only on delivering features but also on writing clean, reusable, and maintainable code that can scale as the application grows.
 
-- Reusable
-- Maintainable
-- Scalable
-- Easy to understand
-- Ready for future backend integration
+Each development session ends with:
 
-The objective is to develop a codebase that resembles how modern frontend applications are built in professional software teams.
+- Passing lint checks
+- Successful production build
+- Updated documentation
+- Meaningful Git commit
 
 ---
 
 <div align="center">
 
-### Building Verse one commit at a time.
+### Verse v0.5
 
-**Current Progress: Complete Frontend CRUD • Ready for Advanced Social Features & Firebase**
+**Posts CRUD • Comments CRUD • Bookmark System • Context API Foundation**
+
+Built with ❤️ using Next.js, React, TypeScript, and Tailwind CSS.
 
 </div>
