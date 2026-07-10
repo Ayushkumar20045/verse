@@ -1,21 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Bookmark,
-  BookmarkCheck,
-  Heart,
-  MessageCircle,
-  MoreHorizontal,
-  Pencil,
-  Repeat2,
-  Trash2,
-} from "lucide-react";
 
 import Avatar from "@/components/ui/Avatar";
-import CommentComposer from "@/components/feed/CommentComposer";
-import CommentList from "@/components/feed/CommentList";
 import ConfirmModal from "@/components/ui/ConfirmModal";
+
+import PostHeader from "@/components/feed/PostHeader";
+import PostBody from "@/components/feed/PostBody";
+import PostActions from "@/components/feed/PostActions";
+import CommentSection from "@/components/feed/CommentSection";
 
 import { Post } from "@/types/post";
 import { Comment } from "@/types/comment";
@@ -38,6 +31,7 @@ export default function PostCard({
   const isCurrentUser = post.userId === "user-1";
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] =
     useState(false);
 
@@ -59,10 +53,6 @@ export default function PostCard({
 
   function handleConfirmDelete() {
     onDelete();
-    setIsDeleteModalOpen(false);
-  }
-
-  function handleCancelDelete() {
     setIsDeleteModalOpen(false);
   }
 
@@ -99,8 +89,8 @@ export default function PostCard({
       time: "Just now",
     };
 
-    setComments((previousComments) => [
-      ...previousComments,
+    setComments((previous) => [
+      ...previous,
       newComment,
     ]);
   }
@@ -109,26 +99,24 @@ export default function PostCard({
     commentId: number,
     content: string
   ) {
-    setComments((previousComments) =>
-      previousComments.map((comment) => {
-        if (comment.id !== commentId) {
-          return comment;
-        }
-
-        return {
-          ...comment,
-          content,
-          time: "Just now (edited)",
-        };
-      })
+    setComments((previous) =>
+      previous.map((comment) =>
+        comment.id === commentId
+          ? {
+              ...comment,
+              content,
+              time: "Just now (edited)",
+            }
+          : comment
+      )
     );
   }
 
   function handleDeleteComment(
     commentId: number
   ) {
-    setComments((previousComments) =>
-      previousComments.filter(
+    setComments((previous) =>
+      previous.filter(
         (comment) =>
           comment.id !== commentId
       )
@@ -136,165 +124,64 @@ export default function PostCard({
   }
 
   return (
-    <>      <article className="rounded-xl border border-neutral-800 p-6 transition-colors hover:border-neutral-700">
+    <>
+      <article className="rounded-xl border border-neutral-800 p-6 transition-colors hover:border-neutral-700">
         <div className="flex items-start gap-4">
           <Avatar name={post.author} />
 
           <div className="flex-1">
-            {/* Header */}
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="font-semibold">
-                    {post.author}
-                  </h3>
+            <PostHeader
+              author={post.author}
+              username={post.username}
+              time={post.time}
+              isCurrentUser={isCurrentUser}
+              isBookmarked={post.isBookmarked}
+              isMenuOpen={isMenuOpen}
+              onBookmark={onBookmark}
+              onToggleMenu={() =>
+                setIsMenuOpen(!isMenuOpen)
+              }
+              onEdit={handleEditClick}
+              onDelete={handleDeleteClick}
+            />
 
-                  <span className="text-sm text-neutral-500">
-                    {post.username}
-                  </span>
-
-                  <span className="text-sm text-neutral-500">
-                    •
-                  </span>
-
-                  <span className="text-sm text-neutral-500">
-                    {post.time}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={onBookmark}
-                  className="rounded-full p-2 text-neutral-500 transition-colors hover:bg-neutral-900 hover:text-white"
-                >
-                  {post.isBookmarked ? (
-                    <BookmarkCheck
-                      size={18}
-                      className="text-white"
-                    />
-                  ) : (
-                    <Bookmark size={18} />
-                  )}
-                </button>
-
-                {isCurrentUser && (
-                  <div className="relative">
-                    <button
-                      onClick={() =>
-                        setIsMenuOpen(!isMenuOpen)
-                      }
-                      className="rounded-full p-2 text-neutral-500 transition-colors hover:bg-neutral-900 hover:text-white"
-                    >
-                      <MoreHorizontal size={18} />
-                    </button>
-
-                    {isMenuOpen && (
-                      <div className="absolute right-0 top-10 z-50 w-44 overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950 shadow-xl">
-                        <button
-                          onClick={handleEditClick}
-                          className="flex w-full items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-neutral-900"
-                        >
-                          <Pencil size={16} />
-                          Edit Post
-                        </button>
-
-                        <button
-                          onClick={handleDeleteClick}
-                          className="flex w-full items-center gap-3 px-4 py-3 text-sm text-red-500 transition-colors hover:bg-neutral-900"
-                        >
-                          <Trash2 size={16} />
-                          Delete Post
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {isEditing ? (
-              <>
-                <textarea
-                  rows={4}
-                  value={editedContent}
-                  onChange={(event) =>
-                    setEditedContent(event.target.value)
-                  }
-                  className="mt-3 w-full resize-none rounded-lg border border-neutral-800 bg-transparent p-4 outline-none focus:border-neutral-600"
-                />
-
-                <div className="mt-4 flex justify-end gap-3">
-                  <button
-                    onClick={handleCancelEdit}
-                    className="rounded-lg border border-neutral-700 px-4 py-2 text-sm hover:bg-neutral-900"
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    onClick={handleSaveEdit}
-                    className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-neutral-200"
-                  >
-                    Save Changes
-                  </button>
-                </div>
-              </>
-            ) : (
-              <p className="mt-3 leading-7">
-                {post.content}
-              </p>
-            )}
+            <PostBody
+              isEditing={isEditing}
+              content={post.content}
+              editedContent={editedContent}
+              onContentChange={
+                setEditedContent
+              }
+              onSave={handleSaveEdit}
+              onCancel={handleCancelEdit}
+            />
 
             {!isEditing && (
-              <div className="mt-6 flex items-center gap-8 text-sm">
-                <button
-                  onClick={onLike}
-                  className={`flex items-center gap-2 transition-colors ${
-                    post.isLiked
-                      ? "text-red-500"
-                      : "text-neutral-500 hover:text-red-500"
-                  }`}
-                >
-                  <Heart
-                    size={18}
-                    fill={
-                      post.isLiked
-                        ? "currentColor"
-                        : "none"
-                    }
-                  />
-                  <span>{post.likes}</span>
-                </button>
-
-                <button
-                  onClick={() =>
-                    setShowComments(!showComments)
-                  }
-                  className="flex items-center gap-2 text-neutral-500 transition-colors hover:text-blue-500"
-                >
-                  <MessageCircle size={18} />
-                  <span>{comments.length}</span>
-                </button>
-
-                <button className="flex items-center gap-2 text-neutral-500 transition-colors hover:text-green-500">
-                  <Repeat2 size={18} />
-                  <span>{post.shares}</span>
-                </button>
-              </div>
-            )}            {showComments && (
-              <div className="mt-6">
-                <CommentComposer
-                  onComment={handleAddComment}
-                />
-
-                <CommentList
-                  comments={comments}
-                  onEdit={handleEditComment}
-                  onDelete={handleDeleteComment}
-                />
-              </div>
+              <PostActions
+                likes={post.likes}
+                comments={comments.length}
+                shares={post.shares}
+                isLiked={post.isLiked}
+                onLike={onLike}
+                onToggleComments={() =>
+                  setShowComments(
+                    !showComments
+                  )
+                }
+              />
             )}
+
+            <CommentSection
+              isVisible={showComments}
+              comments={comments}
+              onComment={handleAddComment}
+              onEditComment={
+                handleEditComment
+              }
+              onDeleteComment={
+                handleDeleteComment
+              }
+            />
           </div>
         </div>
       </article>
@@ -306,7 +193,9 @@ export default function PostCard({
         confirmText="Delete"
         cancelText="Cancel"
         onConfirm={handleConfirmDelete}
-        onCancel={handleCancelDelete}
+        onCancel={() =>
+          setIsDeleteModalOpen(false)
+        }
       />
     </>
   );

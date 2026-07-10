@@ -1,10 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Plus } from "lucide-react";
 
 import Button from "@/components/ui/Button";
 import { navigation } from "@/lib/navigation";
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <aside className="flex h-screen flex-col px-10 py-10">
       {/* Logo */}
@@ -17,9 +22,10 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="mt-4 flex-1">
         <ul className="space-y-2">
-          {navigation.map((item, index) => {
+          {navigation.map((item) => {
             const Icon = item.icon;
-            const isActive = index === 0;
+            const isActive =
+              pathname === item.href;
 
             return (
               <li key={item.id}>
@@ -27,7 +33,7 @@ export default function Sidebar() {
                   href={item.href}
                   className={`flex items-center gap-3 border-l-2 py-3 pl-4 transition-all duration-200 ${
                     isActive
-                      ? "border-white text-white font-semibold"
+                      ? "border-white font-semibold text-white"
                       : "border-transparent text-neutral-400 hover:border-neutral-700 hover:text-white"
                   }`}
                 >
@@ -54,7 +60,7 @@ export default function Sidebar() {
       {/* Footer */}
       <div className="mt-6 border-t border-neutral-800 pt-4">
         <p className="text-xs text-neutral-500">
-          Verse v0.1
+          Verse v0.2
         </p>
       </div>
     </aside>

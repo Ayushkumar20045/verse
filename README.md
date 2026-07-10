@@ -4,7 +4,7 @@
 
 ### Share your story. Shape the conversation.
 
-A modern social platform built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**.
+A modern social platform built with **Next.js**, **React**, **TypeScript**, **Tailwind CSS**, and **React Context API**.
 
 Currently under active development.
 
@@ -14,11 +14,11 @@ Currently under active development.
 
 # Overview
 
-Verse is a modern social platform focused on building a clean, scalable, and maintainable user experience.
+Verse is a modern social platform inspired by applications like X (Twitter), focused on clean design, reusable architecture, and scalable frontend development.
 
-The project follows modern React development practices with reusable components, type safety, and scalable architecture. Every feature is implemented incrementally, tested thoroughly, and documented before moving to the next milestone.
+The project is being built from scratch with production-ready development practices, emphasizing reusable components, type safety, and maintainable code. Every feature is implemented incrementally, tested thoroughly, and documented before moving to the next milestone.
 
-The frontend is currently the primary focus. Backend services using Firebase will be integrated after the frontend architecture is complete.
+Firebase integration will be introduced after the frontend architecture is fully completed.
 
 ---
 
@@ -31,7 +31,7 @@ The frontend is currently the primary focus. Backend services using Firebase wil
 | TypeScript | Type Safety |
 | Tailwind CSS | Styling |
 | Lucide React | Icons |
-| Context API | Global State Management |
+| React Context API | Global State Management |
 | Firebase | Planned Backend |
 
 ---
@@ -56,46 +56,75 @@ The frontend is currently the primary focus. Backend services using Firebase wil
 - Create comments
 - Edit comments
 - Delete comments
-- Expand / Collapse comment section
+- Expand / Collapse comments
 - Live comment counter
+
+---
+
+## Bookmarks
+
+- Dedicated Bookmarks page
+- Real-time bookmark synchronization
+- Empty state for bookmarked posts
+- Shared post rendering through reusable components
 
 ---
 
 ## User Experience
 
 - Three-dot action menu
-- Custom confirmation modal
-- Responsive desktop feed
-- Instant UI updates using React state
+- Confirmation modal
+- Responsive desktop layout
+- Active sidebar navigation
+- Instant UI updates
 
 ---
 
-## Architecture
+# Architecture
 
-- Context API foundation
-- Reusable components
-- Feature-based folder structure
-- Type-safe models
-- Immutable state updates
-- Component-driven architecture
+## Reusable Components
 
----
+### Feed
 
-# UI Components
-
-## Feed
-
+- Feed
+- FeedList
 - PostComposer
 - PostCard
+- PostHeader
+- PostBody
+- PostActions
+- CommentSection
 - CommentComposer
 - CommentCard
 - CommentList
 
-## UI
+### Layout
+
+- Sidebar
+- RightSidebar
+
+### UI
 
 - Avatar
 - Button
 - ConfirmModal
+
+---
+
+# Global State
+
+Verse uses **React Context API** to provide a single source of truth for post-related data.
+
+Current Context Features:
+
+- Create Posts
+- Edit Posts
+- Delete Posts
+- Like Posts
+- Bookmark Posts
+- Add Comments
+- Edit Comments
+- Delete Comments
 
 ---
 
@@ -109,13 +138,15 @@ The frontend is currently the primary focus. Backend services using Firebase wil
 | Feed | ✅ Complete |
 | Posts CRUD | ✅ Complete |
 | Comments CRUD | ✅ Complete |
-| Bookmark Toggle | ✅ Complete |
-| Context API Foundation | ✅ Complete |
-| Bookmarks Page | 🚧 In Progress |
-| Profile | ⏳ Planned |
-| Search | ⏳ Planned |
-| Notifications | ⏳ Planned |
-| Firebase Integration | ⏳ Planned |
+| Bookmark System | ✅ Complete |
+| Bookmarks Page | ✅ Complete |
+| Context API | ✅ Complete |
+| Component Refactoring | ✅ Complete |
+| Profile | 🚧 Planned |
+| Explore | 🚧 Planned |
+| Notifications | 🚧 Planned |
+| Responsive Design | 🚧 Planned |
+| Firebase Integration | 🚧 Planned |
 
 ---
 
@@ -125,20 +156,30 @@ The frontend is currently the primary focus. Backend services using Firebase wil
 verse
 │
 ├── app
+│
 ├── components
 │   ├── feed
+│   │   ├── Feed.tsx
+│   │   ├── FeedList.tsx
+│   │   ├── PostComposer.tsx
+│   │   ├── PostCard.tsx
+│   │   ├── PostHeader.tsx
+│   │   ├── PostBody.tsx
+│   │   ├── PostActions.tsx
+│   │   ├── CommentSection.tsx
+│   │   ├── CommentComposer.tsx
+│   │   ├── CommentCard.tsx
+│   │   └── CommentList.tsx
+│   │
 │   ├── layout
 │   └── ui
 │
 ├── context
-│   └── PostsContext.tsx
-│
 ├── hooks
 ├── lib
 ├── public
 ├── types
-├── utils
-└── README.md
+└── utils
 ```
 
 ---
@@ -160,9 +201,9 @@ npm run lint
     ↓
 npm run build
     ↓
-Git Commit
+Documentation
     ↓
-Git Push
+Git Commit
 ```
 
 ---
@@ -176,27 +217,29 @@ Git Push
 - Sidebar
 - Feed
 - Dynamic post creation
-- Post CRUD
-- Comment CRUD
+- Posts CRUD
+- Comments CRUD
 - Like system
-- Bookmark toggle
+- Bookmark system
+- Bookmarks page
 - Character counter
 - Keyboard shortcuts
 - Confirmation modal
-- Context API foundation
+- Context API
+- Component refactoring
 
 ---
 
 ## Upcoming
 
-- Bookmarks page
-- User profile
-- Search
-- Notifications
-- Image posts
-- Responsive mobile layout
+- Shared application layout
+- Profile page
+- Explore page
+- Notifications page
+- Responsive design
 - Firebase Authentication
-- Firestore
+- Firestore Database
+- Image uploads
 - Real-time updates
 - Deployment
 
@@ -238,25 +281,25 @@ npm run build
 
 # Development Philosophy
 
-Verse is being built as a portfolio-quality software engineering project.
+Verse is being developed as a portfolio-quality software engineering project.
 
-The focus is not only on delivering features but also on writing clean, reusable, and maintainable code that can scale as the application grows.
+The focus is not only on implementing features but also on writing clean, reusable, scalable, and maintainable code following modern React and Next.js development practices.
 
-Each development session ends with:
+Every development session concludes with:
 
 - Passing lint checks
 - Successful production build
 - Updated documentation
-- Meaningful Git commit
+- Meaningful Git commits
 
 ---
 
 <div align="center">
 
-### Verse v0.5
+## Verse v0.6
 
-**Posts CRUD • Comments CRUD • Bookmark System • Context API Foundation**
+**Posts CRUD • Comments CRUD • Bookmark System • Bookmarks Page • Context API • Reusable Component Architecture**
 
-Built with ❤️ using Next.js, React, TypeScript, and Tailwind CSS.
+Built with ❤️ using Next.js, React, TypeScript, and Tailwind CSS and lots of patience
 
 </div>

@@ -1,7 +1,8 @@
 "use client";
 
 import PostComposer from "@/components/feed/PostComposer";
-import PostCard from "@/components/feed/PostCard";
+import FeedList from "@/components/feed/FeedList";
+
 import { usePosts } from "@/context/PostsContext";
 
 export default function Feed() {
@@ -16,22 +17,17 @@ export default function Feed() {
 
   return (
     <main className="min-h-screen p-6">
-      <PostComposer onPost={createPost} />
+      <PostComposer
+        onPost={createPost}
+      />
 
-      <section className="mt-6 space-y-6">
-        {posts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            onLike={() => likePost(post.id)}
-            onBookmark={() => bookmarkPost(post.id)}
-            onDelete={() => deletePost(post.id)}
-            onEdit={(content) =>
-              editPost(post.id, content)
-            }
-          />
-        ))}
-      </section>
+      <FeedList
+        posts={posts}
+        onLike={likePost}
+        onBookmark={bookmarkPost}
+        onDelete={deletePost}
+        onEdit={editPost}
+      />
     </main>
   );
 }

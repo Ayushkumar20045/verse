@@ -114,3 +114,16 @@
 - Restored and stabilized the PostCard component after a major refactor, preserving all existing functionality.
 - Resolved a TypeScript type conflict by correctly importing the custom Comment model instead of using the browser's built-in Comment interface.
 - Successfully validated the application with passing lint and production build, establishing a solid foundation for upcoming features like the Bookmarks page and Firebase integration.
+
+## Day 11 - Component Refactoring & Bookmarks Page
+
+- Refactored the PostCard component into smaller reusable components for improved readability and maintainability.
+- Created dedicated PostHeader, PostBody, PostActions, and CommentSection components.
+- Built a reusable FeedList component to eliminate duplicated post rendering across multiple pages.
+- Implemented a dedicated Bookmarks page to display all bookmarked posts using shared global state.
+- Added conditional empty-state UI for users with no bookmarked posts.
+- Connected the Bookmarks page with the PostsContext to synchronize bookmark changes across the application.
+- Updated the Feed component to consume the reusable FeedList component and Context API.
+- Added active navigation highlighting in the sidebar using Next.js App Router.
+- Improved the overall project architecture by increasing component reusability and reducing code duplication.
+- Successfully validated the application with passing lint and production build after the complete refactor.
