@@ -79,53 +79,59 @@ Firebase integration will be introduced after the frontend architecture is fully
 - Instant UI updates
 
 ---
+## Navigation
 
-# Architecture
-
-## Reusable Components
-
-### Feed
-
-- Feed
-- FeedList
-- PostComposer
-- PostCard
-- PostHeader
-- PostBody
-- PostActions
-- CommentSection
-- CommentComposer
-- CommentCard
-- CommentList
-
-### Layout
-
-- Sidebar
-- RightSidebar
-
-### UI
-
-- Avatar
-- Button
-- ConfirmModal
+- Shared application layout using Next.js Route Groups
+- Active sidebar navigation highlighting
+- Multi-page application architecture
 
 ---
 
-# Global State
+## State Management
 
-Verse uses **React Context API** to provide a single source of truth for post-related data.
+- React Context API
+- Single source of truth for posts
+- Synchronized likes across pages
+- Synchronized bookmarks across pages
+- Synchronized comments across pages
 
-Current Context Features:
+# Architecture
 
-- Create Posts
-- Edit Posts
-- Delete Posts
-- Like Posts
-- Bookmark Posts
-- Add Comments
-- Edit Comments
-- Delete Comments
+Verse follows a reusable, component-driven architecture designed for scalability.
 
+## Application Structure
+
+```text
+app
+│
+├── layout.tsx
+│
+└── (main)
+    ├── layout.tsx
+    ├── page.tsx
+    ├── bookmarks
+    ├── profile
+    ├── explore
+    └── notifications
+```
+
+The shared `(main)` layout ensures every application page automatically receives the Sidebar, main content area, and Right Sidebar without duplicating layout code.
+
+---
+
+## Global State
+
+The application uses **React Context API** as the single source of truth.
+
+Currently managed globally:
+
+- Posts
+- Likes
+- Bookmarks
+- Comments
+- CRUD Operations
+
+Every page consumes the same state, ensuring changes made anywhere in the application are reflected everywhere immediately.
 ---
 
 # Current Progress
@@ -133,20 +139,20 @@ Current Context Features:
 | Module | Status |
 |---------|--------|
 | Project Setup | ✅ Complete |
-| Layout | ✅ Complete |
+| Shared Layout Architecture | ✅ Complete |
 | Sidebar | ✅ Complete |
 | Feed | ✅ Complete |
 | Posts CRUD | ✅ Complete |
 | Comments CRUD | ✅ Complete |
+| Like System | ✅ Complete |
 | Bookmark System | ✅ Complete |
 | Bookmarks Page | ✅ Complete |
 | Context API | ✅ Complete |
-| Component Refactoring | ✅ Complete |
-| Profile | 🚧 Planned |
+| State Synchronization | ✅ Complete |
+| Profile | 🚧 In Progress |
 | Explore | 🚧 Planned |
 | Notifications | 🚧 Planned |
-| Responsive Design | 🚧 Planned |
-| Firebase Integration | 🚧 Planned |
+| Firebase | 🚧 Planned |
 
 ---
 
@@ -212,35 +218,24 @@ Git Commit
 
 ## Completed
 
-- Project setup
-- Three-column layout
-- Sidebar
-- Feed
-- Dynamic post creation
-- Posts CRUD
-- Comments CRUD
-- Like system
-- Bookmark system
-- Bookmarks page
-- Character counter
-- Keyboard shortcuts
-- Confirmation modal
-- Context API
-- Component refactoring
+- Shared Layout using Route Groups
+- Global State Management
+- Cross-page State Synchronization
+- Bookmarks
+- Feed Refactoring
+- Component Refactoring
 
 ---
 
 ## Upcoming
 
-- Shared application layout
-- Profile page
-- Explore page
-- Notifications page
-- Responsive design
+- Profile Page
+- Explore
+- Notifications
+- Responsive Design
 - Firebase Authentication
-- Firestore Database
-- Image uploads
-- Real-time updates
+- Firestore
+- Image Uploads
 - Deployment
 
 ---
@@ -279,27 +274,46 @@ npm run build
 
 ---
 
-# Development Philosophy
+---
 
-Verse is being developed as a portfolio-quality software engineering project.
+## Building in Public
 
-The focus is not only on implementing features but also on writing clean, reusable, scalable, and maintainable code following modern React and Next.js development practices.
+Verse isn't being developed by jumping straight to the final product.
 
-Every development session concludes with:
+Every feature follows the same engineering workflow:
 
-- Passing lint checks
-- Successful production build
-- Updated documentation
-- Meaningful Git commits
+```text
+Think
+    ↓
+Design
+    ↓
+Build
+    ↓
+Break
+    ↓
+Debug
+    ↓
+Refactor
+    ↓
+Test
+    ↓
+Document
+```
+
+The goal isn't just to finish an application.
+
+It's to understand every architectural decision behind it.
+
+Every commit represents a deliberate improvement rather than simply adding another feature.
 
 ---
 
 <div align="center">
 
-## Verse v0.6
+### "Good software isn't built by writing more code.
 
-**Posts CRUD • Comments CRUD • Bookmark System • Bookmarks Page • Context API • Reusable Component Architecture**
+It's built by making tomorrow's code easier to write."
 
-Built with ❤️ using Next.js, React, TypeScript, and Tailwind CSS and lots of patience
+**— Verse Development Journal**
 
 </div>

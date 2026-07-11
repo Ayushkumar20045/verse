@@ -36,7 +36,7 @@ export default function BookmarksPage() {
           </h2>
 
           <p className="mt-2 text-neutral-500">
-            Bookmark posts from your feed and they'll appear here.
+            Bookmark posts from your feed to see them here.
           </p>
         </div>
       ) : (

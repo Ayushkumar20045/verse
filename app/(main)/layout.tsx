@@ -1,8 +1,11 @@
-import Feed from "@/components/layout/Feed";
-import RightSidebar from "@/components/layout/RightSidebar";
 import Sidebar from "@/components/layout/Sidebar";
+import RightSidebar from "@/components/layout/RightSidebar";
 
-export default function Home() {
+export default function MainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="mx-auto flex max-w-[1440px]">
@@ -11,9 +14,9 @@ export default function Home() {
           <Sidebar />
         </aside>
 
-        {/* Feed */}
+        {/* Page Content */}
         <section className="w-[700px] border-r border-neutral-800">
-          <Feed />
+          {children}
         </section>
 
         {/* Right Sidebar */}

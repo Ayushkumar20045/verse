@@ -127,3 +127,17 @@
 - Added active navigation highlighting in the sidebar using Next.js App Router.
 - Improved the overall project architecture by increasing component reusability and reducing code duplication.
 - Successfully validated the application with passing lint and production build after the complete refactor.
+
+## Day 12 - Shared Layout Architecture & Context Synchronization
+
+- Refactored the application structure using Next.js Route Groups for a cleaner and more scalable architecture.
+- Created a shared `(main)` layout to eliminate duplicated layout code across application pages.
+- Moved the Home page into the shared layout while preserving the existing three-column interface.
+- Migrated the Bookmarks page into the shared layout, enabling consistent navigation and UI across pages.
+- Added active sidebar navigation highlighting using the current route.
+- Improved application scalability by preparing a shared layout for future Profile, Explore, and Notifications pages.
+- Refactored PostCard to remove duplicate local comment state and established PostsContext as the single source of truth for post interactions.
+- Connected comment creation, editing, and deletion directly to PostsContext to ensure synchronized state across all pages.
+- Fixed synchronization issues where comments were not updating correctly between the Home and Bookmarks pages.
+- Verified cross-page synchronization by testing likes, bookmarks, and comments from multiple application routes.
+- Successfully validated the application with passing ESLint checks and a successful production build after the architecture refactor.

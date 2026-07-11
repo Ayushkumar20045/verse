@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { usePosts } from "@/context/PostsContext";
+
 import Avatar from "@/components/ui/Avatar";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 
@@ -11,7 +13,6 @@ import PostActions from "@/components/feed/PostActions";
 import CommentSection from "@/components/feed/CommentSection";
 
 import { Post } from "@/types/post";
-import { Comment } from "@/types/comment";
 
 type PostCardProps = {
   post: Post;
@@ -28,10 +29,15 @@ export default function PostCard({
   onDelete,
   onEdit,
 }: PostCardProps) {
+  const {
+    addComment,
+    editComment,
+    deleteComment,
+  } = usePosts();
+
   const isCurrentUser = post.userId === "user-1";
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] =
     useState(false);
 
@@ -42,9 +48,6 @@ export default function PostCard({
 
   const [showComments, setShowComments] =
     useState(false);
-
-  const [comments, setComments] =
-    useState<Comment[]>(post.comments);
 
   function handleDeleteClick() {
     setIsMenuOpen(false);
@@ -63,8 +66,7 @@ export default function PostCard({
   }
 
   function handleSaveEdit() {
-    const trimmedContent =
-      editedContent.trim();
+    const trimmedContent = editedContent.trim();
 
     if (!trimmedContent) {
       return;
@@ -80,47 +82,20 @@ export default function PostCard({
   }
 
   function handleAddComment(content: string) {
-    const newComment: Comment = {
-      id: Date.now(),
-      userId: "user-1",
-      author: "Ayush Kumar",
-      username: "@ayushkumar",
-      content,
-      time: "Just now",
-    };
-
-    setComments((previous) => [
-      ...previous,
-      newComment,
-    ]);
+    addComment(post.id, content);
   }
 
   function handleEditComment(
     commentId: number,
     content: string
   ) {
-    setComments((previous) =>
-      previous.map((comment) =>
-        comment.id === commentId
-          ? {
-              ...comment,
-              content,
-              time: "Just now (edited)",
-            }
-          : comment
-      )
-    );
+    editComment(post.id, commentId, content);
   }
 
   function handleDeleteComment(
     commentId: number
   ) {
-    setComments((previous) =>
-      previous.filter(
-        (comment) =>
-          comment.id !== commentId
-      )
-    );
+    deleteComment(post.id, commentId);
   }
 
   return (
@@ -149,9 +124,7 @@ export default function PostCard({
               isEditing={isEditing}
               content={post.content}
               editedContent={editedContent}
-              onContentChange={
-                setEditedContent
-              }
+              onContentChange={setEditedContent}
               onSave={handleSaveEdit}
               onCancel={handleCancelEdit}
             />
@@ -159,7 +132,7 @@ export default function PostCard({
             {!isEditing && (
               <PostActions
                 likes={post.likes}
-                comments={comments.length}
+                comments={post.comments.length}
                 shares={post.shares}
                 isLiked={post.isLiked}
                 onLike={onLike}
@@ -173,7 +146,7 @@ export default function PostCard({
 
             <CommentSection
               isVisible={showComments}
-              comments={comments}
+              comments={post.comments}
               onComment={handleAddComment}
               onEditComment={
                 handleEditComment
