@@ -141,3 +141,17 @@
 - Fixed synchronization issues where comments were not updating correctly between the Home and Bookmarks pages.
 - Verified cross-page synchronization by testing likes, bookmarks, and comments from multiple application routes.
 - Successfully validated the application with passing ESLint checks and a successful production build after the architecture refactor.
+
+## Day 13 - Expanding Verse Beyond the Feed
+
+- Designed and implemented a dedicated Profile page using the existing PostsContext architecture.
+- Displayed only the authenticated user's posts by filtering global state instead of duplicating data.
+- Added a profile cover banner, user information section, profile statistics, and reusable post feed.
+- Built a dedicated Explore page with its own layout while reusing the existing FeedList component.
+- Created reusable Explore components including ExploreHeader, SearchBar, and TrendingTopics.
+- Added a clean discovery interface with a search input and trending technology topics.
+- Implemented a dedicated Notifications page with reusable NotificationCard, NotificationHeader, and NotificationList components.
+- Designed notification cards with contextual icons, timestamps, and consistent styling.
+- Continued the component-first architecture by separating page layouts from reusable UI components.
+- Reused existing global state and feed components across Home, Bookmarks, Profile, and Explore without duplicating logic.
+- Successfully validated all new pages with ESLint and production build checks.

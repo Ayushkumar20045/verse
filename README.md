@@ -95,6 +95,31 @@ Firebase integration will be introduced after the frontend architecture is fully
 - Synchronized bookmarks across pages
 - Synchronized comments across pages
 
+## Profile
+
+- Dedicated user profile page
+- User statistics
+- Personal post feed
+- Shared global state
+
+---
+
+## Explore
+
+- Dedicated Explore page
+- Search interface
+- Trending topics
+- Discover feed
+
+---
+
+## Notifications
+
+- Dedicated Notifications page
+- Notification cards
+- Activity timeline
+- Reusable notification components
+
 # Architecture
 
 Verse follows a reusable, component-driven architecture designed for scalability.
@@ -144,15 +169,20 @@ Every page consumes the same state, ensuring changes made anywhere in the applic
 | Feed | ✅ Complete |
 | Posts CRUD | ✅ Complete |
 | Comments CRUD | ✅ Complete |
-| Like System | ✅ Complete |
+| Likes | ✅ Complete |
 | Bookmark System | ✅ Complete |
 | Bookmarks Page | ✅ Complete |
+| Profile Page | ✅ Complete |
+| Explore Page | ✅ Complete |
+| Notifications Page | ✅ Complete |
 | Context API | ✅ Complete |
 | State Synchronization | ✅ Complete |
-| Profile | 🚧 In Progress |
-| Explore | 🚧 Planned |
-| Notifications | 🚧 Planned |
-| Firebase | 🚧 Planned |
+| Settings | 🚧 Planned |
+| Firebase Authentication | 🚧 Planned |
+| Firestore Database | 🚧 Planned |
+| Image Uploads | 🚧 Planned |
+| Responsive Design | 🚧 Planned |
+| Deployment | 🚧 Planned |
 
 ---
 
@@ -161,32 +191,35 @@ Every page consumes the same state, ensuring changes made anywhere in the applic
 ```text
 verse
 │
-├── app
+# Current Application Structure
+
+```text
+app
 │
-├── components
-│   ├── feed
-│   │   ├── Feed.tsx
-│   │   ├── FeedList.tsx
-│   │   ├── PostComposer.tsx
-│   │   ├── PostCard.tsx
-│   │   ├── PostHeader.tsx
-│   │   ├── PostBody.tsx
-│   │   ├── PostActions.tsx
-│   │   ├── CommentSection.tsx
-│   │   ├── CommentComposer.tsx
-│   │   ├── CommentCard.tsx
-│   │   └── CommentList.tsx
-│   │
-│   ├── layout
-│   └── ui
+├── layout.tsx
 │
-├── context
-├── hooks
-├── lib
-├── public
-├── types
-└── utils
+└── (main)
+    ├── layout.tsx
+    ├── page.tsx
+    ├── bookmarks
+    ├── profile
+    ├── explore
+    └── notifications
+
+components
+│
+├── feed
+├── explore
+├── notifications
+├── layout
+└── ui
+
+context
+│
+└── PostsContext.tsx
 ```
+
+Verse follows a reusable component-based architecture where every page consumes the same global application state through React Context, ensuring synchronization across the entire application.
 
 ---
 
@@ -218,24 +251,28 @@ Git Commit
 
 ## Completed
 
-- Shared Layout using Route Groups
-- Global State Management
-- Cross-page State Synchronization
+- Shared Layout Architecture
+- Home Feed
+- Profile
+- Explore
+- Notifications
 - Bookmarks
-- Feed Refactoring
-- Component Refactoring
+- Posts CRUD
+- Comments CRUD
+- Like System
+- Bookmark System
+- React Context API
+- Cross-Page State Synchronization
 
 ---
 
 ## Upcoming
 
-- Profile Page
-- Explore
-- Notifications
-- Responsive Design
+- Settings
 - Firebase Authentication
-- Firestore
+- Firestore Integration
 - Image Uploads
+- Responsive Design
 - Deployment
 
 ---
@@ -278,42 +315,24 @@ npm run build
 
 ## Building in Public
 
-Verse isn't being developed by jumping straight to the final product.
+---
 
-Every feature follows the same engineering workflow:
+## Engineering Notes
 
-```text
-Think
-    ↓
-Design
-    ↓
-Build
-    ↓
-Break
-    ↓
-Debug
-    ↓
-Refactor
-    ↓
-Test
-    ↓
-Document
-```
+Verse was never intended to be just another frontend clone.
 
-The goal isn't just to finish an application.
-
-It's to understand every architectural decision behind it.
-
-Every commit represents a deliberate improvement rather than simply adding another feature.
+This repository is not just a record of completed features—it is a record of engineering decisions, refactoring, debugging, and continuous improvement.
 
 ---
 
 <div align="center">
 
-### "Good software isn't built by writing more code.
+### Every commit tells a story.
 
-It's built by making tomorrow's code easier to write."
+Not of writing more code,
 
-**— Verse Development Journal**
+but of writing **better** code.
+
+**Welcome to the Verse Development Journal.**
 
 </div>
