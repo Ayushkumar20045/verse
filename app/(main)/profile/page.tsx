@@ -1,7 +1,9 @@
 "use client";
 
 import FeedList from "@/components/feed/FeedList";
+
 import { usePosts } from "@/context/PostsContext";
+import { useUser } from "@/context/UserContext";
 
 export default function ProfilePage() {
   const {
@@ -11,6 +13,11 @@ export default function ProfilePage() {
     deletePost,
     editPost,
   } = usePosts();
+
+  const {
+    displayName,
+    username,
+  } = useUser();
 
   const userPosts = posts.filter(
     (post) => post.userId === "user-1"
@@ -26,18 +33,18 @@ export default function ProfilePage() {
         {/* Avatar */}
         <div className="-mt-16">
           <div className="flex h-32 w-32 items-center justify-center rounded-full border-4 border-black bg-neutral-700 text-4xl font-bold">
-            A
+            {displayName.charAt(0).toUpperCase()}
           </div>
         </div>
 
         {/* User Info */}
         <div className="mt-6">
           <h1 className="text-3xl font-bold">
-            Ayush Kumar
+            {displayName}
           </h1>
 
           <p className="text-neutral-500">
-            @ayushkumar
+            {username}
           </p>
 
           <p className="mt-4 text-neutral-300">
@@ -45,7 +52,7 @@ export default function ProfilePage() {
           </p>
 
           <p className="mt-2 text-neutral-400">
-            Building Verse .
+            Building Verse.
           </p>
 
           <p className="mt-4 text-sm text-neutral-500">
@@ -59,6 +66,7 @@ export default function ProfilePage() {
             <p className="text-2xl font-bold">
               {userPosts.length}
             </p>
+
             <p className="text-sm text-neutral-500">
               Posts
             </p>
@@ -68,6 +76,7 @@ export default function ProfilePage() {
             <p className="text-2xl font-bold">
               248
             </p>
+
             <p className="text-sm text-neutral-500">
               Followers
             </p>
@@ -77,6 +86,7 @@ export default function ProfilePage() {
             <p className="text-2xl font-bold">
               180
             </p>
+
             <p className="text-sm text-neutral-500">
               Following
             </p>
@@ -92,7 +102,8 @@ export default function ProfilePage() {
           {userPosts.length === 0 ? (
             <div className="rounded-xl border border-dashed border-neutral-800 p-10 text-center">
               <p className="text-neutral-500">
-                Create your first post to see it here.
+                Create your first post to see it
+                here.
               </p>
             </div>
           ) : (

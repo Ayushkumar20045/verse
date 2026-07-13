@@ -155,3 +155,19 @@
 - Continued the component-first architecture by separating page layouts from reusable UI components.
 - Reused existing global state and feed components across Home, Bookmarks, Profile, and Explore without duplicating logic.
 - Successfully validated all new pages with ESLint and production build checks.
+
+## Day 14 - Settings Module & Global User State Management
+
+- Built a dedicated Settings page using reusable and modular components.
+- Created reusable SettingsSection, SettingsInput, SettingsToggle, and DangerZone components.
+- Added account, appearance, notification, and privacy settings with a clean section-based layout.
+- Implemented a reusable confirmation workflow for account deletion using the existing ConfirmModal component.
+- Added a professional "Save Changes" workflow with dirty-state detection to prevent unnecessary saves.
+- Implemented loading and success states for saving settings, preparing the UI for future backend integration.
+- Introduced a dedicated UserContext to centralize user-related data across the application.
+- Wrapped the application with UserProvider to make global user state available throughout the app.
+- Migrated the Settings page from local component state to UserContext for centralized state management.
+- Connected the Profile page to UserContext, enabling real-time synchronization of profile information.
+- Refactored the application architecture by separating post-related state (PostsContext) from user-related state (UserContext).
+- Prepared the application for Firebase integration by establishing a scalable user management architecture.
+- Successfully validated the entire application with passing ESLint and production build checks after the architectural refactor.

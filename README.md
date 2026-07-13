@@ -12,13 +12,24 @@ Currently under active development.
 
 ---
 
+# Current Status
+
+> **Version:** v0.8  
+> **Development Day:** 14  
+> **Build Status:** Passing  
+> **Lint Status:** Passing  
+> **Architecture:** Stable  
+> **Current Focus:** Firebase Authentication
+
+---
+
 # Overview
 
-Verse is a modern social platform inspired by applications like X (Twitter), focused on clean design, reusable architecture, and scalable frontend development.
+Verse is a modern social platform inspired by applications like X (Twitter), built from scratch with a strong focus on scalable architecture, reusable components, and production-ready frontend engineering.
 
-The project is being built from scratch with production-ready development practices, emphasizing reusable components, type safety, and maintainable code. Every feature is implemented incrementally, tested thoroughly, and documented before moving to the next milestone.
+Instead of rushing features, every module is designed, implemented, tested, documented, and validated before moving to the next milestone.
 
-Firebase integration will be introduced after the frontend architecture is fully completed.
+The current version focuses on building a solid frontend foundation before integrating Firebase for authentication, database, and storage.
 
 ---
 
@@ -70,37 +81,12 @@ Firebase integration will be introduced after the frontend architecture is fully
 
 ---
 
-## User Experience
-
-- Three-dot action menu
-- Confirmation modal
-- Responsive desktop layout
-- Active sidebar navigation
-- Instant UI updates
-
----
-## Navigation
-
-- Shared application layout using Next.js Route Groups
-- Active sidebar navigation highlighting
-- Multi-page application architecture
-
----
-
-## State Management
-
-- React Context API
-- Single source of truth for posts
-- Synchronized likes across pages
-- Synchronized bookmarks across pages
-- Synchronized comments across pages
-
 ## Profile
 
-- Dedicated user profile page
-- User statistics
+- Dedicated Profile page
 - Personal post feed
-- Shared global state
+- User statistics
+- Global profile synchronization
 
 ---
 
@@ -116,47 +102,78 @@ Firebase integration will be introduced after the frontend architecture is fully
 ## Notifications
 
 - Dedicated Notifications page
-- Notification cards
 - Activity timeline
+- Notification cards
 - Reusable notification components
-
-# Architecture
-
-Verse follows a reusable, component-driven architecture designed for scalability.
-
-## Application Structure
-
-```text
-app
-│
-├── layout.tsx
-│
-└── (main)
-    ├── layout.tsx
-    ├── page.tsx
-    ├── bookmarks
-    ├── profile
-    ├── explore
-    └── notifications
-```
-
-The shared `(main)` layout ensures every application page automatically receives the Sidebar, main content area, and Right Sidebar without duplicating layout code.
 
 ---
 
-## Global State
+## Settings
 
-The application uses **React Context API** as the single source of truth.
+- Editable account information
+- Appearance preferences
+- Notification preferences
+- Privacy settings
+- Save Changes workflow
+- Dirty state detection
+- Global user synchronization
 
-Currently managed globally:
+---
 
-- Posts
+## Navigation
+
+- Shared application layout
+- Next.js Route Groups
+- Active sidebar navigation
+- Multi-page architecture
+
+---
+
+## State Management
+
+### PostsContext
+
+- Posts CRUD
+- Comments CRUD
 - Likes
 - Bookmarks
-- Comments
-- CRUD Operations
+- Cross-page synchronization
 
-Every page consumes the same state, ensuring changes made anywhere in the application are reflected everywhere immediately.
+### UserContext
+
+- Display name
+- Username
+- User preferences
+- Appearance settings
+- Privacy settings
+- Notification settings
+- Global profile synchronization
+
+---
+
+# Architecture
+
+Verse follows a scalable component-driven architecture using the Next.js App Router and React Context API.
+
+## Global State
+
+```text
+App
+│
+├── UserContext
+│   ├── Profile
+│   ├── Settings
+│   └── User Preferences
+│
+└── PostsContext
+    ├── Posts
+    ├── Likes
+    ├── Bookmarks
+    └── Comments
+```
+
+The separation between **PostsContext** and **UserContext** keeps the codebase modular, reusable, and ready for Firebase integration.
+
 ---
 
 # Current Progress
@@ -175,9 +192,11 @@ Every page consumes the same state, ensuring changes made anywhere in the applic
 | Profile Page | ✅ Complete |
 | Explore Page | ✅ Complete |
 | Notifications Page | ✅ Complete |
+| Settings | ✅ Complete |
 | Context API | ✅ Complete |
+| PostsContext | ✅ Complete |
+| UserContext | ✅ Complete |
 | State Synchronization | ✅ Complete |
-| Settings | 🚧 Planned |
 | Firebase Authentication | 🚧 Planned |
 | Firestore Database | 🚧 Planned |
 | Image Uploads | 🚧 Planned |
@@ -186,46 +205,9 @@ Every page consumes the same state, ensuring changes made anywhere in the applic
 
 ---
 
-# Folder Structure
-
-```text
-verse
-│
-# Current Application Structure
-
-```text
-app
-│
-├── layout.tsx
-│
-└── (main)
-    ├── layout.tsx
-    ├── page.tsx
-    ├── bookmarks
-    ├── profile
-    ├── explore
-    └── notifications
-
-components
-│
-├── feed
-├── explore
-├── notifications
-├── layout
-└── ui
-
-context
-│
-└── PostsContext.tsx
-```
-
-Verse follows a reusable component-based architecture where every page consumes the same global application state through React Context, ensuring synchronization across the entire application.
-
----
-
 # Development Workflow
 
-Every feature follows the same workflow:
+Every feature follows the same engineering workflow.
 
 ```text
 Planning
@@ -251,26 +233,31 @@ Git Commit
 
 ## Completed
 
+- Project Setup
 - Shared Layout Architecture
+- Sidebar
 - Home Feed
-- Profile
-- Explore
-- Notifications
-- Bookmarks
 - Posts CRUD
 - Comments CRUD
 - Like System
 - Bookmark System
+- Bookmarks
+- Profile
+- Explore
+- Notifications
+- Settings
 - React Context API
-- Cross-Page State Synchronization
+- PostsContext
+- UserContext
+- Cross-page State Synchronization
+- Save Changes Workflow
 
 ---
 
 ## Upcoming
 
-- Settings
 - Firebase Authentication
-- Firestore Integration
+- Firestore Database
 - Image Uploads
 - Responsive Design
 - Deployment
@@ -297,13 +284,13 @@ Start the development server
 npm run dev
 ```
 
-Run lint
+Run ESLint
 
 ```bash
 npm run lint
 ```
 
-Build for production
+Create a production build
 
 ```bash
 npm run build
@@ -311,27 +298,31 @@ npm run build
 
 ---
 
----
+# Project Philosophy
 
-## Building in Public
+Verse is being developed as an engineering project rather than just another UI clone.
 
----
+Every feature is built with an emphasis on:
 
-## Engineering Notes
+- Reusable components
+- Clean architecture
+- Type safety
+- Global state management
+- Scalability
+- Maintainability
+- Incremental development
 
-Verse was never intended to be just another frontend clone.
-
-This repository is not just a record of completed features—it is a record of engineering decisions, refactoring, debugging, and continuous improvement.
+The goal is not simply to build a social platform, but to document the complete journey of transforming an idea into a production-ready full-stack application.
 
 ---
 
 <div align="center">
 
-### Every commit tells a story.
+### Engineering over shortcuts.
 
-Not of writing more code,
-
-but of writing **better** code.
+Every feature is planned.  
+Every component has a purpose.  
+Every commit moves Verse one step closer to a production-ready platform.
 
 **Welcome to the Verse Development Journal.**
 
