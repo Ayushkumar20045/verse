@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 
+import { AuthProvider } from "@/context/AuthContext";
 import { PostsProvider } from "@/context/PostsContext";
 import { UserProvider } from "@/context/UserContext";
 
@@ -33,11 +34,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <UserProvider>
-          <PostsProvider>
-            {children}
-          </PostsProvider>
-        </UserProvider>
+        <AuthProvider>
+          <UserProvider>
+            <PostsProvider>
+              {children}
+            </PostsProvider>
+          </UserProvider>
+        </AuthProvider>
       </body>
     </html>
   );

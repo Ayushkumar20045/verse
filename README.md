@@ -2,285 +2,334 @@
 
 # Verse
 
-### Share your story. Shape the conversation.
+### Building a modern social platform — one engineering decision at a time.
 
-A modern social platform built with **Next.js**, **React**, **TypeScript**, **Tailwind CSS**, and **React Context API**.
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
+![React](https://img.shields.io/badge/React-19-61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8)
+![Firebase](https://img.shields.io/badge/Firebase-Backend-FFCA28)
 
-Currently under active development.
+**Development Day:** 15  
+**Status:** Backend Migration in Progress
 
 </div>
 
 ---
 
-# Current Status
+# Why Verse?
 
-> **Version:** v0.8  
-> **Development Day:** 14  
-> **Build Status:** Passing  
-> **Lint Status:** Passing  
-> **Architecture:** Stable  
-> **Current Focus:** Firebase Authentication
+Most portfolio projects focus on features.
 
----
+Verse focuses on **engineering**.
 
-# Overview
+The project is intentionally being built the same way a real product evolves:
 
-Verse is a modern social platform inspired by applications like X (Twitter), built from scratch with a strong focus on scalable architecture, reusable components, and production-ready frontend engineering.
+- Start with a solid frontend architecture.
+- Separate UI from business logic.
+- Introduce global state.
+- Build reusable components.
+- Integrate a backend only after the frontend is stable.
+- Replace mock data incrementally instead of rewriting everything.
 
-Instead of rushing features, every module is designed, implemented, tested, documented, and validated before moving to the next milestone.
-
-The current version focuses on building a solid frontend foundation before integrating Firebase for authentication, database, and storage.
-
----
-
-# Tech Stack
-
-| Technology | Purpose |
-|------------|---------|
-| Next.js | React Framework |
-| React | UI Library |
-| TypeScript | Type Safety |
-| Tailwind CSS | Styling |
-| Lucide React | Icons |
-| React Context API | Global State Management |
-| Firebase | Planned Backend |
-
----
-
-# Features
-
-## Posts
-
-- Create posts
-- Edit posts
-- Delete posts
-- Like / Unlike posts
-- Bookmark posts
-- Character counter
-- Character limit validation
-- Keyboard shortcut (Ctrl + Enter / ⌘ + Enter)
-
----
-
-## Comments
-
-- Create comments
-- Edit comments
-- Delete comments
-- Expand / Collapse comments
-- Live comment counter
-
----
-
-## Bookmarks
-
-- Dedicated Bookmarks page
-- Real-time bookmark synchronization
-- Empty state for bookmarked posts
-- Shared post rendering through reusable components
-
----
-
-## Profile
-
-- Dedicated Profile page
-- Personal post feed
-- User statistics
-- Global profile synchronization
-
----
-
-## Explore
-
-- Dedicated Explore page
-- Search interface
-- Trending topics
-- Discover feed
-
----
-
-## Notifications
-
-- Dedicated Notifications page
-- Activity timeline
-- Notification cards
-- Reusable notification components
-
----
-
-## Settings
-
-- Editable account information
-- Appearance preferences
-- Notification preferences
-- Privacy settings
-- Save Changes workflow
-- Dirty state detection
-- Global user synchronization
-
----
-
-## Navigation
-
-- Shared application layout
-- Next.js Route Groups
-- Active sidebar navigation
-- Multi-page architecture
-
----
-
-## State Management
-
-### PostsContext
-
-- Posts CRUD
-- Comments CRUD
-- Likes
-- Bookmarks
-- Cross-page synchronization
-
-### UserContext
-
-- Display name
-- Username
-- User preferences
-- Appearance settings
-- Privacy settings
-- Notification settings
-- Global profile synchronization
-
----
-
-# Architecture
-
-Verse follows a scalable component-driven architecture using the Next.js App Router and React Context API.
-
-## Global State
-
-```text
-App
-│
-├── UserContext
-│   ├── Profile
-│   ├── Settings
-│   └── User Preferences
-│
-└── PostsContext
-    ├── Posts
-    ├── Likes
-    ├── Bookmarks
-    └── Comments
-```
-
-The separation between **PostsContext** and **UserContext** keeps the codebase modular, reusable, and ready for Firebase integration.
+Every development day is documented, committed, and tested before moving forward.
 
 ---
 
 # Current Progress
 
-| Module | Status |
-|---------|--------|
-| Project Setup | ✅ Complete |
-| Shared Layout Architecture | ✅ Complete |
-| Sidebar | ✅ Complete |
-| Feed | ✅ Complete |
-| Posts CRUD | ✅ Complete |
-| Comments CRUD | ✅ Complete |
-| Likes | ✅ Complete |
-| Bookmark System | ✅ Complete |
-| Bookmarks Page | ✅ Complete |
-| Profile Page | ✅ Complete |
-| Explore Page | ✅ Complete |
-| Notifications Page | ✅ Complete |
-| Settings | ✅ Complete |
-| Context API | ✅ Complete |
-| PostsContext | ✅ Complete |
-| UserContext | ✅ Complete |
-| State Synchronization | ✅ Complete |
-| Firebase Authentication | 🚧 Planned |
-| Firestore Database | 🚧 Planned |
-| Image Uploads | 🚧 Planned |
-| Responsive Design | 🚧 Planned |
-| Deployment | 🚧 Planned |
+```
+Frontend Architecture        ████████████████████ 100%
+
+Reusable Components          ████████████████████ 100%
+
+Global State                 ████████████████████ 100%
+
+Backend Foundation           ███████████████████░  80%
+
+Firestore Migration          ███████░░░░░░░░░░░░  35%
+
+Deployment                   ░░░░░░░░░░░░░░░░░░   0%
+```
+
+---
+
+# Tech Stack
+
+## Frontend
+
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- Lucide React
+
+## State Management
+
+- React Context API
+- PostsContext
+- UserContext
+- AuthContext
+
+## Backend
+
+- Firebase Authentication
+- Cloud Firestore
+- Firebase Storage
+
+---
+
+# Architecture
+
+The application is intentionally separated into independent layers.
+
+```
+UI Components
+        │
+        ▼
+Context Providers
+        │
+        ▼
+Service Layer
+        │
+        ▼
+Firebase
+```
+
+Instead of allowing React components to communicate directly with Firebase, every database operation passes through a dedicated service layer.
+
+```
+components
+        │
+        ▼
+PostsContext
+        │
+        ▼
+lib/services/posts.ts
+        │
+        ▼
+Firestore
+```
+
+The result is a codebase that is easier to maintain, test, and extend.
+
+---
+
+# Context Architecture
+
+```
+App
+│
+├── AuthProvider
+│
+├── UserProvider
+│
+└── PostsProvider
+```
+
+### AuthProvider
+
+Responsible for
+
+- Authentication
+- Session Management
+- Current User
+
+---
+
+### UserProvider
+
+Responsible for
+
+- Profile
+- Settings
+- User Preferences
+
+---
+
+### PostsProvider
+
+Responsible for
+
+- Posts
+- Likes
+- Bookmarks
+- Comments
+
+Each provider owns exactly one responsibility.
+
+---
+
+# Features Completed
+
+## Feed
+
+- Create Posts
+- Edit Posts
+- Delete Posts
+- Character Counter
+- Keyboard Shortcuts
+
+---
+
+## Social Features
+
+- Likes
+- Bookmarks
+- Comments CRUD
+- Live Synchronization
+
+---
+
+## Pages
+
+- Home
+- Profile
+- Explore
+- Notifications
+- Bookmarks
+- Settings
+
+---
+
+## User Experience
+
+- Active Navigation
+- Confirmation Dialogs
+- Global Synchronization
+- Reusable Components
+- Shared Layout
+- Route Groups
+
+---
+
+# Backend Progress
+
+Completed
+
+- Firebase Project
+- Firebase SDK
+- Authentication Setup
+- Google Provider
+- Firestore Setup
+- Storage Setup
+- AuthContext
+- Service Layer
+
+Currently Working On
+
+- Firestore CRUD
+- Replacing Mock Data
+- Real User Documents
+
+---
+
+# Folder Philosophy
+
+```
+components/
+```
+
+Reusable UI.
+
+```
+context/
+```
+
+Application state.
+
+```
+lib/services/
+```
+
+Backend communication.
+
+```
+types/
+```
+
+Shared TypeScript models.
+
+Every folder has one responsibility.
 
 ---
 
 # Development Workflow
 
-Every feature follows the same engineering workflow.
+Every feature follows the same workflow.
 
-```text
-Planning
-    ↓
+```
+Idea
+
+↓
+
 Architecture
-    ↓
+
+↓
+
 Implementation
-    ↓
+
+↓
+
 Testing
-    ↓
-npm run lint
-    ↓
-npm run build
-    ↓
+
+↓
+
+ESLint
+
+↓
+
+Production Build
+
+↓
+
 Documentation
-    ↓
+
+↓
+
 Git Commit
 ```
 
----
-
-# Roadmap
-
-## Completed
-
-- Project Setup
-- Shared Layout Architecture
-- Sidebar
-- Home Feed
-- Posts CRUD
-- Comments CRUD
-- Like System
-- Bookmark System
-- Bookmarks
-- Profile
-- Explore
-- Notifications
-- Settings
-- React Context API
-- PostsContext
-- UserContext
-- Cross-page State Synchronization
-- Save Changes Workflow
+No feature is considered complete until it passes both lint and production build.
 
 ---
 
-## Upcoming
+# Upcoming
 
-- Firebase Authentication
-- Firestore Database
+- Firestore Migration
+- Real Authentication
 - Image Uploads
 - Responsive Design
 - Deployment
+- Production Release
+
+---
+
+# Lessons Learned
+
+This project has already covered topics including:
+
+- React Component Architecture
+- Context API
+- State Synchronization
+- CRUD Operations
+- TypeScript Patterns
+- Reusable Components
+- Firebase Integration
+- Backend Service Layer
+- Incremental Migration Strategy
 
 ---
 
 # Running Locally
 
-Clone the repository
-
 ```bash
 git clone https://github.com/Ayushkumar20045/verse.git
-```
 
-Install dependencies
+cd verse
 
-```bash
 npm install
-```
 
-Start the development server
-
-```bash
 npm run dev
 ```
 
@@ -290,7 +339,7 @@ Run ESLint
 npm run lint
 ```
 
-Create a production build
+Create Production Build
 
 ```bash
 npm run build
@@ -298,32 +347,27 @@ npm run build
 
 ---
 
-# Project Philosophy
+# Development Journal
 
-Verse is being developed as an engineering project rather than just another UI clone.
+Verse isn't being developed behind closed doors.
 
-Every feature is built with an emphasis on:
+Every development day is documented through:
 
-- Reusable components
-- Clean architecture
-- Type safety
-- Global state management
-- Scalability
-- Maintainability
-- Incremental development
+- Dev Logs
+- Git Commits
+- Architecture Decisions
+- Incremental Refactoring
 
-The goal is not simply to build a social platform, but to document the complete journey of transforming an idea into a production-ready full-stack application.
+The repository represents the complete evolution of the application—from the very first component to a production-ready full-stack platform.
 
 ---
 
 <div align="center">
 
-### Engineering over shortcuts.
+## "Good software isn't built in one commit.
 
-Every feature is planned.  
-Every component has a purpose.  
-Every commit moves Verse one step closer to a production-ready platform.
+It's built through hundreds of small engineering decisions."
 
-**Welcome to the Verse Development Journal.**
+**— Verse Development Journal**
 
 </div>

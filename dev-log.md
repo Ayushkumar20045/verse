@@ -171,3 +171,21 @@
 - Refactored the application architecture by separating post-related state (PostsContext) from user-related state (UserContext).
 - Prepared the application for Firebase integration by establishing a scalable user management architecture.
 - Successfully validated the entire application with passing ESLint and production build checks after the architectural refactor.
+
+## Day 15 - Firebase Foundation & Backend Architecture
+
+- Created and configured a dedicated Firebase project for Verse.
+- Installed the Firebase SDK and integrated it into the Next.js application.
+- Configured environment variables using `.env.local` to securely manage Firebase credentials.
+- Initialized Firebase with support for Authentication, Cloud Firestore, and Cloud Storage.
+- Verified the Firebase configuration by successfully passing ESLint and production build checks.
+- Enabled Google Authentication in the Firebase Console as the primary authentication provider.
+- Built a reusable AuthContext to manage authentication state across the application.
+- Integrated AuthProvider into the root application layout, preparing the app for protected routes and authenticated user sessions.
+- Designed a scalable backend architecture by separating authentication, user management, and post management into independent contexts.
+- Created a dedicated service layer under `lib/services` to isolate Firestore operations from React components.
+- Implemented reusable service modules for users, posts, and comments to centralize future database CRUD operations.
+- Established a clean architecture where Context Providers communicate with service modules instead of directly interacting with Firebase APIs.
+- Planned the migration strategy from mock data to Firestore without disrupting the existing frontend functionality.
+- Preserved the existing mock data layer temporarily to support an incremental migration approach, ensuring application stability throughout the backend transition.
+- Successfully completed backend foundation setup while keeping the frontend fully functional and production-build ready.
