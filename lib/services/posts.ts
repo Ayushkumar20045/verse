@@ -9,31 +9,42 @@ import {
 
 import { db } from "@/lib/firebase";
 
+import {
+  FirestorePost,
+} from "@/types/firebase";
+
 const postsCollection =
   collection(db, "posts");
 
-export async function getPosts() {
+export async function getPosts(): Promise<
+  FirestorePost[]
+> {
   const snapshot =
     await getDocs(postsCollection);
 
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
+  return snapshot.docs.map((document) => ({
+    id: document.id,
+    ...(document.data() as Omit<
+      FirestorePost,
+      "id"
+    >),
   }));
 }
 
 export async function createPost(
-  data: Record<string, unknown>
-) {
-  return await addDoc(
+  post: FirestorePost
+): Promise<string> {
+  const document = await addDoc(
     postsCollection,
-    data
+    post
   );
+
+  return document.id;
 }
 
 export async function updatePost(
   postId: string,
-  data: Record<string, unknown>
+  data: Partial<FirestorePost>
 ) {
   await updateDoc(
     doc(db, "posts", postId),

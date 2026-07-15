@@ -2,7 +2,7 @@
 
 # Verse
 
-### Building a modern social platform — one engineering decision at a time.
+### Every feature is built incrementally, documented daily, and validated with ESLint and production builds before moving forward.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![React](https://img.shields.io/badge/React-19-61DAFB)
@@ -10,8 +10,8 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8)
 ![Firebase](https://img.shields.io/badge/Firebase-Backend-FFCA28)
 
-**Development Day:** 15  
-**Status:** Backend Migration in Progress
+**Development Day:** 16  
+**Status:** Firestore Integration in Progress
 
 </div>
 
@@ -45,11 +45,11 @@ Reusable Components          █████████████████
 
 Global State                 ████████████████████ 100%
 
-Backend Foundation           ███████████████████░  80%
+Backend Foundation           ████████████████████ 100%
 
-Firestore Migration          ███████░░░░░░░░░░░░  35%
+Firestore Migration          ███████████░░░░░░░░  55%
 
-Deployment                   ░░░░░░░░░░░░░░░░░░   0%
+Deployment                   █░░░░░░░░░░░░░░░░░   5%
 ```
 
 ---
@@ -79,41 +79,46 @@ Deployment                   ░░░░░░░░░░░░░░░░░
 
 ---
 
-# Architecture
+# Backend Evolution
 
-The application is intentionally separated into independent layers.
+Verse intentionally evolved through multiple stages instead of introducing a backend from day one.
 
-```
-UI Components
+```text
+Stage 1
+Mock Data
         │
         ▼
-Context Providers
+React Context
+
+↓
+
+Stage 2
+Firebase Setup
         │
         ▼
 Service Layer
-        │
-        ▼
-Firebase
-```
 
-Instead of allowing React components to communicate directly with Firebase, every database operation passes through a dedicated service layer.
+↓
 
-```
-components
-        │
-        ▼
-PostsContext
-        │
-        ▼
-lib/services/posts.ts
-        │
-        ▼
+Stage 3 (Current)
 Firestore
+        │
+        ▼
+Custom Hooks
+        │
+        ▼
+React
+
+↓
+
+Stage 4
+Realtime Synchronization
 ```
 
-The result is a codebase that is easier to maintain, test, and extend.
+This incremental migration keeps the application functional throughout development while making each backend change easy to validate and maintain.
 
 ---
+
 
 # Context Architecture
 
@@ -211,15 +216,19 @@ Completed
 - Firebase SDK
 - Authentication Setup
 - Google Provider
-- Firestore Setup
-- Storage Setup
+- Cloud Firestore
+- Firebase Storage
 - AuthContext
-- Service Layer
+- Backend Service Layer
+- Firestore Models
+- Custom Firestore Hooks
+- First Firestore CRUD (Create & Read)
 
 Currently Working On
 
-- Firestore CRUD
-- Replacing Mock Data
+- Realtime Firestore Listeners
+- PostsContext Migration
+- Removing Mock Data
 - Real User Documents
 
 ---
@@ -294,14 +303,15 @@ No feature is considered complete until it passes both lint and production build
 
 ---
 
-# Upcoming
+## Upcoming
 
-- Firestore Migration
-- Real Authentication
+- Realtime Firestore Sync
+- PostsContext Migration
+- Remove Mock Data
+- Google Authentication Flow
 - Image Uploads
 - Responsive Design
 - Deployment
-- Production Release
 
 ---
 

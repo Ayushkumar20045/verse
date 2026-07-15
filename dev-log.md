@@ -189,3 +189,15 @@
 - Planned the migration strategy from mock data to Firestore without disrupting the existing frontend functionality.
 - Preserved the existing mock data layer temporarily to support an incremental migration approach, ensuring application stability throughout the backend transition.
 - Successfully completed backend foundation setup while keeping the frontend fully functional and production-build ready.
+
+## Day 16 - Firestore Integration Begins
+
+- Created and configured a Cloud Firestore database for Verse.
+- Designed typed Firestore models for users, posts, and comments.
+- Refactored backend service modules to use strongly typed Firestore interfaces.
+- Built a reusable `useFirestorePosts` hook for fetching posts with loading and error handling.
+- Created a dedicated Firebase testing page to validate backend integration independently.
+- Successfully performed the first Firestore Create and Read operations using real database documents.
+- Verified the complete React → Service Layer → Firestore data flow through live testing.
+- Prepared the application for migrating from mock data to Firestore without affecting the existing frontend architecture.
+- Successfully validated all changes with ESLint and production build checks.
