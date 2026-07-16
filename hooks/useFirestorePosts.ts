@@ -5,13 +5,8 @@ import {
   useState,
 } from "react";
 
-import {
-  getPosts,
-} from "@/lib/services/posts";
-
-import {
-  FirestorePost,
-} from "@/types/firebase";
+import { subscribeToPosts } from "@/lib/services/posts";
+import { FirestorePost } from "@/types/firebase";
 
 export default function useFirestorePosts() {
   const [posts, setPosts] =
@@ -24,24 +19,16 @@ export default function useFirestorePosts() {
     useState<string | null>(null);
 
   useEffect(() => {
-    async function loadPosts() {
-      try {
-        const firestorePosts =
-          await getPosts();
-
+    const unsubscribe =
+      subscribeToPosts((firestorePosts) => {
         setPosts(firestorePosts);
-      } catch (error) {
-        console.error(error);
-
-        setError(
-          "Failed to load posts."
-        );
-      } finally {
         setLoading(false);
-      }
-    }
+        setError(null);
+      });
 
-    loadPosts();
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return {

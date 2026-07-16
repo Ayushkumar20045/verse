@@ -201,3 +201,14 @@
 - Verified the complete React → Service Layer → Firestore data flow through live testing.
 - Prepared the application for migrating from mock data to Firestore without affecting the existing frontend architecture.
 - Successfully validated all changes with ESLint and production build checks.
+
+## Day 17 - Realtime Firestore Integration
+
+- Improved Firestore queries by ordering posts based on their creation time for a consistent feed experience.
+- Extended the posts service with a reusable realtime subscription using Firestore's `onSnapshot()`.
+- Refactored the `useFirestorePosts` custom hook to subscribe to live Firestore updates instead of performing one-time data fetches.
+- Updated the hook to automatically manage realtime synchronization and unsubscribe on component unmount.
+- Resolved React 19 effect handling by adopting a subscription-based pattern compatible with the latest ESLint rules.
+- Successfully verified realtime synchronization by creating posts in one browser tab and instantly receiving updates in another without refreshing the application.
+- Finalized the realtime backend foundation, preparing the application for migrating `PostsContext` from mock data to Firestore.
+- Successfully validated all changes with ESLint and production build checks.

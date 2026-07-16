@@ -4,23 +4,30 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+  QuerySnapshot,
+  DocumentData,
   updateDoc,
 } from "firebase/firestore";
 
 import { db } from "@/lib/firebase";
 
-import {
-  FirestorePost,
-} from "@/types/firebase";
+import { FirestorePost } from "@/types/firebase";
 
-const postsCollection =
-  collection(db, "posts");
+const postsCollection = collection(db, "posts");
+
+const postsQuery = query(
+  postsCollection,
+  orderBy("createdAt", "desc")
+);
 
 export async function getPosts(): Promise<
   FirestorePost[]
 > {
   const snapshot =
-    await getDocs(postsCollection);
+    await getDocs(postsQuery);
 
   return snapshot.docs.map((document) => ({
     id: document.id,
@@ -29,6 +36,31 @@ export async function getPosts(): Promise<
       "id"
     >),
   }));
+}
+
+export function subscribeToPosts(
+  callback: (
+    posts: FirestorePost[]
+  ) => void
+) {
+  return onSnapshot(
+    postsQuery,
+    (
+      snapshot: QuerySnapshot<DocumentData>
+    ) => {
+      const posts = snapshot.docs.map(
+        (document) => ({
+          id: document.id,
+          ...(document.data() as Omit<
+            FirestorePost,
+            "id"
+          >),
+        })
+      );
+
+      callback(posts);
+    }
+  );
 }
 
 export async function createPost(
