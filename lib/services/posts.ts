@@ -10,10 +10,10 @@ import {
   QuerySnapshot,
   DocumentData,
   updateDoc,
+  Timestamp,
 } from "firebase/firestore";
 
 import { db } from "@/lib/firebase";
-
 import { FirestorePost } from "@/types/firebase";
 
 const postsCollection = collection(db, "posts");
@@ -26,8 +26,7 @@ const postsQuery = query(
 export async function getPosts(): Promise<
   FirestorePost[]
 > {
-  const snapshot =
-    await getDocs(postsQuery);
+  const snapshot = await getDocs(postsQuery);
 
   return snapshot.docs.map((document) => ({
     id: document.id,
@@ -63,12 +62,24 @@ export function subscribeToPosts(
   );
 }
 
-export async function createPost(
-  post: FirestorePost
-): Promise<string> {
+export async function createPost({
+  userId,
+  content,
+}: {
+  userId: string;
+  content: string;
+}): Promise<string> {
   const document = await addDoc(
     postsCollection,
-    post
+    {
+      userId,
+      content,
+      createdAt: Timestamp.now(),
+      likes: [],
+      bookmarks: [],
+      shares: 0,
+      commentCount: 0,
+    }
   );
 
   return document.id;

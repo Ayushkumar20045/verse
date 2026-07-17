@@ -212,3 +212,12 @@
 - Successfully verified realtime synchronization by creating posts in one browser tab and instantly receiving updates in another without refreshing the application.
 - Finalized the realtime backend foundation, preparing the application for migrating `PostsContext` from mock data to Firestore.
 - Successfully validated all changes with ESLint and production build checks.
+
+## Day 18 - Firestore Data Mapping & Service Layer Refinement
+
+- Introduced a dedicated mapping layer by creating `postMapper.ts` to convert Firestore documents into the UI-friendly `Post` model.
+- Refactored the `useFirestorePosts` hook to return mapped `Post[]` instead of raw `FirestorePost[]`, keeping Firestore implementation details isolated from the UI.
+- Improved the posts service by simplifying the `createPost` API, allowing callers to provide only the required fields while the service automatically initializes timestamps and default values.
+- Updated the Firebase test page to use the new service API and removed the unnecessary manual page refresh, relying entirely on Firestore's realtime listeners.
+- Preserved a clean separation between Firestore models and UI models, establishing a scalable architecture for future user profile and authentication integration.
+- Successfully validated the refactored architecture with ESLint and production build checks, ensuring no regressions before beginning the PostsContext migration.

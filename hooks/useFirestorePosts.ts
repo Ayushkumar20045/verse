@@ -1,30 +1,28 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 import { subscribeToPosts } from "@/lib/services/posts";
-import { FirestorePost } from "@/types/firebase";
+import { mapFirestorePostToPost } from "@/lib/mappers/postMapper";
+import { Post } from "@/types/post";
 
 export default function useFirestorePosts() {
-  const [posts, setPosts] =
-    useState<FirestorePost[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
 
-  const [loading, setLoading] =
-    useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const [error, setError] =
-    useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe =
-      subscribeToPosts((firestorePosts) => {
-        setPosts(firestorePosts);
-        setLoading(false);
-        setError(null);
-      });
+    const unsubscribe = subscribeToPosts((firestorePosts) => {
+      const mappedPosts = firestorePosts.map(
+        mapFirestorePostToPost
+      );
+
+      setPosts(mappedPosts);
+      setLoading(false);
+      setError(null);
+    });
 
     return () => {
       unsubscribe();

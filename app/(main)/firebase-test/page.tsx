@@ -1,7 +1,5 @@
 "use client";
 
-import { Timestamp } from "firebase/firestore";
-
 import useFirestorePosts from "@/hooks/useFirestorePosts";
 import { createPost } from "@/lib/services/posts";
 
@@ -16,27 +14,13 @@ export default function FirebaseTestPage() {
     try {
       const id = await createPost({
         userId: "user-1",
-
         content:
           "Hello Firestore! This is Verse's first real post we have done it.",
-
-        createdAt: Timestamp.now(),
-
-        likes: [],
-
-        bookmarks: [],
-
-        shares: 0,
-
-        commentCount: 0,
       });
 
       alert(`Post created!\n\nID: ${id}`);
-
-      window.location.reload();
     } catch (error) {
       console.error(error);
-
       alert("Failed to create post.");
     }
   }
