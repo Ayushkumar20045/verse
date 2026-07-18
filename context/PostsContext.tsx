@@ -4,35 +4,50 @@ import {
   createContext,
   ReactNode,
   useContext,
-  useState,
 } from "react";
 
-import { posts as initialPosts } from "@/lib/posts";
-import { Comment } from "@/types/comment";
+import useFirestorePosts from "@/hooks/useFirestorePosts";
 import { Post } from "@/types/post";
+import {
+  createComment as createFirestoreComment,
+  updateComment as updateFirestoreComment,
+  deleteComment as deleteFirestoreComment,
+} from "@/lib/services/comments";
+import {
+  createPost as createFirestorePost,
+  deletePost as deleteFirestorePost,
+  updatePost,
+} from "@/lib/services/posts";
 
 type PostsContextType = {
   posts: Post[];
 
-  createPost: (content: string) => void;
-  likePost: (postId: number) => void;
-  bookmarkPost: (postId: number) => void;
-  deletePost: (postId: number) => void;
-  editPost: (postId: number, content: string) => void;
+  createPost: (content: string) => Promise<void>;
+
+  likePost: (postId: string) => void;
+
+  bookmarkPost: (postId: string) => void;
+
+  deletePost: (postId: string) => void;
+
+  editPost: (
+    postId: string,
+    content: string
+  ) => void;
 
   addComment: (
-    postId: number,
+    postId: string,
     content: string
   ) => void;
 
   editComment: (
-    postId: number,
+    postId: string,
     commentId: number,
     content: string
   ) => void;
 
   deleteComment: (
-    postId: number,
+    postId: string,
     commentId: number
   ) => void;
 };
@@ -45,154 +60,74 @@ export function PostsProvider({
 }: {
   children: ReactNode;
 }) {
-  const [posts, setPosts] =
-    useState<Post[]>(initialPosts);
+const { posts } = useFirestorePosts();
 
-  function createPost(content: string) {
-    const newPost: Post = {
-      id: Date.now(),
-      userId: "user-1",
-      author: "Ayush Kumar",
-      username: "@ayushkumar",
-      time: "Just now",
-      content,
+async function createPost(content: string) {
+  await createFirestorePost({
+    userId: "user-1",
+    content,
+  });
+}
+async function likePost(postId: string) {
+  const post = posts.find((post) => post.id === postId);
 
-      likes: 0,
-      comments: [],
-      shares: 0,
+  if (!post) return;
 
-      isLiked: false,
-      isBookmarked: false,
-    };
+  await updatePost(postId, {
+    likes: [],
+  });
+}
 
-    setPosts((previousPosts) => [
-      newPost,
-      ...previousPosts,
-    ]);
-  }
+async function bookmarkPost(postId: string) {
+  const post = posts.find((post) => post.id === postId);
 
-  function likePost(postId: number) {
-    setPosts((previousPosts) =>
-      previousPosts.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              isLiked: !post.isLiked,
-              likes: post.isLiked
-                ? post.likes - 1
-                : post.likes + 1,
-            }
-          : post
-      )
-    );
-  }
+  if (!post) return;
 
-  function bookmarkPost(postId: number) {
-    setPosts((previousPosts) =>
-      previousPosts.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              isBookmarked: !post.isBookmarked,
-            }
-          : post
-      )
-    );
-  }
+  await updatePost(postId, {
+    isBookmarked: !post.isBookmarked,
+  });
+}
 
-  function deletePost(postId: number) {
-    setPosts((previousPosts) =>
-      previousPosts.filter(
-        (post) => post.id !== postId
-      )
-    );
-  }
+async function deletePost(postId: string) {
+  await deleteFirestorePost(postId);
+}
+async function editPost(
+  postId: string,
+  content: string
+) {
+  await updatePost(postId, {
+    content,
+  });
+}
 
-  function editPost(
-    postId: number,
-    content: string
-  ) {
-    setPosts((previousPosts) =>
-      previousPosts.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              content,
-              time: "Just now (edited)",
-            }
-          : post
-      )
-    );
-  }
+async function addComment(
+  postId: string,
+  content: string
+) {
+  await createFirestoreComment({
+    postId,
+    userId: "user-1",
+    content,
+    createdAt: new Date() as never,
+  });
+}
 
-  function addComment(
-    postId: number,
-    content: string
-  ) {
-    setPosts((previousPosts) =>
-      previousPosts.map((post) => {
-        if (post.id !== postId) return post;
+async function editComment(
+  postId: string,
+  commentId: string,
+  content: string
+) {
+  await updateFirestoreComment(commentId, {
+    content,
+  });
+}
 
-        const newComment: Comment = {
-          id: Date.now(),
-          userId: "user-1",
-          author: "Ayush Kumar",
-          username: "@ayushkumar",
-          content,
-          time: "Just now",
-        };
-
-        return {
-          ...post,
-          comments: [...post.comments, newComment],
-        };
-      })
-    );
-  }
-
-  function editComment(
-    postId: number,
-    commentId: number,
-    content: string
-  ) {
-    setPosts((previousPosts) =>
-      previousPosts.map((post) => {
-        if (post.id !== postId) return post;
-
-        return {
-          ...post,
-          comments: post.comments.map((comment) =>
-            comment.id === commentId
-              ? {
-                  ...comment,
-                  content,
-                  time: "Just now (edited)",
-                }
-              : comment
-          ),
-        };
-      })
-    );
-  }
-
-  function deleteComment(
-    postId: number,
-    commentId: number
-  ) {
-    setPosts((previousPosts) =>
-      previousPosts.map((post) => {
-        if (post.id !== postId) return post;
-
-        return {
-          ...post,
-          comments: post.comments.filter(
-            (comment) =>
-              comment.id !== commentId
-          ),
-        };
-      })
-    );
-  }
+async function deleteComment(
+  postId: string,
+  commentId: string
+) {
+  await deleteFirestoreComment(commentId);
+}
 
   return (
     <PostsContext.Provider

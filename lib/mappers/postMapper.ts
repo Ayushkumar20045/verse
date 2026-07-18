@@ -5,7 +5,7 @@ export function mapFirestorePostToPost(
   firestorePost: FirestorePost
 ): Post {
   return {
-    id: Number(firestorePost.id),
+    id: firestorePost.id ?? "",
     userId: firestorePost.userId,
 
     // Temporary until Firestore users are integrated

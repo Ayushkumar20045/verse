@@ -2,7 +2,7 @@ import { Post } from "@/types/post";
 
 export const posts: Post[] = [
   {
-    id: 1,
+    id: "1",
     userId: "user-1",
     author: "Ayush Kumar",
     username: "@ayushkumar",
@@ -17,7 +17,7 @@ export const posts: Post[] = [
     isBookmarked: false,
   },
   {
-    id: 2,
+    id: "2",
     userId: "user-2",
     author: "Arjun Mehta",
     username: "@arjunm",
@@ -33,7 +33,7 @@ export const posts: Post[] = [
     isBookmarked: false,
   },
   {
-    id: 3,
+    id: "3",
     userId: "user-3",
     author: "Sophia Lee",
     username: "@sophial",
@@ -49,7 +49,7 @@ export const posts: Post[] = [
     isBookmarked: false,
   },
   {
-    id: 4,
+    id: "4",
     userId: "user-4",
     author: "Noah Carter",
     username: "@noahc",

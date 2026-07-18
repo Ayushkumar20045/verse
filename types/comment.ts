@@ -1,8 +1,10 @@
 export type Comment = {
-  id: number;
+  id: string;
+
   userId: string;
 
   author: string;
+
   username: string;
 
   content: string;

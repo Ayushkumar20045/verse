@@ -1,7 +1,7 @@
 import { Comment } from "@/types/comment";
 
 export type Post = {
-  id: number;
+  id: string;
 
   userId: string;
 
