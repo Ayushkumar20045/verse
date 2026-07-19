@@ -221,3 +221,33 @@
 - Updated the Firebase test page to use the new service API and removed the unnecessary manual page refresh, relying entirely on Firestore's realtime listeners.
 - Preserved a clean separation between Firestore models and UI models, establishing a scalable architecture for future user profile and authentication integration.
 - Successfully validated the refactored architecture with ESLint and production build checks, ensuring no regressions before beginning the PostsContext migration.
+
+## Day 19 – Firestore Context Migration
+
+- Migrated `PostsContext` completely to Firestore.
+- Removed all local `setPosts()` state management.
+- Converted `Post.id` and `Comment.id` from `number` to `string`.
+- Connected all post CRUD operations to Firestore services.
+- Connected all comment CRUD operations to Firestore services.
+- Updated Firestore mappers and context logic.
+- Fixed all ESLint warnings and errors.
+- Verified post creation, deletion, and persistence after refresh.
+- Identified remaining work for comments, likes, and bookmarks integration.
+
+## Day 20 – Firebase Authentication & Firestore Integration
+
+- Integrated Google Authentication using Firebase Auth.
+- Connected the application with the existing `AuthContext`.
+- Enabled authenticated user sessions across the application.
+- Completed Firestore integration for posts and comments using real-time listeners.
+- Refactored `useFirestorePosts` to synchronize posts and comments from Firestore.
+- Migrated all remaining IDs from `number` to Firestore document `string` IDs.
+- Updated context methods to work directly with Firestore documents.
+- Fixed Like functionality using authenticated Firebase user IDs.
+- Fixed Bookmark functionality with Firestore array synchronization.
+- Replaced all remaining hardcoded `"user-1"` ownership checks with authenticated Firebase UIDs.
+- Restored Post Edit/Delete functionality for authenticated users.
+- Restored Comment Edit/Delete functionality for authenticated users.
+- Updated permission checks across post and comment components.
+- Verified complete CRUD operations for posts and comments.
+- Fixed TypeScript issues and verified the application with successful ESLint validation.
