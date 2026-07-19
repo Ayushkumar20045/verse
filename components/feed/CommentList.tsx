@@ -3,8 +3,13 @@ import { Comment } from "@/types/comment";
 
 type CommentListProps = {
   comments: Comment[];
-  onEdit: (commentId: number, content: string) => void;
-  onDelete: (commentId: number) => void;
+  onEdit: (
+    commentId: string,
+    content: string
+  ) => void;
+  onDelete: (
+    commentId: string
+  ) => void;
 };
 
 export default function CommentList({
@@ -21,7 +26,9 @@ export default function CommentList({
           onEdit={(content) =>
             onEdit(comment.id, content)
           }
-          onDelete={() => onDelete(comment.id)}
+          onDelete={() =>
+            onDelete(comment.id)
+          }
         />
       ))}
     </section>

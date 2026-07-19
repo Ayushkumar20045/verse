@@ -7,6 +7,8 @@ import {
   Trash2,
 } from "lucide-react";
 
+import { useAuth } from "@/context/AuthContext";
+
 import Avatar from "@/components/ui/Avatar";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 import { Comment } from "@/types/comment";
@@ -22,17 +24,26 @@ export default function CommentCard({
   onEdit,
   onDelete,
 }: CommentCardProps) {
-  const isCurrentUser = comment.userId === "user-1";
+  const { user } = useAuth();
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedContent, setEditedContent] = useState(comment.content);
+  const isCurrentUser =
+    user?.uid === comment.userId;
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isEditing, setIsEditing] =
+    useState(false);
+
+  const [editedContent, setEditedContent] =
+    useState(comment.content);
+
+  const [isMenuOpen, setIsMenuOpen] =
+    useState(false);
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] =
     useState(false);
 
   function handleSaveEdit() {
-    const trimmedContent = editedContent.trim();
+    const trimmedContent =
+      editedContent.trim();
 
     if (!trimmedContent) {
       return;
@@ -126,7 +137,9 @@ export default function CommentCard({
                   rows={3}
                   value={editedContent}
                   onChange={(event) =>
-                    setEditedContent(event.target.value)
+                    setEditedContent(
+                      event.target.value
+                    )
                   }
                   className="mt-3 w-full resize-none rounded-lg border border-neutral-800 bg-transparent p-3 outline-none"
                 />

@@ -6,14 +6,19 @@ export type Post = {
   userId: string;
 
   author: string;
+
   username: string;
 
   time: string;
 
   content: string;
 
-  likes: number;
+  likes: string[];
+
+  bookmarks: string[];
+
   comments: Comment[];
+
   shares: number;
 
   isLiked: boolean;

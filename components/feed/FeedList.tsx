@@ -6,13 +6,13 @@ import { Post } from "@/types/post";
 type FeedListProps = {
   posts: Post[];
 
-  onLike: (postId: number) => void;
-  onBookmark: (postId: number) => void;
-  onDelete: (postId: number) => void;
+  onLike: (postId: string) => Promise<void>;
+  onBookmark: (postId: string) => Promise<void>;
+  onDelete: (postId: string) => Promise<void>;
   onEdit: (
-    postId: number,
+    postId: string,
     content: string
-  ) => void;
+  ) => Promise<void>;
 };
 
 export default function FeedList({
@@ -29,9 +29,7 @@ export default function FeedList({
           key={post.id}
           post={post}
           onLike={() => onLike(post.id)}
-          onBookmark={() =>
-            onBookmark(post.id)
-          }
+          onBookmark={() => onBookmark(post.id)}
           onDelete={() => onDelete(post.id)}
           onEdit={(content) =>
             onEdit(post.id, content)

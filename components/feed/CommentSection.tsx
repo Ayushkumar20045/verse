@@ -10,14 +10,14 @@ type CommentSectionProps = {
 
   onComment: (content: string) => void;
 
-  onEditComment: (
-    commentId: number,
-    content: string
-  ) => void;
+onEditComment: (
+  commentId: string,
+  content: string
+) => void;
 
-  onDeleteComment: (
-    commentId: number
-  ) => void;
+onDeleteComment: (
+  commentId: string
+) => void;
 };
 
 export default function CommentSection({

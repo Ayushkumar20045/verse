@@ -4,6 +4,9 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  onSnapshot,
+  QuerySnapshot,
+  DocumentData,
   updateDoc,
 } from "firebase/firestore";
 
@@ -32,6 +35,30 @@ export async function getComments(): Promise<
         "id"
       >),
     })
+  );
+}
+export function subscribeToComments(
+  callback: (
+    comments: FirestoreComment[]
+  ) => void
+) {
+  return onSnapshot(
+    commentsCollection,
+    (
+      snapshot: QuerySnapshot<DocumentData>
+    ) => {
+      const comments = snapshot.docs.map(
+        (document) => ({
+          id: document.id,
+          ...(document.data() as Omit<
+            FirestoreComment,
+            "id"
+          >),
+        })
+      );
+
+      callback(comments);
+    }
   );
 }
 

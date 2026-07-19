@@ -15,12 +15,16 @@ export function mapFirestorePostToPost(
 
     content: firestorePost.content,
 
-    likes: firestorePost.likes.length,
+    likes: firestorePost.likes,
+
+    bookmarks: firestorePost.bookmarks,
+
     shares: firestorePost.shares,
 
     comments: [],
 
     isLiked: false,
+
     isBookmarked: false,
   };
 }

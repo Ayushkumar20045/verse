@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { useAuth } from "@/context/AuthContext";
 import { usePosts } from "@/context/PostsContext";
 
 import Avatar from "@/components/ui/Avatar";
@@ -29,13 +30,16 @@ export default function PostCard({
   onDelete,
   onEdit,
 }: PostCardProps) {
+  const { user } = useAuth();
+
   const {
     addComment,
     editComment,
     deleteComment,
   } = usePosts();
 
-  const isCurrentUser = post.userId === "user-1";
+  const isCurrentUser =
+    user?.uid === post.userId;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] =
@@ -86,16 +90,16 @@ export default function PostCard({
   }
 
   function handleEditComment(
-    commentId: number,
+    commentId: string,
     content: string
   ) {
-    editComment(post.id, commentId, content);
+    editComment(commentId, content);
   }
 
   function handleDeleteComment(
-    commentId: number
+    commentId: string
   ) {
-    deleteComment(post.id, commentId);
+    deleteComment(commentId);
   }
 
   return (
@@ -137,9 +141,7 @@ export default function PostCard({
                 isLiked={post.isLiked}
                 onLike={onLike}
                 onToggleComments={() =>
-                  setShowComments(
-                    !showComments
-                  )
+                  setShowComments(!showComments)
                 }
               />
             )}
@@ -148,12 +150,8 @@ export default function PostCard({
               isVisible={showComments}
               comments={post.comments}
               onComment={handleAddComment}
-              onEditComment={
-                handleEditComment
-              }
-              onDeleteComment={
-                handleDeleteComment
-              }
+              onEditComment={handleEditComment}
+              onDeleteComment={handleDeleteComment}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import {
 } from "react";
 
 import useFirestorePosts from "@/hooks/useFirestorePosts";
+import { useAuth } from "@/context/AuthContext";
 import { Post } from "@/types/post";
 import {
   createComment as createFirestoreComment,
@@ -24,32 +25,34 @@ type PostsContextType = {
 
   createPost: (content: string) => Promise<void>;
 
-  likePost: (postId: string) => void;
+  likePost: (postId: string) => Promise<void>;
 
-  bookmarkPost: (postId: string) => void;
+  bookmarkPost: (
+    postId: string
+  ) => Promise<void>;
 
-  deletePost: (postId: string) => void;
+  deletePost: (
+    postId: string
+  ) => Promise<void>;
 
   editPost: (
     postId: string,
     content: string
-  ) => void;
+  ) => Promise<void>;
 
   addComment: (
     postId: string,
     content: string
-  ) => void;
+  ) => Promise<void>;
 
-  editComment: (
-    postId: string,
-    commentId: number,
-    content: string
-  ) => void;
+editComment: (
+  commentId: string,
+  content: string
+) => Promise<void>;
 
-  deleteComment: (
-    postId: string,
-    commentId: number
-  ) => void;
+deleteComment: (
+  commentId: string
+) => Promise<void>;
 };
 
 const PostsContext =
@@ -60,34 +63,49 @@ export function PostsProvider({
 }: {
   children: ReactNode;
 }) {
+  const { user } = useAuth();
+  console.log("Current Firebase user:", user);
 const { posts } = useFirestorePosts();
 
 async function createPost(content: string) {
+  if (!user) return;
+
   await createFirestorePost({
-    userId: "user-1",
+    userId: user.uid,
     content,
   });
 }
 async function likePost(postId: string) {
+  if (!user) return;
+
   const post = posts.find((post) => post.id === postId);
 
   if (!post) return;
 
+  const updatedLikes = post.likes.includes(user.uid)
+    ? post.likes.filter((uid) => uid !== user.uid)
+    : [...post.likes, user.uid];
+
   await updatePost(postId, {
-    likes: [],
+    likes: updatedLikes,
   });
 }
 
 async function bookmarkPost(postId: string) {
+  if (!user) return;
+
   const post = posts.find((post) => post.id === postId);
 
   if (!post) return;
 
+  const updatedBookmarks = post.bookmarks.includes(user.uid)
+    ? post.bookmarks.filter((uid) => uid !== user.uid)
+    : [...post.bookmarks, user.uid];
+
   await updatePost(postId, {
-    isBookmarked: !post.isBookmarked,
+    bookmarks: updatedBookmarks,
   });
 }
-
 async function deletePost(postId: string) {
   await deleteFirestorePost(postId);
 }
@@ -104,16 +122,17 @@ async function addComment(
   postId: string,
   content: string
 ) {
+  if (!user) return;
+
   await createFirestoreComment({
     postId,
-    userId: "user-1",
+    userId: user.uid,
     content,
     createdAt: new Date() as never,
   });
 }
 
 async function editComment(
-  postId: string,
   commentId: string,
   content: string
 ) {
@@ -123,7 +142,6 @@ async function editComment(
 }
 
 async function deleteComment(
-  postId: string,
   commentId: string
 ) {
   await deleteFirestoreComment(commentId);
