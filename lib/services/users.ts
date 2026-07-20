@@ -1,8 +1,12 @@
 import {
+  collection,
   doc,
   getDoc,
+  onSnapshot,
+  query,
   setDoc,
   updateDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 
 import { db } from "@/lib/firebase";
@@ -27,11 +31,46 @@ export async function getUser(
     return null;
   }
 
-  return snapshot.data() as FirestoreUser;
+  return {
+    uid: snapshot.id,
+    ...(snapshot.data() as Omit<
+      FirestoreUser,
+      "uid"
+    >),
+  };
+}
+
+export function subscribeToUsers(
+  callback: (
+    users: FirestoreUser[]
+  ) => void
+) {
+  const usersQuery = query(
+    collection(db, "users")
+  );
+
+  return onSnapshot(
+    usersQuery,
+    (snapshot) => {
+      const users =
+        snapshot.docs.map((doc) => ({
+          uid: doc.id,
+          ...(doc.data() as Omit<
+            FirestoreUser,
+            "uid"
+          >),
+        }));
+
+      callback(users);
+    }
+  );
 }
 
 export async function createUser(
-  user: FirestoreUser
+  user: Omit<
+    FirestoreUser,
+    "joinedAt"
+  >
 ) {
   const userRef = doc(
     db,
@@ -39,7 +78,23 @@ export async function createUser(
     user.uid
   );
 
-  await setDoc(userRef, user);
+  const snapshot =
+    await getDoc(userRef);
+
+  if (snapshot.exists()) {
+    return;
+  }
+
+  await setDoc(
+    userRef,
+    {
+      ...user,
+      joinedAt: serverTimestamp(),
+    },
+    {
+      merge: true,
+    }
+  );
 }
 
 export async function updateUser(

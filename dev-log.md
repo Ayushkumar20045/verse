@@ -251,3 +251,11 @@
 - Updated permission checks across post and comment components.
 - Verified complete CRUD operations for posts and comments.
 - Fixed TypeScript issues and verified the application with successful ESLint validation.
+
+## Day 22 – Firestore User Integration
+
+- Integrated Firestore user service with authentication and user context.
+- Added real-time user subscriptions for live profile updates.
+- Connected Firestore user data with posts and avatar components.
+- Refined post mapping using actual user information.
+- Fixed TypeScript and ESLint issues, achieving a clean production build.

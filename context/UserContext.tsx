@@ -4,42 +4,24 @@ import {
   createContext,
   ReactNode,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
+import { useAuth } from "@/context/AuthContext";
+
+import { getUser } from "@/lib/services/users";
+
+import {
+  FirestoreUser,
+} from "@/types/firebase";
+
 type UserContextType = {
-  displayName: string;
-  username: string;
-  email: string;
+  profile: FirestoreUser | null;
 
-  darkMode: boolean;
-  compactLayout: boolean;
+  loading: boolean;
 
-  pushNotifications: boolean;
-  emailNotifications: boolean;
-
-  privateAccount: boolean;
-  activityStatus: boolean;
-
-  updateDisplayName: (
-    value: string
-  ) => void;
-
-  updateUsername: (
-    value: string
-  ) => void;
-
-  toggleDarkMode: () => void;
-
-  toggleCompactLayout: () => void;
-
-  togglePushNotifications: () => void;
-
-  toggleEmailNotifications: () => void;
-
-  togglePrivateAccount: () => void;
-
-  toggleActivityStatus: () => void;
+  refreshProfile: () => Promise<void>;
 };
 
 const UserContext =
@@ -52,85 +34,71 @@ export function UserProvider({
 }: {
   children: ReactNode;
 }) {
-  const [displayName, setDisplayName] =
-    useState("Ayush Kumar");
+  const { user } = useAuth();
 
-  const [username, setUsername] =
-    useState("@ayushkumar");
+  const [profile, setProfile] =
+    useState<FirestoreUser | null>(
+      null
+    );
 
-  const [email] = useState(
-    "ayush@example.com"
-  );
-
-  const [darkMode, setDarkMode] =
+  const [loading, setLoading] =
     useState(true);
 
-  const [compactLayout, setCompactLayout] =
-    useState(false);
+  useEffect(() => {
+    let mounted = true;
 
-  const [pushNotifications, setPushNotifications] =
-    useState(true);
+    async function loadProfile() {
+      if (!user) {
+        if (mounted) {
+          setProfile(null);
+          setLoading(false);
+        }
 
-  const [emailNotifications, setEmailNotifications] =
-    useState(true);
+        return;
+      }
 
-  const [privateAccount, setPrivateAccount] =
-    useState(false);
+      if (mounted) {
+        setLoading(true);
+      }
 
-  const [activityStatus, setActivityStatus] =
-    useState(true);
+      const firestoreUser =
+        await getUser(user.uid);
+
+      if (mounted) {
+        setProfile(
+          firestoreUser
+        );
+
+        setLoading(false);
+      }
+    }
+
+    loadProfile();
+
+    return () => {
+      mounted = false;
+    };
+  }, [user]);
+
+  async function refreshProfile() {
+    if (!user) {
+      return;
+    }
+
+    const firestoreUser =
+      await getUser(user.uid);
+
+    setProfile(
+      firestoreUser
+    );
+  }
 
   return (
     <UserContext.Provider
       value={{
-        displayName,
-        username,
-        email,
-
-        darkMode,
-        compactLayout,
-
-        pushNotifications,
-        emailNotifications,
-
-        privateAccount,
-        activityStatus,
-
-        updateDisplayName:
-          setDisplayName,
-
-        updateUsername:
-          setUsername,
-
-        toggleDarkMode: () =>
-          setDarkMode(
-            (previous) => !previous
-          ),
-
-        toggleCompactLayout: () =>
-          setCompactLayout(
-            (previous) => !previous
-          ),
-
-        togglePushNotifications: () =>
-          setPushNotifications(
-            (previous) => !previous
-          ),
-
-        toggleEmailNotifications: () =>
-          setEmailNotifications(
-            (previous) => !previous
-          ),
-
-        togglePrivateAccount: () =>
-          setPrivateAccount(
-            (previous) => !previous
-          ),
-
-        toggleActivityStatus: () =>
-          setActivityStatus(
-            (previous) => !previous
-          ),
+        profile,
+        loading,
+        refreshProfile,
       }}
     >
       {children}

@@ -4,56 +4,90 @@ import { useEffect, useState } from "react";
 
 import { subscribeToPosts } from "@/lib/services/posts";
 import { subscribeToComments } from "@/lib/services/comments";
+import { subscribeToUsers } from "@/lib/services/users";
 
 import { useAuth } from "@/context/AuthContext";
 
 import { mapFirestorePostToPost } from "@/lib/mappers/postMapper";
 
 import {
-  FirestorePost,
   FirestoreComment,
+  FirestorePost,
+  FirestoreUser,
 } from "@/types/firebase";
 
 import { Post } from "@/types/post";
 
 export default function useFirestorePosts() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [posts, setPosts] =
+    useState<Post[]>([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState<string | null>(null);
+
   const { user } = useAuth();
 
   useEffect(() => {
-    let firestorePosts: FirestorePost[] = [];
-    let firestoreComments: FirestoreComment[] = [];
+    let firestorePosts: FirestorePost[] =
+      [];
+
+    let firestoreComments: FirestoreComment[] =
+      [];
+
+    let firestoreUsers: FirestoreUser[] =
+      [];
 
     function updatePosts() {
-      const mappedPosts = firestorePosts.map((post) => {
-       const mappedPost =
-  mapFirestorePostToPost(post);
+      const mappedPosts =
+        firestorePosts.map((post) => {
+          const author =
+            firestoreUsers.find(
+              (u) =>
+                u.uid === post.userId
+            );
 
-mappedPost.isLiked =
-  !!user &&
-  post.likes.includes(user.uid);
+          const mappedPost =
+            mapFirestorePostToPost(
+              post,
+              author
+            );
 
-mappedPost.isBookmarked =
-  !!user &&
-  post.bookmarks.includes(user.uid);
+          mappedPost.isLiked =
+            !!user &&
+            post.likes.includes(
+              user.uid
+            );
 
-mappedPost.comments = firestoreComments
-  .filter(
-    (comment) => comment.postId === post.id
-  )
-  .map((comment) => ({
-    id: comment.id ?? "",
-    userId: comment.userId,
-    author: "",
-    username: "",
-    content: comment.content,
-    time: "Just now",
-  }));
+          mappedPost.isBookmarked =
+            !!user &&
+            post.bookmarks.includes(
+              user.uid
+            );
 
-return mappedPost;
-      });
+          mappedPost.comments =
+            firestoreComments
+              .filter(
+                (comment) =>
+                  comment.postId ===
+                  post.id
+              )
+              .map((comment) => ({
+                id:
+                  comment.id ?? "",
+                userId:
+                  comment.userId,
+                author: "",
+                username: "",
+                content:
+                  comment.content,
+                time: "Just now",
+              }));
+
+          return mappedPost;
+        });
 
       setPosts(mappedPosts);
       setLoading(false);
@@ -67,14 +101,26 @@ return mappedPost;
       });
 
     const unsubscribeComments =
-      subscribeToComments((comments) => {
-        firestoreComments = comments;
+      subscribeToComments(
+        (comments) => {
+          firestoreComments =
+            comments;
+
+          updatePosts();
+        }
+      );
+
+    const unsubscribeUsers =
+      subscribeToUsers((users) => {
+        firestoreUsers = users;
+
         updatePosts();
       });
 
     return () => {
       unsubscribePosts();
       unsubscribeComments();
+      unsubscribeUsers();
     };
   }, [user]);
 

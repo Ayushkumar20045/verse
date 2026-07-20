@@ -134,16 +134,16 @@ export default function PostCard({
             />
 
             {!isEditing && (
-              <PostActions
-                likes={post.likes}
-                comments={post.comments.length}
-                shares={post.shares}
-                isLiked={post.isLiked}
-                onLike={onLike}
-                onToggleComments={() =>
-                  setShowComments(!showComments)
-                }
-              />
+             <PostActions
+  likes={post.likes.length}
+  comments={post.comments.length}
+  shares={post.shares}
+  isLiked={post.isLiked}
+  onLike={onLike}
+  onToggleComments={() =>
+    setShowComments(!showComments)
+  }
+/>
             )}
 
             <CommentSection

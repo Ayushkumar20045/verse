@@ -17,14 +17,14 @@ import {
 } from "firebase/auth";
 
 import { auth } from "@/lib/firebase";
+import { createUser } from "@/lib/services/users";
+
+const provider = new GoogleAuthProvider();
 
 type AuthContextType = {
   user: User | null;
-
   loading: boolean;
-
   login: () => Promise<void>;
-
   logout: () => Promise<void>;
 };
 
@@ -32,9 +32,6 @@ const AuthContext =
   createContext<AuthContextType | null>(
     null
   );
-
-const provider =
-  new GoogleAuthProvider();
 
 export function AuthProvider({
   children,
@@ -61,10 +58,39 @@ export function AuthProvider({
   }, []);
 
   async function login() {
-    await signInWithPopup(
-      auth,
-      provider
-    );
+    const result =
+      await signInWithPopup(
+        auth,
+        provider
+      );
+
+    await createUser({
+      uid: result.user.uid,
+
+      displayName:
+        result.user.displayName ??
+        "Anonymous",
+
+      username:
+        result.user.email
+          ?.split("@")[0]
+          .toLowerCase() ??
+        `user_${result.user.uid.slice(0, 6)}`,
+
+      email:
+        result.user.email ?? "",
+
+      photoURL:
+        result.user.photoURL ?? "",
+
+      bio: "",
+
+      followers: [],
+
+      following: [],
+
+      isPrivate: false,
+    });
   }
 
   async function logout() {
