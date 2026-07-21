@@ -1,6 +1,7 @@
 "use client";
 
 import FeedList from "@/components/feed/FeedList";
+import Avatar from "@/components/ui/Avatar";
 
 import { usePosts } from "@/context/PostsContext";
 import { useUser } from "@/context/UserContext";
@@ -15,14 +16,42 @@ export default function ProfilePage() {
   } = usePosts();
 
   const {
-    displayName,
-    username,
+    profile,
+    loading,
   } = useUser();
 
+  if (loading) {
+    return (
+      <main className="flex min-h-screen items-center justify-center">
+        <p className="text-neutral-400">
+          Loading profile...
+        </p>
+      </main>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <main className="flex min-h-screen items-center justify-center">
+        <p className="text-neutral-400">
+          Profile not found.
+        </p>
+      </main>
+    );
+  }
+
   const userPosts = posts.filter(
-    (post) => post.userId === "user-1"
+    (post) => post.userId === profile.uid
   );
 
+const joinedDate = profile.joinedAt
+  ? profile.joinedAt
+      .toDate()
+      .toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+      })
+  : "Recently";
   return (
     <main className="min-h-screen">
       {/* Cover Banner */}
@@ -31,32 +60,34 @@ export default function ProfilePage() {
       {/* Profile */}
       <div className="px-8 pb-8">
         {/* Avatar */}
-        <div className="-mt-16">
-          <div className="flex h-32 w-32 items-center justify-center rounded-full border-4 border-black bg-neutral-700 text-4xl font-bold">
-            {displayName.charAt(0).toUpperCase()}
-          </div>
-        </div>
+<div className="-mt-16">
+  <div className="rounded-full border-4 border-black">
+    <Avatar
+      name={profile.displayName}
+      photoURL={profile.photoURL}
+      size="xl"
+    />
+  </div>
+</div>
 
         {/* User Info */}
         <div className="mt-6">
           <h1 className="text-3xl font-bold">
-            {displayName}
+            {profile.displayName}
           </h1>
 
           <p className="text-neutral-500">
-            {username}
+            @{profile.username}
           </p>
 
-          <p className="mt-4 text-neutral-300">
-            Frontend Developer • CSE @ GBU
-          </p>
-
-          <p className="mt-2 text-neutral-400">
-            Building Verse.
-          </p>
+          {profile.bio && (
+            <p className="mt-4 text-neutral-300">
+              {profile.bio}
+            </p>
+          )}
 
           <p className="mt-4 text-sm text-neutral-500">
-            Joined July 2026
+            Joined {joinedDate}
           </p>
         </div>
 
@@ -74,7 +105,7 @@ export default function ProfilePage() {
 
           <div>
             <p className="text-2xl font-bold">
-              248
+              {profile.followers.length}
             </p>
 
             <p className="text-sm text-neutral-500">
@@ -84,7 +115,7 @@ export default function ProfilePage() {
 
           <div>
             <p className="text-2xl font-bold">
-              180
+              {profile.following.length}
             </p>
 
             <p className="text-sm text-neutral-500">

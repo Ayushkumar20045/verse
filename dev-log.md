@@ -259,3 +259,15 @@
 - Connected Firestore user data with posts and avatar components.
 - Refined post mapping using actual user information.
 - Fixed TypeScript and ESLint issues, achieving a clean production build.
+
+## Day 23 – Firestore Profile & Production Readiness
+
+- Connected the profile page with Firestore user data.
+- Built a Firestore-powered Settings page for editing profile information.
+- Added profile editing for display name, username, and bio.
+- Improved the reusable SettingsInput component with textarea support.
+- Added Google profile image support through Next.js image configuration.
+- Fixed profile loading edge cases and missing Firestore fields.
+- Updated legacy mock data to match the latest Post type definitions.
+- Resolved all TypeScript and React 19 lint issues.
+- Verified a successful production build.

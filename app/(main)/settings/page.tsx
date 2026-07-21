@@ -3,39 +3,26 @@
 import { useState } from "react";
 
 import { useUser } from "@/context/UserContext";
+import { updateUser } from "@/lib/services/users";
 
-import DangerZone from "@/components/settings/DangerZone";
 import SettingsInput from "@/components/settings/SettingsInput";
 import SettingsSection from "@/components/settings/SettingsSection";
-import SettingsToggle from "@/components/settings/SettingsToggle";
+
+type FormState = {
+  displayName: string;
+  username: string;
+  bio: string;
+};
 
 export default function SettingsPage() {
   const {
-    displayName,
-    username,
-    email,
-
-    darkMode,
-    compactLayout,
-
-    pushNotifications,
-    emailNotifications,
-
-    privateAccount,
-    activityStatus,
-
-    updateDisplayName,
-    updateUsername,
-
-    toggleDarkMode,
-    toggleCompactLayout,
-
-    togglePushNotifications,
-    toggleEmailNotifications,
-
-    togglePrivateAccount,
-    toggleActivityStatus,
+    profile,
+    loading,
+    refreshProfile,
   } = useUser();
+
+  const [editedForm, setEditedForm] =
+    useState<Partial<FormState>>({});
 
   const [hasChanges, setHasChanges] =
     useState(false);
@@ -43,54 +30,103 @@ export default function SettingsPage() {
   const [isSaving, setIsSaving] =
     useState(false);
 
-  const [saveMessage, setSaveMessage] =
+  const [message, setMessage] =
     useState("");
 
-  function markAsChanged() {
+  if (loading) {
+    return (
+      <main className="flex min-h-[60vh] items-center justify-center">
+        <p className="text-neutral-400">
+          Loading profile...
+        </p>
+      </main>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <main className="flex min-h-[60vh] items-center justify-center">
+        <p className="text-neutral-400">
+          Profile not found.
+        </p>
+      </main>
+    );
+  }
+  const user = profile;
+
+  const form: FormState = {
+    displayName:
+      editedForm.displayName ??
+      user.displayName,
+    username:
+      editedForm.username ??
+      user.username,
+    bio:
+      editedForm.bio ??
+      user.bio,
+  };
+
+  function updateField(
+    field: keyof FormState,
+    value: string
+  ) {
+    setEditedForm((previous) => ({
+      ...previous,
+      [field]: value,
+    }));
+
     setHasChanges(true);
+    setMessage("");
   }
 
   async function handleSave() {
-    setIsSaving(true);
+    try {
+      setIsSaving(true);
 
-    await new Promise((resolve) =>
-      setTimeout(resolve, 1000)
-    );
+      await updateUser(user.uid, {
+        displayName: form.displayName,
+        username: form.username,
+        bio: form.bio,
+      });
 
-    setIsSaving(false);
-    setHasChanges(false);
+      await refreshProfile();
 
-    setSaveMessage(
-      "Settings saved successfully."
-    );
+      setEditedForm({});
+      setHasChanges(false);
 
-    setTimeout(() => {
-      setSaveMessage("");
-    }, 3000);
+      setMessage(
+        "Profile updated successfully."
+      );
+    } catch {
+      setMessage(
+        "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsSaving(false);
+    }
   }
 
   return (
-    <main className="space-y-8 p-8">
+    <main className="mx-auto max-w-3xl space-y-8 p-8">
       <div>
         <h1 className="text-3xl font-bold">
-          Settings
+          Edit Profile
         </h1>
 
         <p className="mt-2 text-neutral-500">
-          Manage your account preferences and
-          application settings.
+          Update your public profile information.
         </p>
       </div>
 
       <div className="flex items-center justify-between rounded-xl border border-neutral-800 bg-neutral-950 p-5">
         <div>
           <h2 className="font-semibold">
-            Save Your Changes
+            Save Changes
           </h2>
 
           <p className="mt-1 text-sm text-neutral-500">
-            Your changes will not be applied until
-            you save them.
+            Changes will appear immediately after
+            saving.
           </p>
         </div>
 
@@ -105,122 +141,63 @@ export default function SettingsPage() {
         >
           {isSaving
             ? "Saving..."
-            : "Save Changes"}
+            : "Save"}
         </button>
       </div>
 
-      {saveMessage && (
+      {message && (
         <div className="rounded-lg border border-green-700 bg-green-950/20 px-4 py-3 text-green-400">
-          {saveMessage}
+          {message}
         </div>
       )}
 
       <SettingsSection
-        title="Account"
-        description="Update your basic profile information."
+        title="Profile"
+        description="Your public account information."
       >
         <SettingsInput
           label="Display Name"
-          value={displayName}
-          onChange={(event) => {
-            updateDisplayName(
+          value={form.displayName}
+          onChange={(event) =>
+            updateField(
+              "displayName",
               event.target.value
-            );
-            markAsChanged();
-          }}
+            )
+          }
         />
 
         <SettingsInput
           label="Username"
-          value={username}
-          onChange={(event) => {
-            updateUsername(
+          value={form.username}
+          onChange={(event) =>
+            updateField(
+              "username",
               event.target.value
-            );
-            markAsChanged();
-          }}
+            )
+          }
+        />
+
+        <SettingsInput
+          label="Bio"
+          type="textarea"
+          rows={5}
+          value={form.bio}
+          placeholder="Tell people a little about yourself..."
+          onChange={(event) =>
+            updateField(
+              "bio",
+              event.target.value
+            )
+          }
         />
 
         <SettingsInput
           label="Email"
-          value={email}
-          onChange={() => {}}
+          value={user.email}
           disabled
+          onChange={() => {}}
         />
       </SettingsSection>
-
-      <SettingsSection
-        title="Appearance"
-        description="Customize how Verse looks."
-      >
-        <SettingsToggle
-          label="Dark Mode"
-          description="Enable dark theme."
-          enabled={darkMode}
-          onToggle={() => {
-            toggleDarkMode();
-            markAsChanged();
-          }}
-        />
-
-        <SettingsToggle
-          label="Compact Layout"
-          description="Reduce spacing across the interface."
-          enabled={compactLayout}
-          onToggle={() => {
-            toggleCompactLayout();
-            markAsChanged();
-          }}
-        />
-      </SettingsSection>
-
-      <SettingsSection
-        title="Notifications"
-        description="Choose what notifications you receive."
-      >
-        <SettingsToggle
-          label="Push Notifications"
-          enabled={pushNotifications}
-          onToggle={() => {
-            togglePushNotifications();
-            markAsChanged();
-          }}
-        />
-
-        <SettingsToggle
-          label="Email Notifications"
-          enabled={emailNotifications}
-          onToggle={() => {
-            toggleEmailNotifications();
-            markAsChanged();
-          }}
-        />
-      </SettingsSection>
-
-      <SettingsSection
-        title="Privacy"
-        description="Control your privacy preferences."
-      >
-        <SettingsToggle
-          label="Private Account"
-          enabled={privateAccount}
-          onToggle={() => {
-            togglePrivateAccount();
-            markAsChanged();
-          }}
-        />
-
-        <SettingsToggle
-          label="Show Activity Status"
-          enabled={activityStatus}
-          onToggle={() => {
-            toggleActivityStatus();
-            markAsChanged();
-          }}
-        />
-      </SettingsSection>
-
-      <DangerZone />
     </main>
   );
 }
