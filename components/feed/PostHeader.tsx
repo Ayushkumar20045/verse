@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import {
   Bookmark,
   BookmarkCheck,
@@ -9,6 +11,8 @@ import {
 } from "lucide-react";
 
 type PostHeaderProps = {
+  userId: string;
+
   author: string;
   username: string;
   time: string;
@@ -25,15 +29,13 @@ type PostHeaderProps = {
 };
 
 export default function PostHeader({
+  userId,
   author,
   username,
   time,
-
   isCurrentUser,
   isBookmarked,
-
   isMenuOpen,
-
   onBookmark,
   onToggleMenu,
   onEdit,
@@ -43,13 +45,19 @@ export default function PostHeader({
     <div className="flex items-start justify-between">
       <div>
         <div className="flex items-center gap-2">
-          <h3 className="font-semibold">
+          <Link
+            href={`/profile/${userId}`}
+            className="font-semibold transition-colors hover:text-white"
+          >
             {author}
-          </h3>
+          </Link>
 
-          <span className="text-sm text-neutral-500">
-            {username}
-          </span>
+          <Link
+            href={`/profile/${userId}`}
+            className="text-sm text-neutral-500 transition-colors hover:text-neutral-300"
+          >
+            @{username}
+          </Link>
 
           <span className="text-sm text-neutral-500">
             •

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { useAuth } from "@/context/AuthContext";
@@ -41,17 +42,26 @@ export default function PostCard({
   const isCurrentUser =
     user?.uid === post.userId;
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] =
+  const [isMenuOpen, setIsMenuOpen] =
     useState(false);
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+  ] = useState(false);
 
-  const [editedContent, setEditedContent] =
-    useState(post.content);
-
-  const [showComments, setShowComments] =
+  const [isEditing, setIsEditing] =
     useState(false);
+
+  const [
+    editedContent,
+    setEditedContent,
+  ] = useState(post.content);
+
+  const [
+    showComments,
+    setShowComments,
+  ] = useState(false);
 
   function handleDeleteClick() {
     setIsMenuOpen(false);
@@ -70,7 +80,8 @@ export default function PostCard({
   }
 
   function handleSaveEdit() {
-    const trimmedContent = editedContent.trim();
+    const trimmedContent =
+      editedContent.trim();
 
     if (!trimmedContent) {
       return;
@@ -85,7 +96,9 @@ export default function PostCard({
     setIsEditing(false);
   }
 
-  function handleAddComment(content: string) {
+  function handleAddComment(
+    content: string
+  ) {
     addComment(post.id, content);
   }
 
@@ -106,10 +119,16 @@ export default function PostCard({
     <>
       <article className="rounded-xl border border-neutral-800 p-6 transition-colors hover:border-neutral-700">
         <div className="flex items-start gap-4">
-          <Avatar name={post.author} />
+          <Link href={`/profile/${post.userId}`}>
+            <Avatar
+              name={post.author}
+              size="md"
+            />
+          </Link>
 
           <div className="flex-1">
             <PostHeader
+              userId={post.userId}
               author={post.author}
               username={post.username}
               time={post.time}
@@ -128,30 +147,44 @@ export default function PostCard({
               isEditing={isEditing}
               content={post.content}
               editedContent={editedContent}
-              onContentChange={setEditedContent}
+              onContentChange={
+                setEditedContent
+              }
               onSave={handleSaveEdit}
-              onCancel={handleCancelEdit}
+              onCancel={
+                handleCancelEdit
+              }
             />
 
             {!isEditing && (
-             <PostActions
-  likes={post.likes.length}
-  comments={post.comments.length}
-  shares={post.shares}
-  isLiked={post.isLiked}
-  onLike={onLike}
-  onToggleComments={() =>
-    setShowComments(!showComments)
-  }
-/>
+              <PostActions
+                likes={post.likes.length}
+                comments={
+                  post.comments.length
+                }
+                shares={post.shares}
+                isLiked={post.isLiked}
+                onLike={onLike}
+                onToggleComments={() =>
+                  setShowComments(
+                    !showComments
+                  )
+                }
+              />
             )}
 
             <CommentSection
               isVisible={showComments}
               comments={post.comments}
-              onComment={handleAddComment}
-              onEditComment={handleEditComment}
-              onDeleteComment={handleDeleteComment}
+              onComment={
+                handleAddComment
+              }
+              onEditComment={
+                handleEditComment
+              }
+              onDeleteComment={
+                handleDeleteComment
+              }
             />
           </div>
         </div>
@@ -163,7 +196,9 @@ export default function PostCard({
         description="This action cannot be undone. The post will be permanently removed."
         confirmText="Delete"
         cancelText="Cancel"
-        onConfirm={handleConfirmDelete}
+        onConfirm={
+          handleConfirmDelete
+        }
         onCancel={() =>
           setIsDeleteModalOpen(false)
         }
