@@ -1,6 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
+
+import {
+  ChangeEvent,
+  useState,
+} from "react";
 
 import { useUser } from "@/context/UserContext";
 import { updateUser } from "@/lib/services/users";
@@ -32,6 +37,12 @@ export default function SettingsPage() {
 
   const [message, setMessage] =
     useState("");
+
+    const [selectedImage, setSelectedImage] =
+  useState<File | null>(null);
+
+const [previewUrl, setPreviewUrl] =
+  useState("");
 
   if (loading) {
     return (
@@ -78,6 +89,34 @@ export default function SettingsPage() {
     setHasChanges(true);
     setMessage("");
   }
+function handleImageChange(
+  event: ChangeEvent<HTMLInputElement>
+) {
+  const file =
+    event.target.files?.[0];
+
+  if (!file) {
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    setMessage(
+      "Please choose a valid image."
+    );
+
+    return;
+  }
+
+  setSelectedImage(file);
+
+  setPreviewUrl(
+    URL.createObjectURL(file)
+  );
+
+  setHasChanges(true);
+
+  setMessage("");
+}
 
   async function handleSave() {
     try {
@@ -151,20 +190,55 @@ export default function SettingsPage() {
         </div>
       )}
 
-      <SettingsSection
-        title="Profile"
-        description="Your public account information."
+<SettingsSection
+  title="Profile"
+  description="Your public account information."
+>
+  <div className="mb-8 flex items-center gap-6">
+    <Image
+      src={
+        previewUrl ||
+        user.photoURL ||
+        "/default-avatar.png"
+      }
+      alt="Profile"
+      width={96}
+      height={96}
+      className="h-24 w-24 rounded-full object-cover border border-neutral-800"
+    />
+
+    <div className="space-y-2">
+      <label
+        htmlFor="profile-image"
+        className="cursor-pointer rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-neutral-200"
       >
-        <SettingsInput
-          label="Display Name"
-          value={form.displayName}
-          onChange={(event) =>
-            updateField(
-              "displayName",
-              event.target.value
-            )
-          }
-        />
+        Choose Photo
+      </label>
+
+      <input
+        id="profile-image"
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleImageChange}
+      />
+
+      <p className="text-xs text-neutral-500">
+        JPG, PNG or WEBP
+      </p>
+    </div>
+  </div>
+
+<SettingsInput
+  label="Display Name"
+  value={form.displayName}
+  onChange={(event) =>
+    updateField(
+      "displayName",
+      event.target.value
+    )
+  }
+/>
 
         <SettingsInput
           label="Username"
