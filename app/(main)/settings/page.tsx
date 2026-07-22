@@ -1,11 +1,6 @@
 "use client";
 
-import Image from "next/image";
-
-import {
-  ChangeEvent,
-  useState,
-} from "react";
+import { useState } from "react";
 
 import { useUser } from "@/context/UserContext";
 import { updateUser } from "@/lib/services/users";
@@ -37,12 +32,6 @@ export default function SettingsPage() {
 
   const [message, setMessage] =
     useState("");
-
-    const [selectedImage, setSelectedImage] =
-  useState<File | null>(null);
-
-const [previewUrl, setPreviewUrl] =
-  useState("");
 
   if (loading) {
     return (
@@ -89,61 +78,33 @@ const [previewUrl, setPreviewUrl] =
     setHasChanges(true);
     setMessage("");
   }
-function handleImageChange(
-  event: ChangeEvent<HTMLInputElement>
-) {
-  const file =
-    event.target.files?.[0];
 
-  if (!file) {
-    return;
-  }
+async function handleSave() {
+  try {
+    setIsSaving(true);
 
-  if (!file.type.startsWith("image/")) {
+    await updateUser(user.uid, {
+      displayName: form.displayName,
+      username: form.username,
+      bio: form.bio,
+    });
+
+    await refreshProfile();
+
+    setEditedForm({});
+    setHasChanges(false);
+
     setMessage(
-      "Please choose a valid image."
+      "Profile updated successfully."
     );
-
-    return;
+  } catch {
+    setMessage(
+      "Something went wrong. Please try again."
+    );
+  } finally {
+    setIsSaving(false);
   }
-
-  setSelectedImage(file);
-
-  setPreviewUrl(
-    URL.createObjectURL(file)
-  );
-
-  setHasChanges(true);
-
-  setMessage("");
 }
-
-  async function handleSave() {
-    try {
-      setIsSaving(true);
-
-      await updateUser(user.uid, {
-        displayName: form.displayName,
-        username: form.username,
-        bio: form.bio,
-      });
-
-      await refreshProfile();
-
-      setEditedForm({});
-      setHasChanges(false);
-
-      setMessage(
-        "Profile updated successfully."
-      );
-    } catch {
-      setMessage(
-        "Something went wrong. Please try again."
-      );
-    } finally {
-      setIsSaving(false);
-    }
-  }
 
   return (
     <main className="mx-auto max-w-3xl space-y-8 p-8">
@@ -194,41 +155,6 @@ function handleImageChange(
   title="Profile"
   description="Your public account information."
 >
-  <div className="mb-8 flex items-center gap-6">
-    <Image
-      src={
-        previewUrl ||
-        user.photoURL ||
-        "/default-avatar.png"
-      }
-      alt="Profile"
-      width={96}
-      height={96}
-      className="h-24 w-24 rounded-full object-cover border border-neutral-800"
-    />
-
-    <div className="space-y-2">
-      <label
-        htmlFor="profile-image"
-        className="cursor-pointer rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-neutral-200"
-      >
-        Choose Photo
-      </label>
-
-      <input
-        id="profile-image"
-        type="file"
-        accept="image/*"
-        className="hidden"
-        onChange={handleImageChange}
-      />
-
-      <p className="text-xs text-neutral-500">
-        JPG, PNG or WEBP
-      </p>
-    </div>
-  </div>
-
 <SettingsInput
   label="Display Name"
   value={form.displayName}
