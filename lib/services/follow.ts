@@ -5,6 +5,8 @@ import {
 
 import { db } from "@/lib/firebase";
 
+import { createNotification } from "@/lib/services/notifications";
+
 export async function followUser(
   currentUserId: string,
   targetUserId: string
@@ -12,6 +14,10 @@ export async function followUser(
   if (currentUserId === targetUserId) {
     return;
   }
+
+  let senderName = "";
+  let senderUsername = "";
+  let senderPhotoURL = "";
 
   await runTransaction(
     db,
@@ -49,6 +55,15 @@ export async function followUser(
       const targetUser =
         targetSnapshot.data();
 
+      senderName =
+        currentUser.displayName;
+
+      senderUsername =
+        currentUser.username;
+
+      senderPhotoURL =
+        currentUser.photoURL ?? "";
+
       const following =
         currentUser.following ?? [];
 
@@ -82,6 +97,17 @@ export async function followUser(
       );
     }
   );
+
+  await createNotification({
+    recipientId: targetUserId,
+
+    senderId: currentUserId,
+    senderName,
+    senderUsername,
+    senderPhotoURL,
+
+    type: "follow",
+  });
 }
 
 export async function unfollowUser(

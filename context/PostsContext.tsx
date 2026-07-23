@@ -1,5 +1,7 @@
 "use client";
+import { useUser } from "@/context/UserContext";
 
+import { createNotification } from "@/lib/services/notifications";
 import {
   createContext,
   ReactNode,
@@ -63,8 +65,10 @@ export function PostsProvider({
 }: {
   children: ReactNode;
 }) {
-  const { user } = useAuth();
-  console.log("Current Firebase user:", user);
+const { user } = useAuth();
+
+const { profile } = useUser();
+
 const { posts } = useFirestorePosts();
 
 async function createPost(content: string) {
@@ -76,19 +80,41 @@ async function createPost(content: string) {
   });
 }
 async function likePost(postId: string) {
-  if (!user) return;
+  if (!user || !profile) return;
 
   const post = posts.find((post) => post.id === postId);
 
   if (!post) return;
 
-  const updatedLikes = post.likes.includes(user.uid)
+  const alreadyLiked = post.likes.includes(user.uid);
+
+  const updatedLikes = alreadyLiked
     ? post.likes.filter((uid) => uid !== user.uid)
     : [...post.likes, user.uid];
 
   await updatePost(postId, {
     likes: updatedLikes,
   });
+
+  if (
+    !alreadyLiked &&
+    post.userId !== user.uid
+  ) {
+    await createNotification({
+      recipientId: post.userId,
+
+      senderId: profile.uid,
+      senderName: profile.displayName,
+      senderUsername: profile.username,
+      senderPhotoURL: profile.photoURL,
+
+      type: "like",
+
+      postId,
+
+      postPreview: post.content.slice(0, 80),
+    });
+  }
 }
 
 async function bookmarkPost(postId: string) {
@@ -122,7 +148,13 @@ async function addComment(
   postId: string,
   content: string
 ) {
-  if (!user) return;
+  if (!user || !profile) return;
+
+  const post = posts.find(
+    (post) => post.id === postId
+  );
+
+  if (!post) return;
 
   await createFirestoreComment({
     postId,
@@ -130,6 +162,25 @@ async function addComment(
     content,
     createdAt: new Date() as never,
   });
+
+  if (post.userId !== user.uid) {
+    await createNotification({
+      recipientId: post.userId,
+
+      senderId: profile.uid,
+      senderName: profile.displayName,
+      senderUsername: profile.username,
+      senderPhotoURL: profile.photoURL,
+
+      type: "comment",
+
+      postId,
+
+      postPreview: post.content.slice(0, 80),
+
+      commentText: content,
+    });
+  }
 }
 
 async function editComment(

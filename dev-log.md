@@ -271,3 +271,11 @@
 - Updated legacy mock data to match the latest Post type definitions.
 - Resolved all TypeScript and React 19 lint issues.
 - Verified a successful production build.
+
+## Day 24 – Real-Time Notification System
+
+- Built a complete real-time notification system using Firebase Firestore.
+- Added Follow, Like, and Comment notifications with unread badge support.
+- Created a dedicated Notifications page with automatic read status updates.
+- Integrated notification services across follow, like, and comment workflows.
+- Fixed TypeScript, Firestore, and React lint issues, and verified a successful production build.

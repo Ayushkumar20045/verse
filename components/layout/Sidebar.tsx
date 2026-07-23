@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Plus } from "lucide-react";
 
 import Button from "@/components/ui/Button";
+import NotificationBadge from "@/components/notifications/NotificationBadge";
 import { navigation } from "@/lib/navigation";
 
 export default function Sidebar() {
@@ -24,6 +25,7 @@ export default function Sidebar() {
         <ul className="space-y-2">
           {navigation.map((item) => {
             const Icon = item.icon;
+
             const isActive =
               pathname === item.href;
 
@@ -37,7 +39,13 @@ export default function Sidebar() {
                       : "border-transparent text-neutral-400 hover:border-neutral-700 hover:text-white"
                   }`}
                 >
-                  <Icon size={20} />
+                  {item.label ===
+                  "Notifications" ? (
+                    <NotificationBadge />
+                  ) : (
+                    <Icon size={20} />
+                  )}
+
                   <span>{item.label}</span>
                 </Link>
               </li>

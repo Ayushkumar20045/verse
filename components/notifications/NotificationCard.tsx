@@ -1,61 +1,103 @@
-import {
-  Heart,
-  MessageCircle,
-  Bookmark,
-} from "lucide-react";
+"use client";
 
-type NotificationType =
-  | "like"
-  | "comment"
-  | "bookmark";
+import Link from "next/link";
 
-type NotificationCardProps = {
-  type: NotificationType;
-  user: string;
-  message: string;
-  time: string;
-};
+import { Heart, MessageCircle, UserPlus } from "lucide-react";
+
+import Avatar from "@/components/ui/Avatar";
+
+import { Notification } from "@/types/notification";
+
+interface NotificationCardProps {
+  notification: Notification;
+}
 
 export default function NotificationCard({
-  type,
-  user,
-  message,
-  time,
+  notification,
 }: NotificationCardProps) {
   const icon =
-    type === "like" ? (
+    notification.type === "follow" ? (
+      <UserPlus
+        size={18}
+        className="text-sky-500"
+      />
+    ) : notification.type ===
+      "like" ? (
       <Heart
         size={18}
-        className="text-red-500"
-      />
-    ) : type === "comment" ? (
-      <MessageCircle
-        size={18}
-        className="text-blue-500"
+        className="fill-red-500 text-red-500"
       />
     ) : (
-      <Bookmark
+      <MessageCircle
         size={18}
-        className="text-yellow-500"
+        className="text-emerald-500"
       />
     );
 
+  const message =
+    notification.type === "follow"
+      ? "started following you."
+      : notification.type === "like"
+      ? "liked your post."
+      : "commented on your post.";
+
+  const createdAt =
+    notification.createdAt?.toDate();
+
+  const time =
+    createdAt
+      ? createdAt.toLocaleString()
+      : "Just now";
+
   return (
-    <div className="flex items-start gap-4 rounded-xl border border-neutral-800 p-5 transition-colors hover:border-neutral-700">
-      <div className="mt-1">{icon}</div>
+    <Link
+      href={`/profile/${notification.senderId}`}
+      className={`flex items-start gap-4 border-b border-neutral-800 p-5 transition-colors hover:bg-neutral-900 ${
+        !notification.read
+          ? "bg-neutral-950"
+          : ""
+      }`}
+    >
+      <Avatar
+        name={
+          notification.senderName
+        }
+        photoURL={
+          notification.senderPhotoURL
+        }
+        size="md"
+      />
 
-      <div className="flex-1">
-        <p>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          {icon}
+
           <span className="font-semibold">
-            {user}
-          </span>{" "}
-          {message}
-        </p>
+            {
+              notification.senderName
+            }
+          </span>
 
-        <p className="mt-2 text-sm text-neutral-500">
+          <span className="text-neutral-500">
+            {message}
+          </span>
+        </div>
+
+{notification.commentText && (
+  <div className="mt-2 rounded-lg border border-neutral-800 bg-neutral-950 p-3 text-sm text-neutral-300">
+    &ldquo;
+    {notification.commentText}
+    &rdquo;
+  </div>
+)}
+        <p className="mt-2 text-xs text-neutral-500">
           {time}
         </p>
       </div>
-    </div>
+
+      {!notification.read && (
+        <div className="mt-2 h-2.5 w-2.5 rounded-full bg-sky-500" />
+      )}
+    </Link>
   );
 }
