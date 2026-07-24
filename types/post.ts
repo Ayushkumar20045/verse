@@ -9,7 +9,7 @@ export type Post = {
 
   username: string;
 
-  time: string;
+  createdAt: Date;
 
   content: string;
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import {
   Bookmark,
@@ -10,12 +11,15 @@ import {
   Trash2,
 } from "lucide-react";
 
+import formatRelativeTime from "@/lib/utils/formatRelativeTime";
+
 type PostHeaderProps = {
   userId: string;
 
   author: string;
   username: string;
-  time: string;
+
+  createdAt: Date;
 
   isCurrentUser: boolean;
   isBookmarked: boolean;
@@ -32,7 +36,7 @@ export default function PostHeader({
   userId,
   author,
   username,
-  time,
+  createdAt,
   isCurrentUser,
   isBookmarked,
   isMenuOpen,
@@ -41,6 +45,16 @@ export default function PostHeader({
   onEdit,
   onDelete,
 }: PostHeaderProps) {
+  const [, forceUpdate] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      forceUpdate((value) => value + 1);
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex items-start justify-between">
       <div>
@@ -64,7 +78,7 @@ export default function PostHeader({
           </span>
 
           <span className="text-sm text-neutral-500">
-            {time}
+            {formatRelativeTime(createdAt)}
           </span>
         </div>
       </div>

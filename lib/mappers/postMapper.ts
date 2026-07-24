@@ -22,8 +22,8 @@ export function mapFirestorePostToPost(
       author?.username ??
       "@unknown",
 
-
-    time: "Just now",
+    createdAt:
+      firestorePost.createdAt.toDate(),
 
     content:
       firestorePost.content,

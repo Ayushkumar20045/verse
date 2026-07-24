@@ -1,171 +1,229 @@
+<div align="center">
+
 # Verse
 
-Verse is a modern social platform that I'm building to learn how production-grade web applications are structured and developed.
+### Designed for connection. Engineered for scale.
 
-Instead of treating this as another tutorial project, the goal is to understand how a real application grows over time—from designing reusable components to integrating backend services, managing application state, and maintaining clean architecture.
+A modern social platform built with **Next.js**, **React**, **TypeScript**, **Firebase Authentication**, and **Cloud Firestore**.
 
-Every feature in this repository is built incrementally, documented, tested, and committed before moving to the next milestone.
+Designed with scalability, clean architecture, and reusable components in mind.
 
 ---
+
+</div>
 
 ## Why Verse?
 
-Most portfolio projects focus only on the final result.
+Most social media clones stop at displaying posts on a screen.
 
-Verse is different.
+Verse was built differently.
 
-This repository documents the complete development journey, including architectural decisions, refactoring, feature implementation, and lessons learned along the way.
+The goal was to understand how modern social applications actually work behind the scenes—authentication, database design, user relationships, reusable architecture, optimistic UI, and production-ready engineering practices.
 
-The objective isn't simply to build a social media application—it's to learn how to build software that remains maintainable as it scales.
-
----
-
-## Project Goals
-
-- Build a modern full-stack web application from scratch.
-- Follow clean and maintainable architecture.
-- Learn Firebase services in depth.
-- Improve React and Next.js development practices.
-- Write reusable, scalable components.
-- Maintain consistent Git history throughout development.
+Instead of focusing only on visuals, Verse focuses on building features the same way a real-world product would.
 
 ---
 
-## Tech Stack
+# Features
 
-### Frontend
+## Authentication
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-
-### Backend
-
-- Firebase
-- Cloud Firestore
-- Firebase Authentication
-
-### Development Tools
-
-- ESLint
-- Git
-- GitHub
-- npm
+- Google Sign-In with Firebase Authentication
+- Automatic account creation
+- Persistent login sessions
+- Secure sign out
 
 ---
 
-## Project Structure
+## User Profiles
 
-```
-app/
-├── (main)
-├── bookmarks
-├── explore
-├── notifications
-├── profile
-├── settings
-
-components/
-├── common
-├── feed
-├── layout
-├── settings
-
-contexts/
-
-hooks/
-
-lib/
-
-services/
-
-types/
-
-public/
-```
+- Dynamic profile pages
+- User information stored in Firestore
+- Profile statistics
+- Follow / Unfollow users
+- Responsive profile layouts
 
 ---
 
-## Development Workflow
+## Feed
 
-Every feature follows the same workflow before being committed.
+- Create posts
+- Edit posts
+- Delete posts
+- Real-time post rendering
+- Relative timestamps
+- Empty state handling
 
-```
-Plan
-    ↓
-Implement
-    ↓
-Lint
-    ↓
-Production Build
-    ↓
-Manual Testing
-    ↓
-Commit
-```
+---
 
-This keeps the repository stable and prevents unfinished code from entering the main branch.
+## Social Features
 
+- Like posts
+- Bookmark posts
+- Comment system
+- Follow system
+- Notification system
 
-# Current Progress
+---
 
-Completed
+## Notifications
 
-- Responsive application layout
-- Navigation system
-- Feed UI
-- Profile page
-- Explore page
-- Notifications
-- Settings
-- Bookmark foundation
-- Comments
-- Firebase integration
-- Firestore services
-- Type-safe architecture
+Users receive notifications for:
 
-Currently Working On
-
-- PostsContext migration
-- Complete Firestore integration
-
-Upcoming
-
-- Authentication
+- New followers
 - Likes
-- Bookmarks
-- User Profiles
-- Search
-- Deployment
+- Comments
+
+Additional features include:
+
+- Unread badge
+- Read status updates
+- Timestamp tracking
 
 ---
 
-# What I've Learned
+## User Experience
 
-Building Verse has helped me understand much more than just React components.
+- Loading screens
+- Error boundaries
+- Custom 404 page
+- Responsive layout
+- Reusable UI components
+- Smooth navigation
 
-Some of the major concepts explored so far include:
+---
 
-- Component composition
+# Tech Stack
+
+| Category | Technology |
+|-----------|------------|
+| Framework | Next.js 16 |
+| Language | TypeScript |
+| UI Library | React 19 |
+| Styling | Tailwind CSS v4 |
+| Authentication | Firebase Authentication |
+| Database | Cloud Firestore |
+| Icons | Lucide React |
+| State Management | React Context API |
+
+---
+
+# Architecture
+
+```
+                 Client
+
+              Next.js App
+                    │
+     ┌──────────────┼──────────────┐
+     │              │              │
+ Authentication   Firestore     Context API
+     │              │              │
+     └──────────────┼──────────────┘
+                    │
+             Service Layer
+                    │
+          Reusable Components
+                    │
+              Application UI
+```
+
+The application separates UI components from business logic through a dedicated service layer, making features easier to maintain and extend.
+
+---
+
+# Project Structure
+
+```
+verse/
+
+├── app/
+│   ├── (auth)
+│   ├── (main)
+│   ├── loading.tsx
+│   ├── error.tsx
+│   └── not-found.tsx
+│
+├── components/
+│   ├── layout/
+│   ├── post/
+│   ├── profile/
+│   ├── settings/
+│   └── ui/
+│
+├── context/
+│
+├── hooks/
+│
+├── lib/
+│   ├── firebase/
+│   ├── mappers/
+│   ├── services/
+│   └── utils/
+│
+├── public/
+│
+└── README.md
+```
+
+---
+
+# Engineering Decisions
+
+Instead of placing Firebase calls directly inside React components, Verse uses a dedicated service layer.
+
+Benefits include:
+
+- Cleaner components
+- Better separation of concerns
+- Easier testing
+- Reusable database logic
+- Improved scalability
+
+The UI focuses only on rendering data, while services handle database interactions.
+
+---
+
+# What I Learned
+
+Developing Verse provided hands-on experience with:
+
+- Next.js App Router
+- React Hooks
+- TypeScript
+- Firebase Authentication
+- Cloud Firestore
+- CRUD Operations
+- Database relationships
+- Component architecture
 - State management
-- Context API
-- Custom hooks
-- TypeScript architecture
-- Firebase integration
-- Firestore data modeling
-- Folder organization
-- Clean code practices
-- Incremental software development
+- Error handling
+- Production optimization
+- Clean project organization
+# Getting Started
+
+## Prerequisites
+
+Before running Verse locally, ensure you have the following installed:
+
+- Node.js (v20 or later)
+- npm
+- A Firebase project with Authentication and Firestore enabled
 
 ---
 
-# Running the Project
+## Installation
 
 Clone the repository
 
 ```bash
-git clone https://github.com/Ayushkumar20045/verse.git
+git clone https://github.com/YOUR_USERNAME/verse.git
+```
+
+Navigate into the project
+
+```bash
+cd verse
 ```
 
 Install dependencies
@@ -174,43 +232,205 @@ Install dependencies
 npm install
 ```
 
-Run the development server
+Create a local environment file
+
+```bash
+touch .env.local
+```
+
+Add your Firebase configuration
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+```
+
+Start the development server
 
 ```bash
 npm run dev
 ```
 
-Create a production build
+Open your browser and visit
 
-```bash
-npm run build
+```
+http://localhost:3000
 ```
 
-Run ESLint
+---
+
+# Production Build
+
+Verify the application before deployment.
 
 ```bash
 npm run lint
 ```
 
----
+```bash
+npm run build
+```
 
-# Project Status
-
-Verse is currently under active development.
-
-The project is being built feature-by-feature while keeping the codebase clean, modular, and production-ready.
-
-Future updates will focus on completing the backend integration and polishing the overall user experience.
+If both commands complete successfully, the project is ready for production.
 
 ---
 
-## Author
+# Screenshots
+
+# Screenshots
+
+> Screenshots will be added after the first production deployment.
+
+## Home Feed
+
+The main feed showcases the core functionality of Verse in a single view, including post creation, likes, comments, bookmarks, relative timestamps, trending topics, and the overall social experience.
+
+![Home Feed](assets/screenshots/home.png)
+
+---
+
+## User Profile
+
+View user information, profile statistics, followers, following, and all posts published by a user through a dedicated profile page.
+
+![User Profile](assets/screenshots/profile.png)
+
+---
+
+## Notifications
+
+Stay updated with real-time follow, like, and comment notifications, complete with unread indicators and automatic read status management.
+
+![Notifications](assets/screenshots/notifications.png)
+
+---
+
+# Key Highlights
+
+Unlike many beginner social media projects, Verse includes:
+
+- Complete Firebase Authentication
+- Firestore-powered data management
+- Dynamic user profiles
+- Follow system
+- Like system
+- Bookmark system
+- Comment system
+- Notification system
+- Reusable service architecture
+- Custom loading UI
+- Custom error handling
+- Custom 404 page
+- Production-ready project structure
+
+Every feature was built with maintainability and scalability in mind instead of relying on static mock data.
+
+---
+
+# Challenges Solved
+
+During development, several engineering challenges were addressed, including:
+
+- Designing reusable Firestore service functions
+- Managing authentication state across the application
+- Handling user relationships such as follows and followers
+- Preventing duplicate likes and bookmarks
+- Implementing notification workflows
+- Organizing a scalable folder structure
+- Refactoring mock data into a database-driven architecture
+- Preparing the application for production deployment
+
+Each challenge improved the overall quality and maintainability of the project.
+
+---
+
+# Future Improvements
+
+Although Verse v1.0 is feature complete, several enhancements are planned for future versions.
+
+- Direct messaging
+- Image uploads using Firebase Storage
+- Search functionality
+- User profile customization
+- Infinite scrolling
+- Trending posts algorithm
+- Dark mode
+- Account settings improvements
+- Mobile-first UI refinements
+- Performance optimizations
+
+---
+
+# Performance Considerations
+
+The project emphasizes maintainable architecture and efficient rendering.
+
+Current optimizations include:
+
+- Reusable service layer
+- Component-based architecture
+- Dynamic routing
+- Firestore document organization
+- Relative timestamp rendering
+- Optimized production build
+- Clean dependency management
+
+---
+
+# Development Journey
+
+Verse was developed incrementally, with each phase focusing on a specific aspect of the application.
+
+Project milestones included:
+
+- Application architecture
+- Authentication
+- Firestore integration
+- Feed implementation
+- Social interactions
+- Notifications
+- Production cleanup
+- Deployment preparation
+
+The complete development process is documented in **dev-log.md**.
+
+---
+
+# Contributing
+
+Contributions, ideas, and suggestions are always welcome.
+
+If you discover a bug or have an improvement in mind, feel free to open an issue or submit a pull request.
+
+---
+
+# License
+
+This project is licensed under the MIT License.
+
+---
+
+# Author
 
 **Ayush Kumar**
-Building Verse as a long-term learning project to strengthen full-stack development skills using React, Next.js, TypeScript, and Firebase.
+
+Computer Science & Engineering (Data Science)
+
+Passionate about building scalable web applications, solving real-world problems, and exploring modern software engineering practices.
+
+GitHub:
+https://github.com/Ayushkumar20045
 
 ---
 
-Thank you for visiting the repository.
+<div align="center">
 
-More updates coming soon.
+### Built with Next.js, TypeScript, Firebase and lots of curiosity.
+
+If you found this project interesting, consider giving it a ⭐.
+
+</div>

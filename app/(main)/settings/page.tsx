@@ -15,11 +15,7 @@ type FormState = {
 };
 
 export default function SettingsPage() {
-  const {
-    profile,
-    loading,
-    refreshProfile,
-  } = useUser();
+  const { profile, loading, refreshProfile } = useUser();
 
   const [editedForm, setEditedForm] =
     useState<Partial<FormState>>({});
@@ -52,6 +48,7 @@ export default function SettingsPage() {
       </main>
     );
   }
+
   const user = profile;
 
   const form: FormState = {
@@ -79,32 +76,32 @@ export default function SettingsPage() {
     setMessage("");
   }
 
-async function handleSave() {
-  try {
-    setIsSaving(true);
+  async function handleSave() {
+    try {
+      setIsSaving(true);
 
-    await updateUser(user.uid, {
-      displayName: form.displayName,
-      username: form.username,
-      bio: form.bio,
-    });
+      await updateUser(user.uid, {
+        displayName: form.displayName,
+        username: form.username,
+        bio: form.bio,
+      });
 
-    await refreshProfile();
+      await refreshProfile();
 
-    setEditedForm({});
-    setHasChanges(false);
+      setEditedForm({});
+      setHasChanges(false);
 
-    setMessage(
-      "Profile updated successfully."
-    );
-  } catch {
-    setMessage(
-      "Something went wrong. Please try again."
-    );
-  } finally {
-    setIsSaving(false);
+      setMessage(
+        "Profile updated successfully."
+      );
+    } catch {
+      setMessage(
+        "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsSaving(false);
+    }
   }
-}
 
   return (
     <main className="mx-auto max-w-3xl space-y-8 p-8">
@@ -151,20 +148,20 @@ async function handleSave() {
         </div>
       )}
 
-<SettingsSection
-  title="Profile"
-  description="Your public account information."
->
-<SettingsInput
-  label="Display Name"
-  value={form.displayName}
-  onChange={(event) =>
-    updateField(
-      "displayName",
-      event.target.value
-    )
-  }
-/>
+      <SettingsSection
+        title="Profile"
+        description="Your public account information."
+      >
+        <SettingsInput
+          label="Display Name"
+          value={form.displayName}
+          onChange={(event) =>
+            updateField(
+              "displayName",
+              event.target.value
+            )
+          }
+        />
 
         <SettingsInput
           label="Username"

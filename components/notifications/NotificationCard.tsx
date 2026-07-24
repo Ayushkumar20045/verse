@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Heart, MessageCircle, UserPlus } from "lucide-react";
 
 import Avatar from "@/components/ui/Avatar";
+import formatRelativeTime from "@/lib/utils/formatRelativeTime";
 
 import { Notification } from "@/types/notification";
 
@@ -41,13 +42,12 @@ export default function NotificationCard({
       ? "liked your post."
       : "commented on your post.";
 
-  const createdAt =
-    notification.createdAt?.toDate();
+const createdAt =
+  notification.createdAt?.toDate();
 
-  const time =
-    createdAt
-      ? createdAt.toLocaleString()
-      : "Just now";
+const time = createdAt
+  ? formatRelativeTime(createdAt)
+  : "Just now";
 
   return (
     <Link

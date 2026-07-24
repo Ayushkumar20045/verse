@@ -5,6 +5,8 @@ import {
   useState,
 } from "react";
 
+import { Bell } from "lucide-react";
+
 import NotificationCard from "@/components/notifications/NotificationCard";
 
 import { useUser } from "@/context/UserContext";
@@ -62,16 +64,29 @@ export default function NotificationsPage() {
         </h1>
 
         <p className="mt-2 text-neutral-500">
-          Stay updated with
-          everything happening
+          Stay updated with everything happening
           in Verse.
         </p>
       </div>
 
-      {notifications.length ===
-      0 ? (
-        <div className="flex h-[60vh] items-center justify-center text-neutral-500">
-          No notifications yet.
+      {notifications.length === 0 ? (
+        <div className="flex h-[60vh] flex-col items-center justify-center px-6 text-center">
+          <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-neutral-800 bg-neutral-900">
+            <Bell
+              size={36}
+              className="text-neutral-400"
+            />
+          </div>
+
+          <h2 className="text-2xl font-semibold">
+            No notifications yet
+          </h2>
+
+          <p className="mt-3 max-w-md text-neutral-500">
+            When someone follows you, likes your
+            posts, or comments on them, you will see
+            all your notifications here.
+          </p>
         </div>
       ) : (
         <div>

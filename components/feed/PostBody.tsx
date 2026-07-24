@@ -54,9 +54,9 @@ export default function PostBody({
     );
   }
 
-  return (
-    <p className="mt-3 leading-7">
-      {content}
-    </p>
-  );
+return (
+  <p className="mt-3 whitespace-pre-wrap break-words [overflow-wrap:anywhere] leading-7">
+  {content}
+</p>
+);
 }

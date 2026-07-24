@@ -126,22 +126,22 @@ export default function PostCard({
             />
           </Link>
 
-          <div className="flex-1">
-            <PostHeader
-              userId={post.userId}
-              author={post.author}
-              username={post.username}
-              time={post.time}
-              isCurrentUser={isCurrentUser}
-              isBookmarked={post.isBookmarked}
-              isMenuOpen={isMenuOpen}
-              onBookmark={onBookmark}
-              onToggleMenu={() =>
-                setIsMenuOpen(!isMenuOpen)
-              }
-              onEdit={handleEditClick}
-              onDelete={handleDeleteClick}
-            />
+          <div className="min-w-0 flex-1">
+<PostHeader
+  userId={post.userId}
+  author={post.author}
+  username={post.username}
+  createdAt={post.createdAt}
+  isCurrentUser={isCurrentUser}
+  isBookmarked={post.isBookmarked}
+  isMenuOpen={isMenuOpen}
+  onBookmark={onBookmark}
+  onToggleMenu={() =>
+    setIsMenuOpen(!isMenuOpen)
+  }
+  onEdit={handleEditClick}
+  onDelete={handleDeleteClick}
+/>
 
             <PostBody
               isEditing={isEditing}
