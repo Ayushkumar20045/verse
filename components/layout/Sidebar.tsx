@@ -2,14 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Plus } from "lucide-react";
+import { LogIn, Plus } from "lucide-react";
 
-import Button from "@/components/ui/Button";
 import NotificationBadge from "@/components/notifications/NotificationBadge";
+import Button from "@/components/ui/Button";
+
+import { useAuth } from "@/context/AuthContext";
+
 import { navigation } from "@/lib/navigation";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { user } = useAuth();
 
   return (
     <aside className="flex h-screen flex-col px-10 py-10">
@@ -26,8 +30,7 @@ export default function Sidebar() {
           {navigation.map((item) => {
             const Icon = item.icon;
 
-            const isActive =
-              pathname === item.href;
+            const isActive = pathname === item.href;
 
             return (
               <li key={item.id}>
@@ -39,8 +42,7 @@ export default function Sidebar() {
                       : "border-transparent text-neutral-400 hover:border-neutral-700 hover:text-white"
                   }`}
                 >
-                  {item.label ===
-                  "Notifications" ? (
+                  {item.label === "Notifications" ? (
                     <NotificationBadge />
                   ) : (
                     <Icon size={20} />
@@ -54,21 +56,33 @@ export default function Sidebar() {
         </ul>
       </nav>
 
-      {/* Create Post */}
+      {/* Bottom Action */}
       <div className="mt-10 border-t border-neutral-800 pt-8">
-        <Button
-          variant="primary"
-          className="flex w-full items-center justify-center gap-2"
-        >
-          <Plus size={18} />
-          <span>Create Post</span>
-        </Button>
+        {user ? (
+          <Button
+            variant="primary"
+            className="flex w-full items-center justify-center gap-2"
+          >
+            <Plus size={18} />
+            <span>Create Post</span>
+          </Button>
+        ) : (
+          <Link href="/login">
+            <Button
+              variant="primary"
+              className="flex w-full items-center justify-center gap-2"
+            >
+              <LogIn size={18} />
+              <span>Login</span>
+            </Button>
+          </Link>
+        )}
       </div>
 
       {/* Footer */}
       <div className="mt-6 border-t border-neutral-800 pt-4">
         <p className="text-xs text-neutral-500">
-          Verse v0.2
+          Verse v1.0
         </p>
       </div>
     </aside>
